@@ -6,6 +6,11 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/main_page"/>
     <item
+        android:id="@+id/cart_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="@string/cart_page"/>
+    <item
         android:id="@+id/account_page"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_person_24"

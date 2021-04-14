@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.App" parent="Theme.MaterialComponents">
+        <item name="bottomNavigationStyle">@style/BottomNavigation</item>
+    </style>
+
+    <style name="BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="android:background">@color/black</item>
+        <item name="itemBackground">@color/black</item>
+        <item name="itemIconTint">@color/wat_red</item>
+        <item name="itemTextColor">@color/wat_red</item>
+    </style>
+
+</resources>

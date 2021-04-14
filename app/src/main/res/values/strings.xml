@@ -2,4 +2,9 @@
     <string name="app_name">WATmerch</string>
     <string name="main_page">Strona główna</string>
     <string name="account_page">Konto</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logo">WATmerch Logo</string>
+    <string name="main">Main</string>
+    <string name="cart_page">Koszyk</string>
 </resources>
