@@ -1,18 +1,34 @@
 package pl.sokols.watmerch
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import pl.sokols.watmerch.ui.main.MainFragment
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
+import androidx.navigation.ui.setupWithNavController
+import kotlinx.android.synthetic.main.main_activity.*
+
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
-                .commitNow()
-        }
+        bottom_navigation.setupWithNavController(
+            Navigation.findNavController(
+                this,
+                R.id.nav_host_fragment
+            )
+        )
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+            .setMessage(getString(R.string.are_you_sure_you_want_to_quit))
+            .setCancelable(false)
+            .setPositiveButton(
+                getString(R.string.yes)
+            ) { _, _ -> super@MainActivity.onBackPressed() }
+            .setNegativeButton(getString(R.string.no), null)
+            .show()
     }
 }

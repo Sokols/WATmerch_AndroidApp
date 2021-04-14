@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">WATmerch</string>
+    <string name="main_page">Strona główna</string>
+    <string name="account_page">Konto</string>
+    <string name="logo">WATmerch Logo</string>
+    <string name="main">Main</string>
+    <string name="cart_page">Koszyk</string>
+    <string name="email">E-mail</string>
+    <string name="password">Hasło</string>
+    <string name="sign_in">Zaloguj</string>
+    <string name="register_now">Nie masz jeszcze konta? Zarejestruj się!</string>
+    <string name="repeat_password">Powtórz hasło</string>
+    <string name="sign_up">ZAREJESTRUJ</string>
+    <string name="login_now">Masz już konto? Zaloguj się!</string>
+    <string name="nickname">Nazwa użytkownika</string>
+    <string name="are_you_sure_you_want_to_quit">Na pewno chcesz wyjść?</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
 </resources>
