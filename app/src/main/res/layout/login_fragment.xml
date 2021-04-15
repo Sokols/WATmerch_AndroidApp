@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_gradient_selector"
+    android:background="@drawable/green_gradient_selector"
     tools:context=".ui.account.login.LoginFragment">
 
     <ImageView

@@ -16,4 +16,5 @@
     <string name="are_you_sure_you_want_to_quit">Na pewno chcesz wyjść?</string>
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
+    <string name="test">Test</string>
 </resources>

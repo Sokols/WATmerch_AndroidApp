@@ -11,8 +11,10 @@
     <color name="mtrl_textinput_default_box_stroke_color">@color/wat_red</color>
     <color name="wat_green">#13583a</color>
     <color name="wat_red">#E30039</color>
-    <color name="wat_red_off">#A80A31</color>
+    <color name="wat_red_off">#6C021C</color>
     <color name="black">#FF000000</color>
+    <color name="foreground_first">#BABABA</color>
+    <color name="foreground_second">#8C8C8C</color>
     <color name="background_first">#3A3A3A</color>
-    <color name="background_second">#2B2B2B</color>
+    <color name="background_second">#171717</color>
 </resources>

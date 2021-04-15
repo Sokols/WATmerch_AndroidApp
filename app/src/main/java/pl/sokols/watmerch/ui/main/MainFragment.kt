@@ -7,8 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.main_fragment.*
 import pl.sokols.watmerch.R
+import pl.sokols.watmerch.Utils
+import pl.sokols.watmerch.ui.main.adapters.MerchListAdapter
 
 class MainFragment : Fragment() {
 
@@ -28,6 +32,11 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+        initComponents()
+    }
+
+    private fun initComponents() {
+        val merchListAdapter = MerchListAdapter(Utils.exampleArray())
+        mainRecyclerView.adapter = merchListAdapter
     }
 }
