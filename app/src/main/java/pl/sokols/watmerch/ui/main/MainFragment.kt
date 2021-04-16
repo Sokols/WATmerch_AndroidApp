@@ -1,17 +1,13 @@
 package pl.sokols.watmerch.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.main_fragment.*
-import pl.sokols.watmerch.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import pl.sokols.watmerch.Utils
+import pl.sokols.watmerch.databinding.MainFragmentBinding
 import pl.sokols.watmerch.ui.main.adapters.MerchListAdapter
 
 class MainFragment : Fragment() {
@@ -21,12 +17,14 @@ class MainFragment : Fragment() {
     }
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var binding: MainFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        binding = MainFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -37,6 +35,6 @@ class MainFragment : Fragment() {
 
     private fun initComponents() {
         val merchListAdapter = MerchListAdapter(Utils.exampleArray())
-        mainRecyclerView.adapter = merchListAdapter
+        binding.mainRecyclerView.adapter = merchListAdapter
     }
 }

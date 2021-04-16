@@ -4,17 +4,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import pl.sokols.watmerch.R
+import pl.sokols.watmerch.data.Merch
 
 class MerchListAdapter(
-    private val dataSet: Array<String>
+    private val dataSet: Array<Merch>
 ) : RecyclerView.Adapter<MerchListAdapter.MerchListViewHolder>() {
 
     class MerchListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val cardMerchItem: CardView = view.findViewById(R.id.cardMerchItem)
         private val titleMerchItem: TextView = view.findViewById(R.id.titleMerchItem)
-        fun bind(title: String) {
-            titleMerchItem.text = title
+        private val priceMerchItem: TextView = view.findViewById(R.id.priceMerchItem)
+
+        fun bind(merch: Merch) {
+            titleMerchItem.text = merch.name
+            priceMerchItem.text =
+                String.format(itemView.context.getString(R.string.price), merch.price)
+
+            cardMerchItem.setOnClickListener { view ->
+                val bundle = bundleOf("merchItem" to merch)
+                view.findNavController().navigate(R.id.action_mainFragment_to_merchFragment, bundle)
+            }
         }
     }
 

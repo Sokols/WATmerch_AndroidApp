@@ -1,19 +1,23 @@
-package pl.sokols.watmerch
+package pl.sokols.watmerch.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
-import kotlinx.android.synthetic.main.main_activity.*
+import pl.sokols.watmerch.R
+import pl.sokols.watmerch.databinding.MainActivityBinding
 
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: MainActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-        bottom_navigation.setupWithNavController(
+        binding = MainActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.bottomNavigation.setupWithNavController(
             Navigation.findNavController(
                 this,
                 R.id.nav_host_fragment

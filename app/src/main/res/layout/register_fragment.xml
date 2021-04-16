@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/green_gradient_selector"
-    tools:context=".ui.account.register.RegisterFragment">
+    tools:context=".ui.register.RegisterFragment">
 
     <ImageView
         android:id="@+id/registerLogo"
@@ -37,7 +37,6 @@
             android:id="@+id/nameRegisterEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/actor"
             android:inputType="textEmailAddress"
             android:textColor="@color/wat_red"
             android:textCursorDrawable="@color/wat_red" />
@@ -60,7 +59,6 @@
             android:id="@+id/emailRegisterEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/actor"
             android:inputType="textEmailAddress"
             android:textColor="@color/wat_red"
             android:textCursorDrawable="@color/wat_red" />
@@ -83,7 +81,6 @@
             android:id="@+id/passwordRegisterEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/actor"
             android:inputType="textPassword"
             android:textColor="@color/wat_red"
             android:textCursorDrawable="@color/wat_red" />
@@ -106,7 +103,6 @@
             android:id="@+id/repeatPasswordRegisterEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/actor"
             android:inputType="textPassword"
             android:textColor="@color/wat_red"
             android:textCursorDrawable="@color/wat_red" />
@@ -119,7 +115,6 @@
         android:layout_marginStart="@dimen/default_horizontal_margin"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/default_horizontal_margin"
-        android:fontFamily="@font/actor"
         android:paddingHorizontal="24dp"
         android:paddingVertical="16dp"
         android:text="@string/sign_up"
@@ -135,7 +130,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_horizontal_margin"
         android:layout_marginEnd="@dimen/default_horizontal_margin"
-        android:fontFamily="@font/actor"
         android:text="@string/login_now"
         android:textColor="@color/wat_red"
         android:textSize="18sp"
