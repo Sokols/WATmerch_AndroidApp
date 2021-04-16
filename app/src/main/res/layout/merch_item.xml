@@ -8,15 +8,16 @@
     android:checkable="true"
     android:clickable="true"
     android:focusable="true"
-    android:background="@color/black"
     android:layout_margin="8dp"
+    app:strokeColor="?attr/colorPrimaryVariant"
+    app:strokeWidth="0.5dp"
     app:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/dark_gradient_selector"
+        android:background="?attr/colorPrimary"
         android:padding="8dp">
 
         <ImageView
@@ -37,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/test"
-                android:textColor="@color/foreground_first"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="24sp" />
 
             <TextView
@@ -46,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/price"
-                android:textColor="@color/foreground_second"
+                android:textColor="?attr/colorPrimaryVariant"
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>

@@ -17,5 +17,10 @@
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="test">Test</string>
-    <string name="price">Cena: %1$d $</string>
+    <string name="price">Cena: %1$d$</string>
+    <string name="logging_page">Logowanie</string>
+    <string name="search">Szukaj...</string>
+    <string name="search_description">Szukaj</string>
+    <string name="more">Więcej</string>
+    <string name="changeTheme">Zmień styl</string>
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/green_gradient_selector"
+    android:background="?attr/colorPrimary"
     tools:context=".ui.login.LoginFragment">
 
     <ImageView
@@ -37,9 +37,7 @@
             android:id="@+id/emailLoginEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/wat_red"
-            android:textCursorDrawable="@color/wat_red" />
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -59,13 +57,12 @@
             android:id="@+id/passwordLoginEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textColor="@color/wat_red"
-            android:textCursorDrawable="@color/wat_red" />
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/loginButton"
+        style="@style/DefaultButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_horizontal_margin"
@@ -75,7 +72,7 @@
         android:paddingVertical="16dp"
         android:text="@string/sign_in"
         android:textSize="18sp"
-        app:cornerRadius="45dp"
+        android:textColor="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordLoginTextInputLayout" />
@@ -87,11 +84,10 @@
         android:layout_marginStart="@dimen/default_horizontal_margin"
         android:layout_marginEnd="@dimen/default_horizontal_margin"
         android:text="@string/register_now"
-        android:textColor="@color/wat_red"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginButton" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

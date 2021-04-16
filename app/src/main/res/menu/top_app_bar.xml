@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/search"
+        android:contentDescription="@string/search_description"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/changeTheme"
+        android:icon="@drawable/ic_baseline_brightness_6_24"
+        android:title="@string/changeTheme"
+        android:contentDescription="@string/changeTheme"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/more"
+        android:title="@string/more"
+        android:contentDescription="@string/more"
+        app:showAsAction="never" />
+</menu>
