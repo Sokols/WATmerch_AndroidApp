@@ -26,4 +26,5 @@
     <string name="secretImageView">Obraz używany do zmiany stylu</string>
     <string name="registing_page">Rejestracja</string>
     <string name="blank" />
+    <string name="add_to_cart">Dodaj do koszyka</string>
 </resources>

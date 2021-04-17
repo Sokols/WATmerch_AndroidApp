@@ -1,4 +1,4 @@
-package pl.sokols.watmerch.ui.main.adapters
+package pl.sokols.watmerch.ui.cart.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Merch
 
-class MerchListAdapter(
-    private val dataSet: Array<Merch>
-) : RecyclerView.Adapter<MerchListAdapter.MerchListViewHolder>() {
+class CartListAdapter(
+    private val dataSet: List<Merch>
+) : RecyclerView.Adapter<CartListAdapter.CartListViewHolder>() {
 
-    class MerchListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class CartListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val cardMerchItem: CardView = view.findViewById(R.id.cardMerchItem)
         private val titleMerchItem: TextView = view.findViewById(R.id.titleMerchItem)
         private val priceMerchItem: TextView = view.findViewById(R.id.priceMerchItem)
@@ -24,22 +24,17 @@ class MerchListAdapter(
             titleMerchItem.text = merch.name
             priceMerchItem.text =
                 String.format(itemView.context.getString(R.string.price), merch.price)
-
-            cardMerchItem.setOnClickListener { view ->
-                val bundle = bundleOf("merchItem" to merch)
-                view.findNavController().navigate(R.id.action_mainFragment_to_merchFragment, bundle)
-            }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MerchListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartListViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.merch_item, parent, false)
 
-        return MerchListViewHolder(view)
+        return CartListViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MerchListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CartListViewHolder, position: Int) {
         holder.bind(dataSet[position])
     }
 

@@ -1,16 +1,15 @@
 package pl.sokols.watmerch.ui.merch
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.os.Parcelable
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
-import pl.sokols.watmerch.data.Merch
+import pl.sokols.watmerch.data.model.Merch
 import pl.sokols.watmerch.databinding.MerchFragmentBinding
-import java.io.Serializable
 
 class MerchFragment : Fragment() {
 
@@ -18,8 +17,11 @@ class MerchFragment : Fragment() {
         fun newInstance() = MerchFragment()
     }
 
-    private lateinit var viewModel: MerchViewModel
+    private val viewModel: MerchViewModel by viewModels {
+        MerchViewModelFactory((requireActivity().application as BasicApp).repository)
+    }
     private lateinit var binding: MerchFragmentBinding
+    private lateinit var merch: Merch
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,14 +33,20 @@ class MerchFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MerchViewModel::class.java)
-        val merch: Merch = arguments?.getParcelable("merchItem")!!
-        setBinding(merch)
+        merch = arguments?.getParcelable("merchItem")!!
+        setBinding()
+        setObservers()
     }
 
-    private fun setBinding(merch: Merch) {
+    private fun setObservers() {
+        binding.addToCartMerchButton.setOnClickListener {
+            viewModel.insert(merch)
+        }
+    }
+
+    private fun setBinding() {
         binding.titleMerchTextView.text = merch.name
-        binding.priceMerchTextView.text = String.format(context?.getString(R.string.price).toString(), merch.price)
+        binding.priceMerchTextView.text =
+            String.format(context?.getString(R.string.price).toString(), merch.price)
     }
-
 }
