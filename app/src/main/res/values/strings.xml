@@ -16,4 +16,14 @@
     <string name="are_you_sure_you_want_to_quit">Na pewno chcesz wyjść?</string>
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
+    <string name="test">Test</string>
+    <string name="price">Cena: %1$d$</string>
+    <string name="logging_page">Logowanie</string>
+    <string name="search">Szukaj...</string>
+    <string name="search_description">Szukaj</string>
+    <string name="more">Więcej</string>
+    <string name="changeTheme">Zmień styl</string>
+    <string name="secretImageView">Obraz używany do zmiany stylu</string>
+    <string name="registing_page">Rejestracja</string>
+    <string name="blank" />
 </resources>

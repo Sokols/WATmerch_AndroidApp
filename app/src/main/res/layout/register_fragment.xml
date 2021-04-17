@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_gradient_selector"
-    tools:context=".ui.account.register.RegisterFragment">
+    android:background="?attr/colorPrimary"
+    tools:context=".ui.register.RegisterFragment">
 
     <ImageView
         android:id="@+id/registerLogo"
@@ -37,10 +37,7 @@
             android:id="@+id/nameRegisterEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/actor"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/wat_red"
-            android:textCursorDrawable="@color/wat_red" />
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -60,10 +57,7 @@
             android:id="@+id/emailRegisterEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/actor"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/wat_red"
-            android:textCursorDrawable="@color/wat_red" />
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -83,10 +77,7 @@
             android:id="@+id/passwordRegisterEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/actor"
-            android:inputType="textPassword"
-            android:textColor="@color/wat_red"
-            android:textCursorDrawable="@color/wat_red" />
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -106,25 +97,22 @@
             android:id="@+id/repeatPasswordRegisterEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/actor"
-            android:inputType="textPassword"
-            android:textColor="@color/wat_red"
-            android:textCursorDrawable="@color/wat_red" />
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_horizontal_margin"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/default_horizontal_margin"
-        android:fontFamily="@font/actor"
         android:paddingHorizontal="24dp"
         android:paddingVertical="16dp"
         android:text="@string/sign_up"
+        android:textColor="?attr/colorPrimary"
         android:textSize="18sp"
-        app:cornerRadius="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/repeatPasswordRegisterTextInputLayout" />
@@ -135,9 +123,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_horizontal_margin"
         android:layout_marginEnd="@dimen/default_horizontal_margin"
-        android:fontFamily="@font/actor"
         android:text="@string/login_now"
-        android:textColor="@color/wat_red"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

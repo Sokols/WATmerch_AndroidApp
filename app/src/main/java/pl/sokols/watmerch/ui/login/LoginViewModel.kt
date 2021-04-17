@@ -1,4 +1,4 @@
-package pl.sokols.watmerch.ui.account.login
+package pl.sokols.watmerch.ui.login
 
 import androidx.lifecycle.ViewModel
 

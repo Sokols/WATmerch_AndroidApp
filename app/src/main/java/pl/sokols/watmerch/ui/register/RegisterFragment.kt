@@ -1,4 +1,4 @@
-package pl.sokols.watmerch.ui.account.register
+package pl.sokols.watmerch.ui.register
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,9 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import kotlinx.android.synthetic.main.login_fragment.*
-import kotlinx.android.synthetic.main.register_fragment.*
 import pl.sokols.watmerch.R
+import pl.sokols.watmerch.databinding.RegisterFragmentBinding
 
 class RegisterFragment : Fragment() {
 
@@ -18,12 +17,14 @@ class RegisterFragment : Fragment() {
     }
 
     private lateinit var viewModel: RegisterViewModel
+    private lateinit var binding: RegisterFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.register_fragment, container, false)
+    ): View {
+        binding = RegisterFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -33,7 +34,7 @@ class RegisterFragment : Fragment() {
     }
 
     private fun setListeners() {
-        goToLoginFromRegisterTextView.setOnClickListener { view ->
+        binding.goToLoginFromRegisterTextView.setOnClickListener { view ->
             view.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
     }
