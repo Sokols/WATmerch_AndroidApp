@@ -3,12 +3,12 @@
     <style name="Theme.WATmerch" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/foreground_second</item>
+        <item name="colorPrimaryVariant">@color/foreground_first</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/white</item>
-        <item name="colorSecondaryVariant">@color/foreground_second</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/background_first</item>
+        <item name="colorSecondaryVariant">@color/background_second</item>
+        <item name="colorOnSecondary">@color/foreground_second</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

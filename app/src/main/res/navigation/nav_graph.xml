@@ -8,8 +8,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="pl.sokols.watmerch.ui.main.MainFragment"
-        android:label="main_fragment"
-        tools:layout="@layout/main_fragment" >
+        tools:layout="@layout/main_fragment">
         <action
             android:id="@+id/action_mainFragment_to_merchFragment"
             app:destination="@id/merchFragment"
@@ -26,46 +25,45 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="pl.sokols.watmerch.ui.login.LoginFragment"
-        android:label="login_fragment"
-        tools:layout="@layout/login_fragment" >
+        tools:layout="@layout/login_fragment">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="pl.sokols.watmerch.ui.cart.CartFragment"
-        android:label="cart_fragment"
         tools:layout="@layout/cart_fragment" />
     <fragment
         android:id="@+id/registerFragment"
         android:name="pl.sokols.watmerch.ui.register.RegisterFragment"
-        android:label="register_fragment"
-        tools:layout="@layout/register_fragment" >
+        tools:layout="@layout/register_fragment">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/merchFragment"
         android:name="pl.sokols.watmerch.ui.merch.MerchFragment"
-        android:label="merch_fragment"
-        tools:layout="@layout/merch_fragment" >
+        tools:layout="@layout/merch_fragment">
         <action
             android:id="@+id/action_merchFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpToInclusive="true" />
         <argument
             android:name="merchItem"
             app:argType="pl.sokols.watmerch.data.Merch" />

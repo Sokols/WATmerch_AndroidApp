@@ -23,4 +23,7 @@
     <string name="search_description">Szukaj</string>
     <string name="more">Więcej</string>
     <string name="changeTheme">Zmień styl</string>
+    <string name="secretImageView">Obraz używany do zmiany stylu</string>
+    <string name="registing_page">Rejestracja</string>
+    <string name="blank" />
 </resources>

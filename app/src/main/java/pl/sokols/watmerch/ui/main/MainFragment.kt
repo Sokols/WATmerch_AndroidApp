@@ -1,11 +1,11 @@
 package pl.sokols.watmerch.ui.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import pl.sokols.watmerch.R
 import pl.sokols.watmerch.Utils
 import pl.sokols.watmerch.databinding.MainFragmentBinding
 import pl.sokols.watmerch.ui.main.adapters.MerchListAdapter
@@ -23,8 +23,14 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        (activity as AppCompatActivity).supportActionBar
         binding = MainFragmentBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.findItem(R.id.search).isVisible = true
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
