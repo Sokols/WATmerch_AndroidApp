@@ -46,6 +46,8 @@ class MainActivity : AppCompatActivity() {
             }
             binding.topAppBar.menu.findItem(R.id.search).isVisible =
                 navDestination.id == R.id.mainFragment
+            binding.topAppBar.menu.findItem(R.id.deleteAll).isVisible =
+                navDestination.id == R.id.cartFragment
         }
 
         // set top bar onClick listeners
@@ -58,10 +60,6 @@ class MainActivity : AppCompatActivity() {
                         Configuration.UI_MODE_NIGHT_NO ->
                             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     }
-                    true
-                }
-                R.id.search -> {
-                    // Handle search icon press
                     true
                 }
                 R.id.more -> {

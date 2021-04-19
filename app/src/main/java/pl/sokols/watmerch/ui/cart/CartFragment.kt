@@ -1,12 +1,15 @@
 package pl.sokols.watmerch.ui.cart
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
+import pl.sokols.watmerch.data.model.Merch
+import pl.sokols.watmerch.databinding.CartFragmentBinding
+import pl.sokols.watmerch.ui.cart.adapters.CartListAdapter
+import pl.sokols.watmerch.ui.cart.adapters.OnItemClickListener
 
 class CartFragment : Fragment() {
 
@@ -14,19 +17,40 @@ class CartFragment : Fragment() {
         fun newInstance() = CartFragment()
     }
 
-    private lateinit var viewModel: CartViewModel
+    private val viewModel: CartViewModel by viewModels {
+        CartViewModelFactory((requireActivity().application as BasicApp).repository)
+    }
+    private lateinit var binding: CartFragmentBinding
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.deleteAll) {
+            viewModel.deleteAll()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.cart_fragment, container, false)
+    ): View {
+        binding = CartFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CartViewModel::class.java)
-        // TODO: Use the ViewModel
+        initComponents()
     }
 
+    private fun initComponents() {
+        viewModel.allMerch.observe(viewLifecycleOwner, { merch ->
+            binding.cartRecyclerView.adapter = CartListAdapter(merch, deleteListener)
+        })
+    }
+
+    private val deleteListener = object : OnItemClickListener {
+        override fun onClick(merch: Merch) {
+            viewModel.delete(merch)
+        }
+    }
 }

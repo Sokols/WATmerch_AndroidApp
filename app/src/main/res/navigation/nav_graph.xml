@@ -66,6 +66,6 @@
             app:popUpToInclusive="true" />
         <argument
             android:name="merchItem"
-            app:argType="pl.sokols.watmerch.data.Merch" />
+            app:argType="pl.sokols.watmerch.data.model.Merch" />
     </fragment>
 </navigation>
