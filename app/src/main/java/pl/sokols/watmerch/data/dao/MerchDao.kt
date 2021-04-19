@@ -18,9 +18,12 @@ interface MerchDao {
     @Query("SELECT * FROM merch ORDER BY name ASC")
     fun getAlphabetizedMerch(): Flow<List<Merch>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg merch: Merch)
 
     @Delete
     suspend fun delete(merch: Merch)
+
+    @Query("DELETE FROM merch")
+    suspend fun deleteAll()
 }

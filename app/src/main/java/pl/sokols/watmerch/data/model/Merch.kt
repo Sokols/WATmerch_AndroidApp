@@ -9,12 +9,12 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity
 data class Merch(
-    @PrimaryKey(autoGenerate = true)
+//    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val id: Int = 0,
     val name: String = "",
     val price: Int = 0,
 ) : Parcelable {
     @Ignore
-    constructor() : this(0) {
-    }
+    constructor() : this(0)
 }

@@ -1,16 +1,15 @@
 package pl.sokols.watmerch.ui.cart
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import pl.sokols.watmerch.BasicApp
+import pl.sokols.watmerch.R
+import pl.sokols.watmerch.data.model.Merch
 import pl.sokols.watmerch.databinding.CartFragmentBinding
 import pl.sokols.watmerch.ui.cart.adapters.CartListAdapter
+import pl.sokols.watmerch.ui.cart.adapters.OnItemClickListener
 
 class CartFragment : Fragment() {
 
@@ -22,6 +21,13 @@ class CartFragment : Fragment() {
         CartViewModelFactory((requireActivity().application as BasicApp).repository)
     }
     private lateinit var binding: CartFragmentBinding
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.deleteAll) {
+            viewModel.deleteAll()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +44,13 @@ class CartFragment : Fragment() {
 
     private fun initComponents() {
         viewModel.allMerch.observe(viewLifecycleOwner, { merch ->
-            binding.cartRecyclerView.adapter = CartListAdapter(merch)
+            binding.cartRecyclerView.adapter = CartListAdapter(merch, deleteListener)
         })
+    }
+
+    private val deleteListener = object : OnItemClickListener {
+        override fun onClick(merch: Merch) {
+            viewModel.delete(merch)
+        }
     }
 }

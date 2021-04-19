@@ -6,6 +6,8 @@ import kotlin.random.Random
 class Utils {
 
     companion object {
+        const val MERCH_ITEM_KEY: String = "merch_item_key"
+
         fun exampleArray(): Array<Merch> =
             arrayOf(
                 Merch(0, "Alfa", getRandom(0, 10, 1000)),

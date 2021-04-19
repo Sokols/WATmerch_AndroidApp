@@ -1,14 +1,20 @@
 package pl.sokols.watmerch.ui.cart
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
 import pl.sokols.watmerch.data.model.Merch
 import pl.sokols.watmerch.data.repository.MerchRepository
 
 class CartViewModel(private val repository: MerchRepository) : ViewModel() {
     val allMerch: LiveData<List<Merch>> = repository.allMerch.asLiveData()
+
+    fun deleteAll() = viewModelScope.launch {
+        repository.deleteAll()
+    }
+
+    fun delete(merch:Merch) = viewModelScope.launch {
+        repository.delete(merch)
+    }
 }
 
 class CartViewModelFactory(private val repository: MerchRepository) : ViewModelProvider.Factory {

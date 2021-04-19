@@ -9,9 +9,18 @@ class MerchRepository(private val merchDao: MerchDao) {
 
     val allMerch: Flow<List<Merch>> = merchDao.getAlphabetizedMerch()
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(merch: Merch) {
         merchDao.insertAll(merch)
+    }
+
+    @WorkerThread
+    suspend fun delete(merch: Merch) {
+        merchDao.delete(merch)
+    }
+
+    @WorkerThread
+    suspend fun deleteAll() {
+        merchDao.deleteAll()
     }
 }

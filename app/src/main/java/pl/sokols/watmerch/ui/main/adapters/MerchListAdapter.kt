@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import pl.sokols.watmerch.R
+import pl.sokols.watmerch.Utils
 import pl.sokols.watmerch.data.model.Merch
 
 class MerchListAdapter(
@@ -26,7 +27,7 @@ class MerchListAdapter(
                 String.format(itemView.context.getString(R.string.price), merch.price)
 
             cardMerchItem.setOnClickListener { view ->
-                val bundle = bundleOf("merchItem" to merch)
+                val bundle = bundleOf(Utils.MERCH_ITEM_KEY to merch)
                 view.findNavController().navigate(R.id.action_mainFragment_to_merchFragment, bundle)
             }
         }
