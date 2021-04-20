@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
-import pl.sokols.watmerch.Utils
+import pl.sokols.watmerch.utils.Utils
 import pl.sokols.watmerch.data.model.Merch
 import pl.sokols.watmerch.databinding.MerchFragmentBinding
 
@@ -21,7 +21,7 @@ class MerchFragment : Fragment() {
     }
 
     private val viewModel: MerchViewModel by viewModels {
-        MerchViewModelFactory((requireActivity().application as BasicApp).repository)
+        MerchViewModelFactory((requireActivity().application as BasicApp).merchRepository)
     }
     private lateinit var binding: MerchFragmentBinding
     private lateinit var merch: Merch
@@ -45,7 +45,13 @@ class MerchFragment : Fragment() {
         binding.addToCartMerchButton.setOnClickListener {
             viewModel.insert(merch)
             findNavController().navigate(R.id.action_merchFragment_to_mainFragment)
-            Snackbar.make(requireView(), getString(R.string.added_to_cart), Snackbar.LENGTH_SHORT).show()
+            val snackbar = Snackbar.make(
+                binding.root,
+                getString(R.string.added_to_cart),
+                Snackbar.LENGTH_SHORT
+            )
+            snackbar.anchorView = requireActivity().findViewById(R.id.bottom_navigation)
+            snackbar.show()
         }
     }
 

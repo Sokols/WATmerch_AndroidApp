@@ -1,4 +1,4 @@
-package pl.sokols.watmerch
+package pl.sokols.watmerch.utils
 
 import pl.sokols.watmerch.data.model.Merch
 import kotlin.random.Random

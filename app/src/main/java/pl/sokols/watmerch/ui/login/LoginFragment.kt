@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import pl.sokols.watmerch.BR
+import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.databinding.LoginFragmentBinding
 
@@ -16,7 +18,9 @@ class LoginFragment : Fragment() {
         fun newInstance() = LoginFragment()
     }
 
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel: LoginViewModel by viewModels {
+        LoginViewModelFactory((requireActivity().application as BasicApp).userRepository)
+    }
     private lateinit var binding: LoginFragmentBinding
 
     override fun onCreateView(
@@ -24,12 +28,12 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = LoginFragmentBinding.inflate(inflater, container, false)
+        binding.setVariable(BR.viewModel, viewModel)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         setListeners()
     }
 
@@ -37,6 +41,10 @@ class LoginFragment : Fragment() {
         binding.goToRegisterFromLoginTextView.setOnClickListener { view ->
             Navigation.findNavController(view)
                 .navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
+        binding.loginButton.setOnClickListener {
+            viewModel.onClickButton()
         }
     }
 }

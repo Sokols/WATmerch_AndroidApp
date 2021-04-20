@@ -1,6 +1,8 @@
 package pl.sokols.watmerch.ui.merch
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pl.sokols.watmerch.data.model.Merch
 import pl.sokols.watmerch.data.repository.MerchRepository

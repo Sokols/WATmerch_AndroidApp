@@ -15,6 +15,10 @@ class CartViewModel(private val repository: MerchRepository) : ViewModel() {
     fun delete(merch:Merch) = viewModelScope.launch {
         repository.delete(merch)
     }
+
+    fun insert(merch: Merch) = viewModelScope.launch {
+        repository.insert(merch)
+    }
 }
 
 class CartViewModelFactory(private val repository: MerchRepository) : ViewModelProvider.Factory {

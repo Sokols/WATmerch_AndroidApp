@@ -2,11 +2,9 @@ package pl.sokols.watmerch.ui.main
 
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import pl.sokols.watmerch.R
-import pl.sokols.watmerch.Utils
+import pl.sokols.watmerch.utils.Utils
 import pl.sokols.watmerch.databinding.MainFragmentBinding
 import pl.sokols.watmerch.ui.main.adapters.MerchListAdapter
 

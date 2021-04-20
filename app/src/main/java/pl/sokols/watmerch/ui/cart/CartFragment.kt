@@ -1,9 +1,13 @@
 package pl.sokols.watmerch.ui.cart
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Merch
@@ -18,7 +22,7 @@ class CartFragment : Fragment() {
     }
 
     private val viewModel: CartViewModel by viewModels {
-        CartViewModelFactory((requireActivity().application as BasicApp).repository)
+        CartViewModelFactory((requireActivity().application as BasicApp).merchRepository)
     }
     private lateinit var binding: CartFragmentBinding
 
@@ -51,6 +55,15 @@ class CartFragment : Fragment() {
     private val deleteListener = object : OnItemClickListener {
         override fun onClick(merch: Merch) {
             viewModel.delete(merch)
+            val snackbar = Snackbar.make(
+                binding.root,
+                getString(R.string.removed_from_cart),
+                Snackbar.LENGTH_SHORT
+            ).setAction(R.string.cancel) {
+                viewModel.insert(merch)
+            }
+            snackbar.anchorView = requireActivity().findViewById(R.id.bottom_navigation)
+            snackbar.show()
         }
     }
 }
