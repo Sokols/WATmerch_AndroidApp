@@ -1,16 +1,16 @@
-package pl.sokols.watmerch.ui.merch
+package pl.sokols.watmerch.ui.product
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import pl.sokols.watmerch.data.model.Merch
+import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.data.repository.MerchRepository
 
 class MerchViewModel(private val repository: MerchRepository) : ViewModel() {
 
-    fun insert(merch: Merch) = viewModelScope.launch {
-        repository.insert(merch)
+    fun insert(product: Product) = viewModelScope.launch {
+        repository.insert(product)
     }
 }
 

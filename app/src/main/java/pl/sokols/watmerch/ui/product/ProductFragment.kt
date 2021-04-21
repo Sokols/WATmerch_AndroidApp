@@ -1,4 +1,4 @@
-package pl.sokols.watmerch.ui.merch
+package pl.sokols.watmerch.ui.product
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,20 +11,20 @@ import com.google.android.material.snackbar.Snackbar
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.utils.Utils
-import pl.sokols.watmerch.data.model.Merch
+import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.MerchFragmentBinding
 
-class MerchFragment : Fragment() {
+class ProductFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MerchFragment()
+        fun newInstance() = ProductFragment()
     }
 
     private val viewModel: MerchViewModel by viewModels {
         MerchViewModelFactory((requireActivity().application as BasicApp).merchRepository)
     }
     private lateinit var binding: MerchFragmentBinding
-    private lateinit var merch: Merch
+    private lateinit var product: Product
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,14 +36,14 @@ class MerchFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        merch = arguments?.getParcelable(Utils.MERCH_ITEM_KEY)!!
+        product = arguments?.getParcelable(Utils.MERCH_ITEM_KEY)!!
         setBinding()
         setObservers()
     }
 
     private fun setObservers() {
         binding.addToCartMerchButton.setOnClickListener {
-            viewModel.insert(merch)
+            viewModel.insert(product)
             findNavController().navigate(R.id.action_merchFragment_to_mainFragment)
             val snackbar = Snackbar.make(
                 binding.root,
@@ -56,8 +56,8 @@ class MerchFragment : Fragment() {
     }
 
     private fun setBinding() {
-        binding.titleMerchTextView.text = merch.name
+        binding.titleMerchTextView.text = product.name
         binding.priceMerchTextView.text =
-            String.format(context?.getString(R.string.price).toString(), merch.price)
+            String.format(context?.getString(R.string.price).toString(), product.price)
     }
 }

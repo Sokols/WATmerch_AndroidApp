@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity
-data class Merch(
+data class Product(
 //    @PrimaryKey(autoGenerate = true)
     @PrimaryKey
     val id: Int = 0,

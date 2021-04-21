@@ -54,8 +54,8 @@
     </fragment>
     <fragment
         android:id="@+id/merchFragment"
-        android:name="pl.sokols.watmerch.ui.merch.MerchFragment"
-        tools:layout="@layout/merch_fragment">
+        android:name="pl.sokols.watmerch.ui.product.ProductFragment"
+        tools:layout="@layout/product_fragment">
         <action
             android:id="@+id/action_merchFragment_to_mainFragment"
             app:destination="@id/mainFragment"

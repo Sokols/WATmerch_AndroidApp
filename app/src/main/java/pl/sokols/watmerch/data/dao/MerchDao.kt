@@ -2,27 +2,27 @@ package pl.sokols.watmerch.data.dao
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import pl.sokols.watmerch.data.model.Merch
+import pl.sokols.watmerch.data.model.Product
 
 @Dao
 interface MerchDao {
     @Query("SELECT * FROM merch")
-    fun getAll(): List<Merch>
+    fun getAll(): List<Product>
 
     @Query("SELECT * FROM merch WHERE id IN (:merchIds)")
-    fun loadAllByIds(merchIds: IntArray): List<Merch>
+    fun loadAllByIds(merchIds: IntArray): List<Product>
 
     @Query("SELECT * FROM merch WHERE name LIKE :name LIMIT 1")
-    fun findByName(name: String): Merch
+    fun findByName(name: String): Product
 
     @Query("SELECT * FROM merch ORDER BY name ASC")
-    fun getAlphabetizedMerch(): Flow<List<Merch>>
+    fun getAlphabetizedMerch(): Flow<List<Product>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(vararg merch: Merch)
+    suspend fun insertAll(vararg products: Product)
 
     @Delete
-    suspend fun delete(merch: Merch)
+    suspend fun delete(product: Product)
 
     @Query("DELETE FROM merch")
     suspend fun deleteAll()

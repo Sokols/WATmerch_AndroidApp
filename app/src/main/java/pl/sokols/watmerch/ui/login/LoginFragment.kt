@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
 import pl.sokols.watmerch.BR
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.databinding.LoginFragmentBinding
+import pl.sokols.watmerch.utils.Status
 
 class LoginFragment : Fragment() {
 
@@ -44,7 +46,22 @@ class LoginFragment : Fragment() {
         }
 
         binding.loginButton.setOnClickListener {
-            viewModel.onClickButton()
+            viewModel.onClickButton().observe(requireActivity(), {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            Snackbar.make(requireView(), resource.data.toString(), Snackbar.LENGTH_SHORT).show()
+                        }
+                        Status.ERROR -> {
+                            Snackbar.make(requireView(), "ERROR", Snackbar.LENGTH_SHORT).show()
+                        }
+                        Status.LOADING -> {
+                            Snackbar.make(requireView(), "LOADING", Snackbar.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            })
+
         }
     }
 }

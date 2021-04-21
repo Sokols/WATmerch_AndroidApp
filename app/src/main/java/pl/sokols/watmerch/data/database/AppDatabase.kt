@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import pl.sokols.watmerch.data.dao.MerchDao
-import pl.sokols.watmerch.data.model.Merch
+import pl.sokols.watmerch.data.model.Product
 
-@Database(entities = [Merch::class], version = 1, exportSchema = false)
+@Database(entities = [Product::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun merchDao(): MerchDao

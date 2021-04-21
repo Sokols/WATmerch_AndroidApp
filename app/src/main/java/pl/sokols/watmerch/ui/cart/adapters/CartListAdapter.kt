@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import pl.sokols.watmerch.R
-import pl.sokols.watmerch.data.model.Merch
+import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.OrderItemBinding
 
 class CartListAdapter(
-    private val dataSet: List<Merch>,
+    private val dataSet: List<Product>,
     private val deleteListener: OnItemClickListener
 ) : RecyclerView.Adapter<CartListAdapter.CartListViewHolder>() {
 
@@ -16,15 +16,15 @@ class CartListAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            merch: Merch,
+            product: Product,
             deleteListener: OnItemClickListener
         ) {
-            binding.titleOrderItem.text = merch.name
+            binding.titleOrderItem.text = product.name
             binding.priceOrderItem.text =
-                String.format(itemView.context.getString(R.string.price), merch.price)
+                String.format(itemView.context.getString(R.string.price), product.price)
 
             binding.deleteOrderImageView.setOnClickListener {
-                deleteListener.onClick(merch)
+                deleteListener.onClick(product)
             }
 
             binding.plusOrderButton.setOnClickListener {

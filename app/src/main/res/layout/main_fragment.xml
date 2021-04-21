@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:spanCount="2"
-            tools:listitem="@layout/merch_item" />
+            tools:listitem="@layout/product_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
