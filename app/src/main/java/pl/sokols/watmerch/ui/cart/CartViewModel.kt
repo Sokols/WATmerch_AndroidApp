@@ -3,9 +3,9 @@ package pl.sokols.watmerch.ui.cart
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import pl.sokols.watmerch.data.model.Product
-import pl.sokols.watmerch.data.repository.MerchRepository
+import pl.sokols.watmerch.data.repository.CartProductsRepository
 
-class CartViewModel(private val repository: MerchRepository) : ViewModel() {
+class CartViewModel(private val repository: CartProductsRepository) : ViewModel() {
     val allProduct: LiveData<List<Product>> = repository.allProduct.asLiveData()
 
     fun deleteAll() = viewModelScope.launch {
@@ -21,7 +21,7 @@ class CartViewModel(private val repository: MerchRepository) : ViewModel() {
     }
 }
 
-class CartViewModelFactory(private val repository: MerchRepository) : ViewModelProvider.Factory {
+class CartViewModelFactory(private val repository: CartProductsRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CartViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

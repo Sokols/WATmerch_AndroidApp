@@ -5,17 +5,17 @@ import kotlinx.coroutines.flow.Flow
 import pl.sokols.watmerch.data.model.Product
 
 @Dao
-interface MerchDao {
-    @Query("SELECT * FROM merch")
+interface ProductDao {
+    @Query("SELECT * FROM product")
     fun getAll(): List<Product>
 
-    @Query("SELECT * FROM merch WHERE id IN (:merchIds)")
-    fun loadAllByIds(merchIds: IntArray): List<Product>
+    @Query("SELECT * FROM product WHERE barcode IN (:barcodes)")
+    fun loadAllByIds(barcodes: IntArray): List<Product>
 
-    @Query("SELECT * FROM merch WHERE name LIKE :name LIMIT 1")
+    @Query("SELECT * FROM product WHERE name LIKE :name LIMIT 1")
     fun findByName(name: String): Product
 
-    @Query("SELECT * FROM merch ORDER BY name ASC")
+    @Query("SELECT * FROM product ORDER BY name ASC")
     fun getAlphabetizedMerch(): Flow<List<Product>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -24,6 +24,6 @@ interface MerchDao {
     @Delete
     suspend fun delete(product: Product)
 
-    @Query("DELETE FROM merch")
+    @Query("DELETE FROM product")
     suspend fun deleteAll()
 }

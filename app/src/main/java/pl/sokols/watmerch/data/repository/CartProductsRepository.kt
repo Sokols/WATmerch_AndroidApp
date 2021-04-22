@@ -2,25 +2,25 @@ package pl.sokols.watmerch.data.repository
 
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
-import pl.sokols.watmerch.data.dao.MerchDao
+import pl.sokols.watmerch.data.dao.ProductDao
 import pl.sokols.watmerch.data.model.Product
 
-class MerchRepository(private val merchDao: MerchDao) {
+class CartProductsRepository(private val productDao: ProductDao) {
 
-    val allProduct: Flow<List<Product>> = merchDao.getAlphabetizedMerch()
+    val allProduct: Flow<List<Product>> = productDao.getAlphabetizedMerch()
 
     @WorkerThread
     suspend fun insert(product: Product) {
-        merchDao.insertAll(product)
+        productDao.insertAll(product)
     }
 
     @WorkerThread
     suspend fun delete(product: Product) {
-        merchDao.delete(product)
+        productDao.delete(product)
     }
 
     @WorkerThread
     suspend fun deleteAll() {
-        merchDao.deleteAll()
+        productDao.deleteAll()
     }
 }

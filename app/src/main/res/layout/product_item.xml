@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardMerchItem"
+        android:id="@+id/productItemCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -35,7 +35,7 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/titleMerchItem"
+                    android:id="@+id/titleProductItemTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/test"
@@ -43,7 +43,7 @@
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/priceMerchItem"
+                    android:id="@+id/priceProductItemTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"

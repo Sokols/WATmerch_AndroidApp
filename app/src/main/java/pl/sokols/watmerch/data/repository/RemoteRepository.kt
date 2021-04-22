@@ -20,7 +20,9 @@ class RemoteRepository {
         }
     }
 
-    private var client = ServiceBuilder.createService(ApiService::class.java)
+    // TODO: only for tests - remove!
+    private var client = ServiceBuilder.createService(ApiService::class.java, "admin", "admin")
+//    private var client = ServiceBuilder.createService(ApiService::class.java)
 
     suspend fun loginUser(loginRequest: LoginRequest) = client.loginUser(loginRequest)
 

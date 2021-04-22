@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.material.snackbar.Snackbar
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.CartFragmentBinding
 import pl.sokols.watmerch.ui.cart.adapters.CartListAdapter
 import pl.sokols.watmerch.ui.cart.adapters.OnItemClickListener
+import pl.sokols.watmerch.utils.Utils
 
 class CartFragment : Fragment() {
 
@@ -55,15 +55,14 @@ class CartFragment : Fragment() {
     private val deleteListener = object : OnItemClickListener {
         override fun onClick(product: Product) {
             viewModel.delete(product)
-            val snackbar = Snackbar.make(
+
+            Utils.getSnackbar(
                 binding.root,
                 getString(R.string.removed_from_cart),
-                Snackbar.LENGTH_SHORT
+                requireActivity()
             ).setAction(R.string.cancel) {
                 viewModel.insert(product)
-            }
-            snackbar.anchorView = requireActivity().findViewById(R.id.bottom_navigation)
-            snackbar.show()
+            }.show()
         }
     }
 }

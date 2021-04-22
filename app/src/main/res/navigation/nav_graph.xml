@@ -10,8 +10,8 @@
         android:name="pl.sokols.watmerch.ui.main.MainFragment"
         tools:layout="@layout/main_fragment">
         <action
-            android:id="@+id/action_mainFragment_to_merchFragment"
-            app:destination="@id/merchFragment"
+            android:id="@+id/action_mainFragment_to_productFragment"
+            app:destination="@id/productFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -53,11 +53,11 @@
             app:popUpTo="@id/mainFragment" />
     </fragment>
     <fragment
-        android:id="@+id/merchFragment"
+        android:id="@+id/productFragment"
         android:name="pl.sokols.watmerch.ui.product.ProductFragment"
         tools:layout="@layout/product_fragment">
         <action
-            android:id="@+id/action_merchFragment_to_mainFragment"
+            android:id="@+id/action_productFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -65,7 +65,7 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpToInclusive="true" />
         <argument
-            android:name="merchItem"
-            app:argType="pl.sokols.watmerch.data.model.Merch" />
+            android:name="productItem"
+            app:argType="pl.sokols.watmerch.data.model.Product" />
     </fragment>
 </navigation>

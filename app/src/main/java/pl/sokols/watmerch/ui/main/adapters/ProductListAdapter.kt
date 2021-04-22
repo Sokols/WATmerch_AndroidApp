@@ -6,31 +6,31 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import pl.sokols.watmerch.R
-import pl.sokols.watmerch.utils.Utils
 import pl.sokols.watmerch.data.model.Product
-import pl.sokols.watmerch.databinding.MerchItemBinding
+import pl.sokols.watmerch.databinding.ProductItemBinding
+import pl.sokols.watmerch.utils.Utils
 
-class MerchListAdapter(
-    private val dataSet: Array<Product>
-) : RecyclerView.Adapter<MerchListAdapter.MerchListViewHolder>() {
+class ProductListAdapter(
+    private val dataSet: List<Product>?
+) : RecyclerView.Adapter<ProductListAdapter.MerchListViewHolder>() {
 
-    inner class MerchListViewHolder(private val binding: MerchItemBinding) :
+    inner class MerchListViewHolder(private val binding: ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
-            binding.titleMerchItem.text = product.name
-            binding.priceMerchItem.text =
+            binding.titleProductItemTextView.text = product.name
+            binding.priceProductItemTextView.text =
                 String.format(itemView.context.getString(R.string.price), product.price)
 
-            binding.cardMerchItem.setOnClickListener { view ->
-                val bundle = bundleOf(Utils.MERCH_ITEM_KEY to product)
-                view.findNavController().navigate(R.id.action_mainFragment_to_merchFragment, bundle)
+            binding.productItemCardView.setOnClickListener { view ->
+                val bundle = bundleOf(Utils.PRODUCT_ITEM_KEY to product)
+                view.findNavController().navigate(R.id.action_mainFragment_to_productFragment, bundle)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MerchListViewHolder {
         return MerchListViewHolder(
-            MerchItemBinding.inflate(
+            ProductItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -39,8 +39,8 @@ class MerchListAdapter(
     }
 
     override fun onBindViewHolder(holder: MerchListViewHolder, position: Int) {
-        holder.bind(dataSet[position])
+        holder.bind(dataSet!![position])
     }
 
-    override fun getItemCount() = dataSet.size
+    override fun getItemCount(): Int = dataSet?.size!!
 }

@@ -13,7 +13,7 @@ interface ApiService {
     suspend fun getCategories(): Category
 
     @GET("api/products")
-    suspend fun getProducts(): Product
+    suspend fun getProducts(): ProductResponse
 
     @POST("api/loginUser")
     suspend fun loginUser(@Body loginRequest: LoginRequest): LoginResponse

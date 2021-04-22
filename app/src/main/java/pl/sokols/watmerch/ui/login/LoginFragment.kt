@@ -13,6 +13,7 @@ import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.databinding.LoginFragmentBinding
 import pl.sokols.watmerch.utils.Status
+import pl.sokols.watmerch.utils.Utils
 
 class LoginFragment : Fragment() {
 
@@ -50,13 +51,13 @@ class LoginFragment : Fragment() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            Snackbar.make(requireView(), resource.data.toString(), Snackbar.LENGTH_SHORT).show()
+                            Utils.getSnackbar(binding.root, "SUCCESS", requireActivity()).show()
                         }
                         Status.ERROR -> {
-                            Snackbar.make(requireView(), "ERROR", Snackbar.LENGTH_SHORT).show()
+                            Utils.getSnackbar(binding.root, "ERROR", requireActivity()).show()
                         }
                         Status.LOADING -> {
-                            Snackbar.make(requireView(), "LOADING", Snackbar.LENGTH_SHORT).show()
+                            Utils.getSnackbar(binding.root, "LOADING", requireActivity()).show()
                         }
                     }
                 }

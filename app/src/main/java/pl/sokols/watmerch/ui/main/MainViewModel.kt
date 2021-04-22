@@ -1,5 +1,6 @@
 package pl.sokols.watmerch.ui.main
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
@@ -9,12 +10,13 @@ import pl.sokols.watmerch.utils.Resource
 
 class MainViewModel(private val repository: RemoteRepository) : ViewModel() {
 
-    fun getCategories() = liveData(Dispatchers.IO) {
+    fun getProducts() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
-            emit(Resource.success(data = repository.getCategories()))
+            emit(Resource.success(data = repository.getProducts().content))
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            Log.d("ERROR", exception.message.toString())
         }
     }
 }
