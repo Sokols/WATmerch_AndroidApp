@@ -22,13 +22,13 @@ class CartFragment : Fragment() {
     }
 
     private val viewModel: CartViewModel by viewModels {
-        CartViewModelFactory((requireActivity().application as BasicApp).merchRepository)
+        CartViewModelFactory(requireActivity().application as BasicApp)
     }
     private lateinit var binding: CartFragmentBinding
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.deleteAll) {
-            viewModel.deleteAll()
+
         }
         return super.onOptionsItemSelected(item)
     }
@@ -43,26 +43,19 @@ class CartFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initComponents()
     }
 
-    private fun initComponents() {
-        viewModel.allProduct.observe(viewLifecycleOwner, { merch ->
-            binding.cartRecyclerView.adapter = CartListAdapter(merch, deleteListener)
-        })
-    }
-
-    private val deleteListener = object : OnItemClickListener {
-        override fun onClick(product: Product) {
-            viewModel.delete(product)
-
-            Utils.getSnackbar(
-                binding.root,
-                getString(R.string.removed_from_cart),
-                requireActivity()
-            ).setAction(R.string.cancel) {
-                viewModel.insert(product)
-            }.show()
-        }
-    }
+//    private val deleteListener = object : OnItemClickListener {
+//        override fun onClick(product: Product) {
+//            viewModel.delete(product)
+//
+//            Utils.getSnackbar(
+//                binding.root,
+//                getString(R.string.removed_from_cart),
+//                requireActivity()
+//            ).setAction(R.string.cancel) {
+//                viewModel.insert(product)
+//            }.show()
+//        }
+//    }
 }

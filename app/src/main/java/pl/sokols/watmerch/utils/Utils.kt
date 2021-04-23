@@ -8,7 +8,7 @@ import pl.sokols.watmerch.R
 class Utils {
 
     companion object {
-        const val PRODUCT_ITEM_KEY: String = "merch_item_key"
+        const val PRODUCT_BARCODE: String = "merch_item_key"
 
         fun getSnackbar(view: View, message: String, activity: Activity): Snackbar {
             val snackbar = Snackbar.make(

@@ -1,4 +1,4 @@
-package pl.sokols.watmerch.data.model
+package pl.sokols.watmerch.data.model.response
 
 data class LoginResponse(
     val statusCode: Int,

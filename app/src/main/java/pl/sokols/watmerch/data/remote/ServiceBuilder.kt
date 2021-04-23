@@ -3,20 +3,26 @@ package pl.sokols.watmerch.data.remote
 import android.text.TextUtils
 import okhttp3.Credentials
 import okhttp3.OkHttpClient
+import pl.sokols.watmerch.data.remote.interceptors.AddCookiesInterceptor
+import pl.sokols.watmerch.data.remote.interceptors.AuthInterceptor
+import pl.sokols.watmerch.data.remote.interceptors.ReceivedCookiesInterceptor
+import pl.sokols.watmerch.utils.AppPreferences
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ServiceBuilder {
+class ServiceBuilder {
 
-    private const val URL = "http://10.0.2.2:8081/"
+    private val URL = "http://10.0.2.2:8081/"
 
-//    private val client = OkHttpClient.Builder().addInterceptor { chain ->
-//        val request: Request = chain.request()
-//        val newRequest: Request.Builder = request.newBuilder()
-//        chain.proceed(newRequest.build())
-//    }.build()
-
-    private val httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
+    private val httpClient: OkHttpClient.Builder = let {
+        val builder = OkHttpClient.Builder()
+        val authToken: String? = AppPreferences.authToken
+        if (authToken != null) {
+            builder.addInterceptor(AuthInterceptor(authToken))
+        }
+        builder.addInterceptor(AddCookiesInterceptor())
+            .addInterceptor(ReceivedCookiesInterceptor())
+    }
 
     private val builder: Retrofit.Builder = Retrofit.Builder()
         .baseUrl(URL)
@@ -54,14 +60,4 @@ object ServiceBuilder {
         return retrofit.create(serviceClass)
     }
 
-
-//    private val retrofit = Retrofit.Builder()
-//        .baseUrl(URL)
-//        .addConverterFactory(GsonConverterFactory.create())
-//        .client(client)
-//        .build()
-
-//    fun <T> buildService(service: Class<T>): T {
-//        return retrofit.create(service)
-//    }
 }

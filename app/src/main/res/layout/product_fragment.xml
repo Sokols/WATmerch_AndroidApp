@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="product"
+            type="pl.sokols.watmerch.data.model.Product" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="@string/test"
+            android:text="@{product.name}"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="@string/price"
+            android:text="@{String.format(@string/price, product.price)}"
             android:textColor="?attr/colorOnSecondary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

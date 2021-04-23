@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
+import pl.sokols.watmerch.BR
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
-import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.ProductFragmentBinding
 import pl.sokols.watmerch.utils.Utils
 
@@ -20,11 +19,10 @@ class ProductFragment : Fragment() {
         fun newInstance() = ProductFragment()
     }
 
-    private val viewModel: MerchViewModel by viewModels {
-        MerchViewModelFactory((requireActivity().application as BasicApp).merchRepository)
+    private val viewModel: ProductViewModel by viewModels {
+        ProductViewModelFactory(requireActivity().application as BasicApp)
     }
     private lateinit var binding: ProductFragmentBinding
-    private lateinit var product: Product
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,23 +34,18 @@ class ProductFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        product = arguments?.getParcelable(Utils.PRODUCT_ITEM_KEY)!!
-        setBinding()
         setObservers()
     }
 
     private fun setObservers() {
+        viewModel.getProductByBarcode(arguments?.getInt(Utils.PRODUCT_BARCODE)!!)
+            .observe(viewLifecycleOwner, {
+                binding.setVariable(BR.product, it.data)
+            })
         binding.addToCartProductButton.setOnClickListener {
-            viewModel.insert(product)
             findNavController().navigate(R.id.action_productFragment_to_mainFragment)
             Utils.getSnackbar(binding.root, getString(R.string.added_to_cart), requireActivity())
                 .show()
         }
-    }
-
-    private fun setBinding() {
-        binding.titleProductTextView.text = product.name
-        binding.priceProductTextView.text =
-            String.format(context?.getString(R.string.price).toString(), product.price)
     }
 }

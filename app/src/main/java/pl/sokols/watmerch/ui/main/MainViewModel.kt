@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
-import pl.sokols.watmerch.data.repository.RemoteRepository
+import pl.sokols.watmerch.BasicApp
+import pl.sokols.watmerch.data.remote.services.ProductService
+import pl.sokols.watmerch.data.repository.ProductRepository
 import pl.sokols.watmerch.utils.Resource
 
-class MainViewModel(private val repository: RemoteRepository) : ViewModel() {
+class MainViewModel(private val repository: ProductRepository) : ViewModel() {
 
     fun getProducts() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
@@ -21,11 +23,12 @@ class MainViewModel(private val repository: RemoteRepository) : ViewModel() {
     }
 }
 
-class MainViewModelFactory(private val repository: RemoteRepository) : ViewModelProvider.Factory {
+class MainViewModelFactory(private val basicApp: BasicApp) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return MainViewModel(repository) as T
+            val productService = basicApp.retrofit.createService(ProductService::class.java)
+            return MainViewModel(ProductRepository(productService)) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

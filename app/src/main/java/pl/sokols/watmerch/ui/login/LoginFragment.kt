@@ -22,7 +22,7 @@ class LoginFragment : Fragment() {
     }
 
     private val viewModel: LoginViewModel by viewModels {
-        LoginViewModelFactory((requireActivity().application as BasicApp).userRepository)
+        LoginViewModelFactory(requireActivity().application as BasicApp)
     }
     private lateinit var binding: LoginFragmentBinding
 

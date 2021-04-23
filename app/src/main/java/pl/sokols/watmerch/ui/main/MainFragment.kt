@@ -1,6 +1,5 @@
 package pl.sokols.watmerch.ui.main
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import pl.sokols.watmerch.BasicApp
-import pl.sokols.watmerch.data.model.ProductResponse
 import pl.sokols.watmerch.databinding.MainFragmentBinding
 import pl.sokols.watmerch.ui.main.adapters.ProductListAdapter
 import pl.sokols.watmerch.utils.Status
-import pl.sokols.watmerch.utils.Utils
 
 class MainFragment : Fragment() {
 
@@ -23,7 +20,7 @@ class MainFragment : Fragment() {
     }
 
     private val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory((requireActivity().application as BasicApp).userRepository)
+        MainViewModelFactory(requireActivity().application as BasicApp)
     }
     private lateinit var binding: MainFragmentBinding
 

@@ -1,20 +1,15 @@
-package pl.sokols.watmerch.data.remote
+package pl.sokols.watmerch.data.remote.services
 
 import pl.sokols.watmerch.data.model.*
-import retrofit2.Call
+import pl.sokols.watmerch.data.model.request.LoginRequest
+import pl.sokols.watmerch.data.model.response.LoginResponse
+import pl.sokols.watmerch.data.model.response.ProductResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.Path
 
-interface ApiService {
-
-    @GET("api/categories")
-    suspend fun getCategories(): Category
-
-    @GET("api/products")
-    suspend fun getProducts(): ProductResponse
-
+interface UserService {
     @POST("api/loginUser")
     suspend fun loginUser(@Body loginRequest: LoginRequest): LoginResponse
 

@@ -22,7 +22,7 @@ class ProductListAdapter(
                 String.format(itemView.context.getString(R.string.price), product.price)
 
             binding.productItemCardView.setOnClickListener { view ->
-                val bundle = bundleOf(Utils.PRODUCT_ITEM_KEY to product)
+                val bundle = bundleOf(Utils.PRODUCT_BARCODE to product.barcode)
                 view.findNavController().navigate(R.id.action_mainFragment_to_productFragment, bundle)
             }
         }
