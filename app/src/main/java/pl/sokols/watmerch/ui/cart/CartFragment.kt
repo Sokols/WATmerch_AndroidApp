@@ -1,15 +1,20 @@
 package pl.sokols.watmerch.ui.cart
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
-import pl.sokols.watmerch.data.model.Merch
+import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.CartFragmentBinding
 import pl.sokols.watmerch.ui.cart.adapters.CartListAdapter
 import pl.sokols.watmerch.ui.cart.adapters.OnItemClickListener
+import pl.sokols.watmerch.utils.Utils
 
 class CartFragment : Fragment() {
 
@@ -18,39 +23,39 @@ class CartFragment : Fragment() {
     }
 
     private val viewModel: CartViewModel by viewModels {
-        CartViewModelFactory((requireActivity().application as BasicApp).repository)
+        CartViewModelFactory(requireActivity().application as BasicApp)
     }
     private lateinit var binding: CartFragmentBinding
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.deleteAll) {
-            viewModel.deleteAll()
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = CartFragmentBinding.inflate(inflater, container, false)
+        initComponents()
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        initComponents()
-    }
-
     private fun initComponents() {
-        viewModel.allMerch.observe(viewLifecycleOwner, { merch ->
-            binding.cartRecyclerView.adapter = CartListAdapter(merch, deleteListener)
+        viewModel.getSharedPreferencesLiveData().observe(viewLifecycleOwner, {
+            lifecycleScope.launch { viewModel.updateProducts() }
+        })
+        viewModel.products.observe(viewLifecycleOwner, {
+            binding.cartRecyclerView.adapter =
+                CartListAdapter(it, deleteListener)
         })
     }
 
     private val deleteListener = object : OnItemClickListener {
-        override fun onClick(merch: Merch) {
-            viewModel.delete(merch)
+        override fun onClick(product: Product) {
+            viewModel.delete(product)
+            Utils.getSnackbar(
+                binding.root,
+                getString(R.string.removed_from_cart),
+                requireActivity()
+            ).setAction(R.string.cancel) {
+                viewModel.insert(product)
+            }.show()
         }
     }
 }

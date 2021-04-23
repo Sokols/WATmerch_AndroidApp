@@ -17,7 +17,7 @@
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="test">Test</string>
-    <string name="price">Cena: %1$d$</string>
+    <string name="price">Cena: %1$.2f$</string>
     <string name="logging_page">Logowanie</string>
     <string name="search">Szukaj...</string>
     <string name="search_description">Szukaj</string>
@@ -33,4 +33,7 @@
     <string name="delete">Usuń</string>
     <string name="delete_all">Usuń wszystko</string>
     <string name="added_to_cart">Dodano do koszyka!</string>
+    <string name="cancel">ANULUJ</string>
+    <string name="removed_from_cart">Usunięto z koszyka</string>
+    <string name="already_in_cart">Produkt jest już w koszyku!</string>
 </resources>

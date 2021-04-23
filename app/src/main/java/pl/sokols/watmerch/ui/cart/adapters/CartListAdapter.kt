@@ -1,58 +1,54 @@
 package pl.sokols.watmerch.ui.cart.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pl.sokols.watmerch.R
-import pl.sokols.watmerch.data.model.Merch
+import pl.sokols.watmerch.data.model.Product
+import pl.sokols.watmerch.databinding.OrderItemBinding
 
 class CartListAdapter(
-    private val dataSet: List<Merch>,
+    private val dataSet: List<Product>,
     private val deleteListener: OnItemClickListener
 ) : RecyclerView.Adapter<CartListAdapter.CartListViewHolder>() {
 
-    class CartListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class CartListViewHolder(private val binding: OrderItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        private val amount: Int = 1
-        private val titleOrderItem: TextView = view.findViewById(R.id.titleOrderItem)
-        private val priceOrderItem: TextView = view.findViewById(R.id.priceOrderItem)
-        private val deleteOrderImageView: ImageView = view.findViewById(R.id.deleteOrderImageView)
-        private val minusOrderButton: Button = view.findViewById(R.id.minusOrderButton)
-        private val plusOrderButton: Button = view.findViewById(R.id.plusOrderButton)
-        private val orderAmountTextView: TextView = view.findViewById(R.id.orderAmountTextView)
+        fun bind(
+            product: Product,
+            deleteListener: OnItemClickListener
+        ) {
+            binding.titleOrderItem.text = product.name
+            binding.priceOrderItem.text =
+                String.format(itemView.context.getString(R.string.price), product.price)
 
-        fun bind(merch: Merch, deleteListener: OnItemClickListener) {
-            titleOrderItem.text = merch.name
-            priceOrderItem.text =
-                String.format(itemView.context.getString(R.string.price), merch.price)
-
-            deleteOrderImageView.setOnClickListener {
-                deleteListener.onClick(merch)
+            binding.deleteOrderImageView.setOnClickListener {
+                deleteListener.onClick(product)
             }
 
-            plusOrderButton.setOnClickListener {
-                orderAmountTextView.text =
-                    (orderAmountTextView.text.toString().toInt() + 1).toString()
+            binding.plusOrderButton.setOnClickListener {
+                binding.orderAmountTextView.text =
+                    (binding.orderAmountTextView.text.toString().toInt() + 1).toString()
             }
 
-            minusOrderButton.setOnClickListener {
-                if (orderAmountTextView.text.toString() != "0") {
-                    orderAmountTextView.text =
-                        (orderAmountTextView.text.toString().toInt() - 1).toString()
+            binding.minusOrderButton.setOnClickListener {
+                if (binding.orderAmountTextView.text.toString() != "1") {
+                    binding.orderAmountTextView.text =
+                        (binding.orderAmountTextView.text.toString().toInt() - 1).toString()
                 }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartListViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.order_item, parent, false)
-
-        return CartListViewHolder(view)
+        return CartListViewHolder(
+            OrderItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: CartListViewHolder, position: Int) {
