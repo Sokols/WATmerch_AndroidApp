@@ -35,4 +35,5 @@
     <string name="added_to_cart">Dodano do koszyka!</string>
     <string name="cancel">ANULUJ</string>
     <string name="removed_from_cart">Usunięto z koszyka</string>
+    <string name="already_in_cart">Produkt jest już w koszyku!</string>
 </resources>

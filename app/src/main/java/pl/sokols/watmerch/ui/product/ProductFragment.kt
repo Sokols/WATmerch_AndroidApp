@@ -23,6 +23,7 @@ class ProductFragment : Fragment() {
         ProductViewModelFactory(requireActivity().application as BasicApp)
     }
     private lateinit var binding: ProductFragmentBinding
+    private var barcode: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,18 +35,30 @@ class ProductFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        barcode = arguments?.getInt(Utils.PRODUCT_BARCODE)!!
         setObservers()
     }
 
     private fun setObservers() {
-        viewModel.getProductByBarcode(arguments?.getInt(Utils.PRODUCT_BARCODE)!!)
+        viewModel.getProductByBarcode(barcode)
             .observe(viewLifecycleOwner, {
                 binding.setVariable(BR.product, it.data)
             })
         binding.addToCartProductButton.setOnClickListener {
-            findNavController().navigate(R.id.action_productFragment_to_mainFragment)
-            Utils.getSnackbar(binding.root, getString(R.string.added_to_cart), requireActivity())
-                .show()
+            if (!viewModel.isProductInCartAlready(barcode)) {
+                findNavController().navigate(R.id.action_productFragment_to_mainFragment)
+                Utils.getSnackbar(
+                    binding.root,
+                    getString(R.string.added_to_cart),
+                    requireActivity()
+                ).show()
+            } else {
+                Utils.getSnackbar(
+                    binding.root,
+                    getString(R.string.already_in_cart),
+                    requireActivity()
+                ).show()
+            }
         }
     }
 }

@@ -1,13 +1,14 @@
 package pl.sokols.watmerch.ui.product
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import pl.sokols.watmerch.BasicApp
-import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.data.remote.services.ProductService
 import pl.sokols.watmerch.data.repository.ProductRepository
+import pl.sokols.watmerch.utils.AppPreferences
 import pl.sokols.watmerch.utils.Resource
 
 class ProductViewModel(private val repository: ProductRepository) : ViewModel() {
@@ -20,6 +21,16 @@ class ProductViewModel(private val repository: ProductRepository) : ViewModel() 
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             Log.d("ERROR", exception.message.toString())
         }
+    }
+
+    fun isProductInCartAlready(barcode: Int): Boolean {
+        val products = AppPreferences.cartProductsBarcodes
+        if (!products!!.contains(barcode)) {
+            products.add(barcode)
+            AppPreferences.cartProductsBarcodes = products
+            return false
+        }
+        return true
     }
 }
 

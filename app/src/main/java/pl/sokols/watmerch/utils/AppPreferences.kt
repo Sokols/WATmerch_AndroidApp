@@ -6,10 +6,10 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 
 object AppPreferences {
-    private var sharedPreferences: SharedPreferences? = null
+    var sharedPreferences: SharedPreferences? = null
 
     fun setup(context: Context) {
-        sharedPreferences = context.getSharedPreferences("WATmerch.sharedprefs", MODE_PRIVATE)
+        sharedPreferences = context.getSharedPreferences(Utils.SHARED_PREFERENCES_KEY, MODE_PRIVATE)
     }
 
     var authToken: String?
@@ -20,8 +20,12 @@ object AppPreferences {
         get() = Key.COOKIES.getStringSet()
         set(value) = Key.COOKIES.setStringSet(value)
 
-    private enum class Key {
-        AUTH_TOKEN, COOKIES;
+    var cartProductsBarcodes: HashSet<Int>?
+        get() = convertStringHashSetToIntegerHashSet(Key.CART_PRODUCTS_BARCODES.getStringSet())
+        set(value) = Key.CART_PRODUCTS_BARCODES.setStringSet(convertIntHashSetToStringHashSet(value))
+
+    enum class Key {
+        AUTH_TOKEN, COOKIES, CART_PRODUCTS_BARCODES;
 
         fun getBoolean(): Boolean? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getBoolean(name, false) else null
         fun getFloat(): Float? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getFloat(name, 0f) else null
@@ -38,5 +42,25 @@ object AppPreferences {
         fun setStringSet(value: HashSet<String>?) = value?.let { sharedPreferences!!.edit { putStringSet(name, value) } } ?: remove()
 
         fun remove() = sharedPreferences!!.edit { remove(name) }
+    }
+
+    private fun convertStringHashSetToIntegerHashSet(hashSet: HashSet<String>?): HashSet<Int> {
+        val intHashSet: HashSet<Int> = HashSet()
+        if (hashSet != null) {
+            for (string: String in hashSet) {
+                intHashSet.add(string.toInt())
+            }
+        }
+        return intHashSet
+    }
+
+    private fun convertIntHashSetToStringHashSet(hashSet: HashSet<Int>?): HashSet<String> {
+        val stringHashSet: HashSet<String> = HashSet()
+        if (hashSet != null) {
+            for (int: Int in hashSet) {
+                stringHashSet.add(int.toString())
+            }
+        }
+        return stringHashSet
     }
 }
