@@ -6,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.CartFragmentBinding
 import pl.sokols.watmerch.ui.cart.adapters.CartListAdapter
 import pl.sokols.watmerch.ui.cart.adapters.OnItemClickListener
+import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 
 class CartFragment : Fragment() {
@@ -38,11 +37,23 @@ class CartFragment : Fragment() {
 
     private fun initComponents() {
         viewModel.getSharedPreferencesLiveData().observe(viewLifecycleOwner, {
-            lifecycleScope.launch { viewModel.updateProducts() }
-        })
-        viewModel.products.observe(viewLifecycleOwner, {
-            binding.cartRecyclerView.adapter =
-                CartListAdapter(it, deleteListener)
+            viewModel.updateProducts().observe(viewLifecycleOwner, {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            binding.cartProgressIndicator.visibility = View.INVISIBLE
+                            binding.cartRecyclerView.adapter =
+                                CartListAdapter(resource.data!!, deleteListener)
+                        }
+                        Status.ERROR -> {
+                            binding.cartProgressIndicator.visibility = View.INVISIBLE
+                        }
+                        Status.LOADING -> {
+                            binding.cartProgressIndicator.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            })
         })
     }
 

@@ -43,9 +43,7 @@ class MainFragment : Fragment() {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         binding.mainProgressIndicator.visibility = INVISIBLE
-                        val merchListAdapter =
-                            ProductListAdapter(resource.data)
-                        binding.mainRecyclerView.adapter = merchListAdapter
+                        binding.mainRecyclerView.adapter = ProductListAdapter(resource.data)
                     }
                     Status.ERROR -> {
                         binding.mainProgressIndicator.visibility = INVISIBLE
