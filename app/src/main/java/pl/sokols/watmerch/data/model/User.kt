@@ -16,7 +16,7 @@ data class User(
             this(
                 id = Int.MIN_VALUE,
                 email = email,
-                enabled = false,
+                enabled = true,
                 password= password,
                 username = username,
                 billingAddress = null,

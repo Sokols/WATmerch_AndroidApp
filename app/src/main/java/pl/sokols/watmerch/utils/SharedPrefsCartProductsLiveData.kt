@@ -1,18 +1,17 @@
 package pl.sokols.watmerch.utils
 
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.LiveData
 
-class SharedPreferenceLiveData(private val sharedPreferences: SharedPreferences) :
+class SharedPrefsCartProductsLiveData(private val sharedPreferences: SharedPreferences) :
     LiveData<HashSet<Int>>() {
 
-    private val KEY = AppPreferences.Key.CART_PRODUCTS_BARCODES.toString()
+    private val CART_PRODUCTS_KEY = AppPreferences.Key.CART_PRODUCTS_BARCODES.toString()
 
     private val mTokenSharedPreferenceListener =
         SharedPreferences.OnSharedPreferenceChangeListener { _: SharedPreferences?, key: String? ->
             when (key) {
-                KEY -> value = AppPreferences.cartProductsBarcodes
+                CART_PRODUCTS_KEY -> value = AppPreferences.cartProductsBarcodes
             }
         }
 

@@ -44,10 +44,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.registerFragment -> getString(R.string.registing_page)
                 else -> getString(R.string.blank)
             }
+            // show search menu item if fragment is main
             binding.topAppBar.menu.findItem(R.id.search).isVisible =
                 navDestination.id == R.id.mainFragment
-            binding.topAppBar.menu.findItem(R.id.deleteAll).isVisible =
-                navDestination.id == R.id.cartFragment
         }
 
         // set top bar onClick listeners

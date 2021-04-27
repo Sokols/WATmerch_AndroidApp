@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import pl.sokols.watmerch.BR
 import pl.sokols.watmerch.BasicApp
@@ -15,10 +16,6 @@ import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 
 class RegisterFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = RegisterFragment()
-    }
 
     private val viewModel: RegisterViewModel by viewModels {
         RegisterViewModelFactory(requireActivity().application as BasicApp)
@@ -49,19 +46,32 @@ class RegisterFragment : Fragment() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            Utils.getSnackbar(binding.root, "SUCCESS", requireActivity()).show()
+                            binding.registerProgressIndicator.visibility = View.INVISIBLE
                         }
                         Status.ERROR -> {
-                            Utils.getSnackbar(binding.root, resource.message.toString(), requireActivity()).show()
+                            binding.registerProgressIndicator.visibility = View.INVISIBLE
+                            Utils.getSnackbar(
+                                binding.root,
+                                resource.message.toString(),
+                                requireActivity()
+                            ).show()
                         }
                         Status.LOADING -> {
-                            Utils.getSnackbar(binding.root, "LOADING", requireActivity()).show()
+                            binding.registerProgressIndicator.visibility = View.VISIBLE
                         }
                     }
                 }
             })
         }
-        binding.viewModel?.errorMessage?.observe(viewLifecycleOwner, {
+
+        viewModel.isLoggedIn.observe(viewLifecycleOwner, { isLoggedIn ->
+            if (isLoggedIn) {
+                Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_registerFragment_to_accountFragment)
+            }
+        })
+
+        viewModel.errorMessage.observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {
                 Utils.getSnackbar(binding.root, it, requireActivity()).show()
             }

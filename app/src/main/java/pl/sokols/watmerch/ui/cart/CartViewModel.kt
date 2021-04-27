@@ -1,7 +1,6 @@
 package pl.sokols.watmerch.ui.cart
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
@@ -13,14 +12,14 @@ import pl.sokols.watmerch.data.remote.services.ProductService
 import pl.sokols.watmerch.data.repository.ProductRepository
 import pl.sokols.watmerch.utils.AppPreferences
 import pl.sokols.watmerch.utils.Resource
-import pl.sokols.watmerch.utils.SharedPreferenceLiveData
+import pl.sokols.watmerch.utils.SharedPrefsCartProductsLiveData
 
 class CartViewModel(
     private val repository: ProductRepository,
-    private val sharedPreferenceLiveData: SharedPreferenceLiveData
+    private val sharedPrefsCartProductsLiveData: SharedPrefsCartProductsLiveData
 ) : ViewModel() {
 
-    fun getSharedPreferencesLiveData() = sharedPreferenceLiveData
+    fun getSharedPreferencesLiveData() = sharedPrefsCartProductsLiveData
 
     fun updateProducts() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
@@ -58,7 +57,7 @@ class CartViewModelFactory(private val basicApp: BasicApp) : ViewModelProvider.F
             @Suppress("UNCHECKED_CAST")
             val productService = basicApp.retrofit.createService(ProductService::class.java)
             val sharedPreferenceLiveData =
-                SharedPreferenceLiveData(AppPreferences.sharedPreferences!!)
+                SharedPrefsCartProductsLiveData(AppPreferences.sharedPreferences!!)
             return CartViewModel(ProductRepository(productService), sharedPreferenceLiveData) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
