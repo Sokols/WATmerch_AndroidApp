@@ -7,9 +7,8 @@ import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.data.model.request.LoginRequest
-import pl.sokols.watmerch.data.model.response.LoginResponse
+import pl.sokols.watmerch.data.model.response.UserResponse
 import pl.sokols.watmerch.data.remote.services.UserService
-import pl.sokols.watmerch.data.repository.ProductRepository
 import pl.sokols.watmerch.data.repository.UserRepository
 import pl.sokols.watmerch.utils.Resource
 
@@ -28,7 +27,7 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
         }
     }
 
-    fun onClickButton(): LiveData<Resource<LoginResponse>> {
+    fun onClickButton(): LiveData<Resource<UserResponse>> {
         return loginUser()
     }
 }

@@ -36,4 +36,5 @@
     <string name="cancel">ANULUJ</string>
     <string name="removed_from_cart">Usunięto z koszyka</string>
     <string name="already_in_cart">Produkt jest już w koszyku!</string>
+    <string name="different_passwords">Hasła nie są identyczne!</string>
 </resources>
