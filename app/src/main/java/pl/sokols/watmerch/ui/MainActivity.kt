@@ -2,6 +2,8 @@ package pl.sokols.watmerch.ui
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
@@ -21,7 +23,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.topAppBar)
         setNavigationAndMenu()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.top_app_bar, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        super.onOptionsItemSelected(item)
+        when (item.itemId) {
+            R.id.changeTheme -> {
+                when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                    Configuration.UI_MODE_NIGHT_YES ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    Configuration.UI_MODE_NIGHT_NO ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+            }
+        }
+        return true
     }
 
     private fun setNavigationAndMenu() {
@@ -36,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         // set search menu item for main fragment
         // set menu title
         findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { _: NavController, navDestination: NavDestination, _: Bundle? ->
-            binding.topAppBar.title = when (navDestination.id) {
+            title = when (navDestination.id) {
                 R.id.mainFragment -> getString(R.string.main_page)
                 R.id.cartFragment -> getString(R.string.cart_page)
                 R.id.productFragment -> getString(R.string.product_description)
@@ -44,29 +67,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.loginFragment -> getString(R.string.logging_page)
                 R.id.registerFragment -> getString(R.string.registing_page)
                 else -> getString(R.string.blank)
-            }
-            // show search menu item if fragment is main
-            binding.topAppBar.menu.findItem(R.id.search).isVisible =
-                navDestination.id == R.id.mainFragment
-        }
-
-        // set top bar onClick listeners
-        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.changeTheme -> {
-                    when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                        Configuration.UI_MODE_NIGHT_YES ->
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                        Configuration.UI_MODE_NIGHT_NO ->
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    }
-                    true
-                }
-                R.id.more -> {
-                    // Handle more item (inside overflow menu) press
-                    true
-                }
-                else -> false
             }
         }
     }

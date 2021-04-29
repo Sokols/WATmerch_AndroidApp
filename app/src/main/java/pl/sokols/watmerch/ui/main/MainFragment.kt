@@ -1,11 +1,10 @@
 package pl.sokols.watmerch.ui.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
+import android.view.*
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
-import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.chip.Chip
@@ -18,14 +17,20 @@ import pl.sokols.watmerch.utils.Status
 
 class MainFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(requireActivity().application as BasicApp)
     }
     private lateinit var binding: MainFragmentBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        setSearch(menu.findItem(R.id.search))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,15 +85,38 @@ class MainFragment : Fragment() {
 
     private fun setCategories(data: List<Category>?) {
         if (data != null) {
-            for (category: Category in data) {
+            val newList = data.toMutableList()
+            newList.add(0, Category(0, getString(R.string.all)))
+            for (category: Category in newList) {
                 val mChip: Chip =
                     layoutInflater.inflate(R.layout.category_chip, null, false) as Chip
                 mChip.text = category.name
                 mChip.setOnCheckedChangeListener { _, isChecked ->
                     viewModel.updateCategory(category, isChecked)
                 }
+                if (category.id == 0) {
+                    mChip.isChecked = true
+                }
                 binding.categoriesChipGroup.addView(mChip)
             }
         }
     }
+
+    private fun setSearch(search: MenuItem?) {
+        if (search != null) {
+            search.isVisible = true
+            (search.actionView as SearchView).setOnQueryTextListener(object :
+                SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    viewModel.updateSearch(newText)
+                    return false
+                }
+            })
+        }
+    }
+
 }

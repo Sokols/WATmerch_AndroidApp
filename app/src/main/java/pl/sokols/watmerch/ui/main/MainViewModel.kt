@@ -43,15 +43,25 @@ class MainViewModel(
         }
     }
 
-    fun updateCategory(category: Category, isAdding: Boolean) {
-        if (isAdding) {
-            options["category"] = category.id.toString()
+    fun updateCategory(category: Category, isChecked: Boolean) {
+        if (isChecked) {
+            if (category.id != 0) {
+                options["category"] = category.id.toString()
+            } else {
+                options.remove("category")
+            }
+            updated.value = true
+        }
+    }
+
+    fun updateSearch(query: String) {
+        if (query.isNotEmpty()) {
+            options["contains"] = query
         } else {
-            options.remove("category")
+            options.remove("contains")
         }
         updated.value = true
     }
-
 }
 
 class MainViewModelFactory(private val basicApp: BasicApp) : ViewModelProvider.Factory {

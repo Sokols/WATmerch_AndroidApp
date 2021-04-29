@@ -41,4 +41,7 @@
     <string name="add">Dodaj</string>
     <string name="product_description">Opis produktu</string>
     <string name="description">Opis</string>
+    <string name="all">Wszystko</string>
+    <string name="product_details">Szczegóły produktu</string>
+    <string name="no_match_found">Brak wyników</string>
 </resources>
