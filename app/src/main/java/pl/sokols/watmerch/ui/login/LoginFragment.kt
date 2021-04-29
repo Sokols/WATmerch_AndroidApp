@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import com.google.android.material.snackbar.Snackbar
 import pl.sokols.watmerch.BR
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
@@ -16,10 +15,6 @@ import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 
 class LoginFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = LoginFragment()
-    }
 
     private val viewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(requireActivity().application as BasicApp)
@@ -41,28 +36,39 @@ class LoginFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.goToRegisterFromLoginTextView.setOnClickListener { view ->
-            Navigation.findNavController(view)
+        viewModel.isLoggedIn.observe(viewLifecycleOwner, { isLoggedIn ->
+            if (isLoggedIn) {
+                Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_loginFragment_to_accountFragment)
+            }
+        })
+
+        binding.goToRegisterFromLoginTextView.setOnClickListener {
+            Navigation.findNavController(binding.root)
                 .navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
         binding.loginButton.setOnClickListener {
-            viewModel.onClickButton().observe(requireActivity(), {
+            viewModel.onClickButton().observe(viewLifecycleOwner, {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            Utils.getSnackbar(binding.root, "SUCCESS", requireActivity()).show()
+                            binding.loginProgressIndicator.visibility = View.INVISIBLE
                         }
                         Status.ERROR -> {
-                            Utils.getSnackbar(binding.root, "ERROR", requireActivity()).show()
+                            binding.loginProgressIndicator.visibility = View.INVISIBLE
+                            Utils.getSnackbar(
+                                binding.root,
+                                resource.message.toString(),
+                                requireActivity()
+                            ).show()
                         }
                         Status.LOADING -> {
-                            Utils.getSnackbar(binding.root, "LOADING", requireActivity()).show()
+                            binding.loginProgressIndicator.visibility = View.VISIBLE
                         }
                     }
                 }
             })
-
         }
     }
 }

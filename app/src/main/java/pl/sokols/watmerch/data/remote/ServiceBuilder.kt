@@ -14,21 +14,17 @@ class ServiceBuilder {
 
     private val URL = "http://10.0.2.2:8081/"
 
-    private val httpClient: OkHttpClient.Builder = let {
-        val builder = OkHttpClient.Builder()
-        val authToken: String? = AppPreferences.authToken
-        if (authToken != null) {
-            builder.addInterceptor(AuthInterceptor(authToken))
-        }
-        builder.addInterceptor(AddCookiesInterceptor())
-            .addInterceptor(ReceivedCookiesInterceptor())
-    }
+    private var httpClient: OkHttpClient.Builder = prepareClient()
 
-    private val builder: Retrofit.Builder = Retrofit.Builder()
-        .baseUrl(URL)
-        .addConverterFactory(GsonConverterFactory.create())
+    private var builder: Retrofit.Builder = prepareBuilder()
 
     private var retrofit: Retrofit = builder.build()
+
+    fun updateRetrofit() {
+        httpClient = prepareClient()
+        builder = prepareBuilder()
+        retrofit = builder.build()
+    }
 
     fun <S> createService(serviceClass: Class<S>): S {
         return createService(serviceClass, null, null)
@@ -60,4 +56,20 @@ class ServiceBuilder {
         return retrofit.create(serviceClass)
     }
 
+    private fun prepareClient(): OkHttpClient.Builder {
+        val builder = OkHttpClient.Builder()
+        val authToken: String? = AppPreferences.authToken
+        if (authToken != null) {
+            builder.addInterceptor(AuthInterceptor(authToken))
+        }
+        return builder.addInterceptor(AddCookiesInterceptor())
+            .addInterceptor(ReceivedCookiesInterceptor())
+    }
+
+    private fun prepareBuilder(): Retrofit.Builder {
+        return Retrofit.Builder()
+            .baseUrl(URL)
+            .client(httpClient.build())
+            .addConverterFactory(GsonConverterFactory.create())
+    }
 }

@@ -12,17 +12,17 @@ data class User(
     val userDetails: UserDetails?,
     val creditCards: List<CreditCard>?
 ) {
-    constructor(email: String, enabled: Boolean, password: String, username: String) :
+    constructor(email: String, password: String, username: String) :
             this(
-                Int.MIN_VALUE,
-                email,
-                enabled,
-                password,
-                username,
-                null,
-                null,
-                null,
-                null,
-                ArrayList<CreditCard>()
+                id = Int.MIN_VALUE,
+                email = email,
+                enabled = true,
+                password= password,
+                username = username,
+                billingAddress = null,
+                role = null,
+                shippingAddress = null,
+                userDetails = null,
+                creditCards = ArrayList<CreditCard>()
             )
 }

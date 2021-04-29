@@ -5,14 +5,14 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="white">#FFFFFFFF</color>
 
     <!--App colors-->
     <color name="wat_green">#13583a</color>
     <color name="wat_red">#E30039</color>
     <color name="wat_red_off">#6C021C</color>
     <color name="black">#FF000000</color>
-    <color name="foreground_first">#F0F0F0</color>
+    <color name="white">#DCDCDC</color>
+    <color name="foreground_first">#C6C6C6</color>
     <color name="foreground_second">#777777</color>
     <color name="background_first">#1C1C1C</color>
     <color name="background_second">#171717</color>

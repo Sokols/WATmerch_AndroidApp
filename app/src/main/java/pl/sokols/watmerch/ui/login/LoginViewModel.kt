@@ -1,34 +1,35 @@
 package pl.sokols.watmerch.ui.login
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
+import android.util.Log
+import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.data.model.request.LoginRequest
-import pl.sokols.watmerch.data.model.response.LoginResponse
+import pl.sokols.watmerch.data.model.response.UserResponse
 import pl.sokols.watmerch.data.remote.services.UserService
-import pl.sokols.watmerch.data.repository.ProductRepository
 import pl.sokols.watmerch.data.repository.UserRepository
+import pl.sokols.watmerch.utils.AppPreferences
 import pl.sokols.watmerch.utils.Resource
 
 class LoginViewModel(private val repository: UserRepository) : ViewModel() {
 
+    val isLoggedIn: MutableLiveData<Boolean> by lazy { MutableLiveData(AppPreferences.authToken != null) }
     var username: String = ""
     var password: String = ""
 
-    private fun loginUser() = liveData(Dispatchers.IO) {
+    private fun loginUser() = liveData(Dispatchers.Main) {
         emit(Resource.loading(data = null))
         try {
             emit(Resource.success(data = repository.loginUser(LoginRequest(username, password))))
-            repository.updateClient(username, password)
+            repository.loginRetrofit(username, password)
+            isLoggedIn.value = true
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            Log.d("ERROR", exception.message.toString())
         }
     }
 
-    fun onClickButton(): LiveData<Resource<LoginResponse>> {
+    fun onClickButton(): LiveData<Resource<UserResponse>> {
         return loginUser()
     }
 }

@@ -3,9 +3,9 @@ package pl.sokols.watmerch.ui.cart.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.OrderItemBinding
+import pl.sokols.watmerch.utils.Utils
 
 class CartListAdapter(
     private val dataSet: List<Product>,
@@ -15,13 +15,16 @@ class CartListAdapter(
     inner class CartListViewHolder(private val binding: OrderItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        private var amount: String = "1"
+
         fun bind(
             product: Product,
             deleteListener: OnItemClickListener
         ) {
-            binding.titleOrderItem.text = product.name
-            binding.priceOrderItem.text =
-                String.format(itemView.context.getString(R.string.price), product.price)
+            binding.product = product
+            binding.amount = amount
+
+            binding.imageCartImageView.setImageBitmap(Utils.getBitmapFromString(product.basicDetails?.logoImage))
 
             binding.deleteOrderImageView.setOnClickListener {
                 deleteListener.onClick(product)

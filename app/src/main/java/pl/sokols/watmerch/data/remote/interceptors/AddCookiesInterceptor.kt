@@ -9,7 +9,6 @@ import pl.sokols.watmerch.utils.AppPreferences
 class AddCookiesInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-
         val builder: Request.Builder = chain.request().newBuilder()
         val preferences: HashSet<String>? = AppPreferences.cookies
         if (preferences != null) {
@@ -18,7 +17,6 @@ class AddCookiesInterceptor : Interceptor {
                 builder.addHeader("Cookie", cookie)
             }
         }
-
         return chain.proceed(builder.build())
     }
 }

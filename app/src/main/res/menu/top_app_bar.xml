@@ -7,26 +7,13 @@
         android:title="@string/search"
         android:contentDescription="@string/search_description"
         android:visible="false"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/deleteAll"
-        android:icon="@drawable/ic_baseline_delete_forever_24"
-        android:title="@string/delete_all"
-        android:contentDescription="@string/delete_all"
-        android:visible="false"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     <item
         android:id="@+id/changeTheme"
         android:icon="@drawable/ic_baseline_brightness_6_24"
         android:title="@string/changeTheme"
         android:contentDescription="@string/changeTheme"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/more"
-        android:title="@string/more"
-        android:contentDescription="@string/more"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 </menu>

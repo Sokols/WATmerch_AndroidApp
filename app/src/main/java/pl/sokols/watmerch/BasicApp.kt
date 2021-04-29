@@ -12,8 +12,4 @@ class BasicApp : Application() {
         super.onCreate()
         AppPreferences.setup(applicationContext)
     }
-
-    companion object {
-        val instance = BasicApp()
-    }
 }
