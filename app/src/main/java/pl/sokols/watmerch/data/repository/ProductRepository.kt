@@ -6,10 +6,7 @@ import pl.sokols.watmerch.data.remote.services.ProductService
 class ProductRepository(
     private val productService: ProductService
 ) {
-
-    suspend fun getCategories() = productService.getCategories()
-
-    suspend fun getProducts() = productService.getProducts()
+    suspend fun getProducts(options: Map<String, String>) = productService.getProducts(options)
 
     suspend fun getProductByBarcode(barcode: Int) = productService.getProductByBarcode(barcode)
 }

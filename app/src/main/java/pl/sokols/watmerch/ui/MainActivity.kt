@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             binding.topAppBar.title = when (navDestination.id) {
                 R.id.mainFragment -> getString(R.string.main_page)
                 R.id.cartFragment -> getString(R.string.cart_page)
+                R.id.productFragment -> getString(R.string.product_description)
                 R.id.accountFragment -> getString(R.string.account_page)
                 R.id.loginFragment -> getString(R.string.logging_page)
                 R.id.registerFragment -> getString(R.string.registing_page)

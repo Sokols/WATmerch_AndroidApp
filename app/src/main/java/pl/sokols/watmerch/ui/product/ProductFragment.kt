@@ -11,13 +11,10 @@ import pl.sokols.watmerch.BR
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.databinding.ProductFragmentBinding
+import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 
 class ProductFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = ProductFragment()
-    }
 
     private val viewModel: ProductViewModel by viewModels {
         ProductViewModelFactory(requireActivity().application as BasicApp)
@@ -40,13 +37,26 @@ class ProductFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.getProductByBarcode(barcode)
-            .observe(viewLifecycleOwner, {
-                binding.setVariable(BR.product, it.data)
-            })
+        viewModel.getProductByBarcode(barcode).observe(requireActivity(), {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        binding.productProgressIndicator.visibility = View.INVISIBLE
+                        binding.setVariable(BR.product, it.data)
+                        binding.productImageView.setImageBitmap(Utils.getBitmapFromString(it.data?.basicDetails?.logoImage))
+                    }
+                    Status.ERROR -> {
+                        binding.productProgressIndicator.visibility = View.INVISIBLE
+                    }
+                    Status.LOADING -> {
+                        binding.productProgressIndicator.visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
+
         binding.addToCartProductButton.setOnClickListener {
             if (!viewModel.isProductInCartAlready(barcode)) {
-                findNavController().navigate(R.id.action_productFragment_to_mainFragment)
                 Utils.getSnackbar(
                     binding.root,
                     getString(R.string.added_to_cart),
@@ -59,6 +69,7 @@ class ProductFragment : Fragment() {
                     requireActivity()
                 ).show()
             }
+            findNavController().navigate(R.id.action_productFragment_to_mainFragment)
         }
     }
 }

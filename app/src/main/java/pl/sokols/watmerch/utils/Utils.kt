@@ -1,9 +1,12 @@
 package pl.sokols.watmerch.utils
 
 import android.app.Activity
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import pl.sokols.watmerch.R
+import java.util.*
 
 class Utils {
 
@@ -19,6 +22,11 @@ class Utils {
             )
             snackbar.anchorView = activity.findViewById(R.id.bottom_navigation)
             return snackbar
+        }
+
+        fun getBitmapFromString(string: String?): Bitmap? {
+            val imageBytes = Base64.getDecoder().decode(string)
+            return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
         }
     }
 

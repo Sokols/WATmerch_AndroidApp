@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="BottomNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
         <item name="android:background">?attr/colorPrimaryVariant</item>
         <item name="itemBackground">?attr/colorPrimaryVariant</item>
@@ -23,5 +24,22 @@
     <style name="DefaultButtonStyle" parent="Widget.AppCompat.Button.Colored">
         <item name="android:background">@drawable/default_button_shape</item>
         <item name="backgroundTint">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="CartButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="iconTint">?attr/colorPrimary</item>
+        <item name="backgroundTint">?attr/colorOnPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/bg_chip_state_list</item>
+        <item name="android:textColor">@color/text_chip_state_list</item>
+        <item name="android:checkable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

@@ -17,13 +17,14 @@ class ProductListAdapter(
     inner class MerchListViewHolder(private val binding: ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
-            binding.titleProductItemTextView.text = product.name
-            binding.priceProductItemTextView.text =
-                String.format(itemView.context.getString(R.string.price), product.price)
+            binding.product = product
+
+            binding.imageProductImageView.setImageBitmap(Utils.getBitmapFromString(product.basicDetails?.logoImage))
 
             binding.productItemCardView.setOnClickListener { view ->
                 val bundle = bundleOf(Utils.PRODUCT_BARCODE to product.barcode)
-                view.findNavController().navigate(R.id.action_mainFragment_to_productFragment, bundle)
+                view.findNavController()
+                    .navigate(R.id.action_mainFragment_to_productFragment, bundle)
             }
         }
     }

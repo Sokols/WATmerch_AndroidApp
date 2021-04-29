@@ -38,4 +38,7 @@
     <string name="already_in_cart">Produkt jest już w koszyku!</string>
     <string name="different_passwords">Hasła nie są identyczne!</string>
     <string name="log_out">WYLOGUJ SIĘ</string>
+    <string name="add">Dodaj</string>
+    <string name="product_description">Opis produktu</string>
+    <string name="description">Opis</string>
 </resources>

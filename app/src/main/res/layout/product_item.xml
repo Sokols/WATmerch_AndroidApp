@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="product"
+            type="pl.sokols.watmerch.data.model.Product" />
+    </data>
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/productItemCardView"
         android:layout_width="match_parent"
@@ -22,11 +28,11 @@
             android:padding="8dp">
 
             <ImageView
+                android:id="@+id/imageProductImageView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/image_size"
                 android:contentDescription="@string/logo"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_logo" />
+                android:scaleType="fitCenter" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,7 +44,7 @@
                     android:id="@+id/titleProductItemTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/test"
+                    android:text="@{product.name}"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="24sp" />
 
@@ -47,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/price"
+                    android:text="@{String.format(@string/price, product.price)}"
                     android:textColor="?attr/colorOnSecondary"
                     android:textSize="16sp" />
             </LinearLayout>
