@@ -24,8 +24,16 @@ object AppPreferences {
         get() = convertStringHashSetToIntegerHashSet(Key.CART_PRODUCTS_BARCODES.getStringSet())
         set(value) = Key.CART_PRODUCTS_BARCODES.setStringSet(convertIntHashSetToStringHashSet(value))
 
+    var userUsername: String?
+        get() = Key.USER_USERNAME.getString()
+        set(value) = Key.USER_USERNAME.setString(value)
+
+    var userPassword: String?
+        get() = Key.USER_PASSWORD.getString()
+        set(value) = Key.USER_PASSWORD.setString(value)
+
     enum class Key {
-        AUTH_TOKEN, COOKIES, CART_PRODUCTS_BARCODES;
+        AUTH_TOKEN, COOKIES, CART_PRODUCTS_BARCODES, USER_USERNAME, USER_PASSWORD;
 
         fun getBoolean(): Boolean? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getBoolean(name, false) else null
         fun getFloat(): Float? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getFloat(name, 0f) else null

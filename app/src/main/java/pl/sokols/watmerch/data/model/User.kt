@@ -25,4 +25,18 @@ data class User(
                 userDetails = null,
                 creditCards = ArrayList<CreditCard>()
             )
+
+    constructor(password: String, username: String) :
+            this(
+                id = Int.MIN_VALUE,
+                email = "",
+                enabled = true,
+                password= password,
+                username = username,
+                billingAddress = null,
+                role = null,
+                shippingAddress = null,
+                userDetails = null,
+                creditCards = ArrayList<CreditCard>()
+            )
 }

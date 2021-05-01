@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.OrderItemBinding
+import pl.sokols.watmerch.utils.OnItemClickListener
 import pl.sokols.watmerch.utils.Utils
 
 class CartListAdapter(

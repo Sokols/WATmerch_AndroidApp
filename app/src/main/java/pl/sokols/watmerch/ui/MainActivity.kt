@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.accountFragment -> getString(R.string.account_page)
                 R.id.loginFragment -> getString(R.string.logging_page)
                 R.id.registerFragment -> getString(R.string.registing_page)
+                R.id.userFragment -> getString(R.string.user_page)
                 else -> getString(R.string.blank)
             }
         }

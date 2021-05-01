@@ -6,6 +6,7 @@
     <string name="main">Main</string>
     <string name="cart_page">Koszyk</string>
     <string name="email">E-mail</string>
+    <string name="user_email">Email: %1$s</string>
     <string name="password">Hasło</string>
     <string name="sign_in">Zaloguj</string>
     <string name="register_now">Nie masz jeszcze konta? Zarejestruj się!</string>
@@ -44,4 +45,7 @@
     <string name="all">Wszystko</string>
     <string name="product_details">Szczegóły produktu</string>
     <string name="no_match_found">Brak wyników</string>
+    <string name="avatar_description">Avatar użytkownika</string>
+    <string name="go_forward_button_description">Przycisk przejścia dalej</string>
+    <string name="user_page">Dane użytkownika</string>
 </resources>

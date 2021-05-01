@@ -65,7 +65,7 @@ class MainFragment : Fragment() {
             })
         })
 
-        viewModel.getCategories().observe(requireActivity(), {
+        viewModel.getCategories().observe(viewLifecycleOwner, {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {

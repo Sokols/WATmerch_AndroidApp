@@ -11,7 +11,7 @@ import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.CartFragmentBinding
 import pl.sokols.watmerch.ui.cart.adapters.CartListAdapter
-import pl.sokols.watmerch.ui.cart.adapters.OnItemClickListener
+import pl.sokols.watmerch.utils.OnItemClickListener
 import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 
@@ -58,14 +58,14 @@ class CartFragment : Fragment() {
     }
 
     private val deleteListener = object : OnItemClickListener {
-        override fun onClick(product: Product) {
-            viewModel.delete(product)
+        override fun onClick(item: Any) {
+            viewModel.delete(item as Product)
             Utils.getSnackbar(
                 binding.root,
                 getString(R.string.removed_from_cart),
                 requireActivity()
             ).setAction(R.string.cancel) {
-                viewModel.insert(product)
+                viewModel.insert(item as Product)
             }.show()
         }
     }
