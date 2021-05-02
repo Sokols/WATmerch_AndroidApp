@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.BR
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
@@ -14,11 +15,10 @@ import pl.sokols.watmerch.databinding.ProductFragmentBinding
 import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 
+@AndroidEntryPoint
 class ProductFragment : Fragment() {
 
-    private val viewModel: ProductViewModel by viewModels {
-        ProductViewModelFactory(requireActivity().application as BasicApp)
-    }
+    private val viewModel: ProductViewModel by viewModels()
     private lateinit var binding: ProductFragmentBinding
     private var barcode: Int = 0
 

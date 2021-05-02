@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.databinding.UserFragmentBinding
 import pl.sokols.watmerch.utils.Status
 
+@AndroidEntryPoint
 class UserFragment : Fragment() {
 
-    private val viewModel: UserViewModel by viewModels {
-        UserViewModelFactory(requireActivity().application as BasicApp)
-    }
+    private val viewModel: UserViewModel by viewModels()
     private lateinit var binding: UserFragmentBinding
 
     override fun onCreateView(
@@ -52,6 +52,5 @@ class UserFragment : Fragment() {
 
     private fun setUi(user: User?) {
         binding.user = user
-
     }
 }

@@ -4,19 +4,23 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.data.model.Product
-import pl.sokols.watmerch.data.remote.services.ProductService
+import pl.sokols.watmerch.data.remote.services.product.ProductService
 import pl.sokols.watmerch.data.repository.ProductRepository
 import pl.sokols.watmerch.utils.AppPreferences
 import pl.sokols.watmerch.utils.Resource
 import pl.sokols.watmerch.utils.SharedPrefsCartProductsLiveData
+import javax.inject.Inject
 
-class CartViewModel(
+@HiltViewModel
+class CartViewModel @Inject constructor(
     private val repository: ProductRepository,
-    private val sharedPrefsCartProductsLiveData: SharedPrefsCartProductsLiveData
+    private val sharedPrefsCartProductsLiveData: SharedPrefsCartProductsLiveData,
+    private val prefs: AppPreferences
 ) : ViewModel() {
 
     fun getSharedPreferencesLiveData() = sharedPrefsCartProductsLiveData
@@ -25,7 +29,7 @@ class CartViewModel(
         emit(Resource.loading(data = null))
         try {
             emit(Resource.success(data = coroutineScope {
-                val productsHashSet = AppPreferences.cartProductsBarcodes
+                val productsHashSet = prefs.cartProductsBarcodes
                 val productList: MutableList<Product> = arrayListOf()
                 for (barcode: Int in productsHashSet!!) {
                     productList.add(repository.getProductByBarcode(barcode))
@@ -39,27 +43,14 @@ class CartViewModel(
     }
 
     fun delete(product: Product) {
-        val barcodes = AppPreferences.cartProductsBarcodes
+        val barcodes = prefs.cartProductsBarcodes
         barcodes!!.remove(product.barcode)
-        AppPreferences.cartProductsBarcodes = barcodes
+        prefs.cartProductsBarcodes = barcodes
     }
 
     fun insert(product: Product) {
-        val barcodes = AppPreferences.cartProductsBarcodes
+        val barcodes = prefs.cartProductsBarcodes
         barcodes!!.add(product.barcode)
-        AppPreferences.cartProductsBarcodes = barcodes
-    }
-}
-
-class CartViewModelFactory(private val basicApp: BasicApp) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CartViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            val productService = basicApp.retrofit.createService(ProductService::class.java)
-            val sharedPreferenceLiveData =
-                SharedPrefsCartProductsLiveData(AppPreferences.sharedPreferences!!)
-            return CartViewModel(ProductRepository(productService), sharedPreferenceLiveData) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
+        prefs.cartProductsBarcodes = barcodes
     }
 }

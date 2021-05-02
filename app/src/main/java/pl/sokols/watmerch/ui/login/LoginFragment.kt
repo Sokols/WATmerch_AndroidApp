@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.BR
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
@@ -14,11 +15,10 @@ import pl.sokols.watmerch.databinding.LoginFragmentBinding
 import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
-    private val viewModel: LoginViewModel by viewModels {
-        LoginViewModelFactory(requireActivity().application as BasicApp)
-    }
+    private val viewModel: LoginViewModel by viewModels()
     private lateinit var binding: LoginFragmentBinding
 
     override fun onCreateView(

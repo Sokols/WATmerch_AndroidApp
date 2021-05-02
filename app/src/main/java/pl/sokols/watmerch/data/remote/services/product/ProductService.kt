@@ -1,4 +1,4 @@
-package pl.sokols.watmerch.data.remote.services
+package pl.sokols.watmerch.data.remote.services.product
 
 import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.data.model.response.ProductResponse

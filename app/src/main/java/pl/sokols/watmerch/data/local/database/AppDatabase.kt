@@ -1,10 +1,10 @@
-package pl.sokols.watmerch.data.database
+package pl.sokols.watmerch.data.local.database
 
 //import android.content.Context
 //import androidx.room.Database
 //import androidx.room.Room
 //import androidx.room.RoomDatabase
-//import pl.sokols.watmerch.data.dao.ProductDao
+//import pl.sokols.watmerch.data.local.dao.ProductDao
 //import pl.sokols.watmerch.data.model.Product
 //
 //@Database(entities = [Product::class], version = 1, exportSchema = false)

@@ -1,4 +1,4 @@
-package pl.sokols.watmerch.data.remote.services
+package pl.sokols.watmerch.data.remote.services.user
 
 import pl.sokols.watmerch.data.model.User
 import retrofit2.http.Body

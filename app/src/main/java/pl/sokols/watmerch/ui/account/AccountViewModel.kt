@@ -2,17 +2,20 @@ package pl.sokols.watmerch.ui.account
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.data.model.User
-import pl.sokols.watmerch.data.remote.services.UserService
 import pl.sokols.watmerch.data.repository.UserRepository
 import pl.sokols.watmerch.utils.AppPreferences
 import pl.sokols.watmerch.utils.Resource
+import javax.inject.Inject
 
-class AccountViewModel(private val repository: UserRepository) : ViewModel() {
+@HiltViewModel
+class AccountViewModel @Inject constructor(
+    private val repository: UserRepository,
+    private val prefs: AppPreferences
+) : ViewModel() {
 
     fun getUser() = liveData(Dispatchers.Main) {
         emit(Resource.loading(data = null))
@@ -21,8 +24,8 @@ class AccountViewModel(private val repository: UserRepository) : ViewModel() {
                 Resource.success(
                     data = repository.loginUser(
                         User(
-                            username = AppPreferences.userUsername.toString(),
-                            password = AppPreferences.userPassword.toString()
+                            username = prefs.userUsername.toString(),
+                            password = prefs.userPassword.toString()
                         )
                     )
                 )
@@ -35,16 +38,5 @@ class AccountViewModel(private val repository: UserRepository) : ViewModel() {
 
     fun logout() {
         repository.logoutRetrofit()
-    }
-}
-
-class AccountViewModelFactory(private val basicApp: BasicApp) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(AccountViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            val userService = basicApp.retrofit.createService(UserService::class.java)
-            return AccountViewModel(UserRepository(basicApp.retrofit, userService)) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

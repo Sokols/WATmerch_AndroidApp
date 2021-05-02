@@ -1,29 +1,29 @@
 package pl.sokols.watmerch.data.repository
 
 import pl.sokols.watmerch.data.model.User
-import pl.sokols.watmerch.data.remote.ServiceBuilder
-import pl.sokols.watmerch.data.remote.services.UserService
+import pl.sokols.watmerch.data.remote.services.user.UserHelper
 import pl.sokols.watmerch.utils.AppPreferences
+import javax.inject.Inject
 
-class UserRepository(
-    private val retrofit: ServiceBuilder,
-    private val userService: UserService
+class UserRepository @Inject constructor(
+    private val userHelper: UserHelper,
+    private val prefs: AppPreferences
 ) {
-    suspend fun loginUser(user: User) = userService.loginUser(user)
+    suspend fun loginUser(user: User) = userHelper.loginUser(user)
 
-    suspend fun createUser(user: User) = userService.createUser(user)
+    suspend fun createUser(user: User) = userHelper.createUser(user)
 
     fun loginRetrofit(username: String, password: String) {
-        AppPreferences.userUsername = username
-        AppPreferences.userPassword = password
-        retrofit.createService(UserService::class.java, username, password)
+        prefs.userUsername = username
+        prefs.userPassword = password
+//        retrofit.createService(UserService::class.java, username, password)
     }
 
     fun logoutRetrofit() {
-        AppPreferences.userUsername = null
-        AppPreferences.userPassword = null
-        AppPreferences.authToken = null
-        AppPreferences.cookies = null
-        retrofit.updateRetrofit()
+        prefs.userUsername = null
+        prefs.userPassword = null
+        prefs.authToken = null
+        prefs.cookies = null
+//        retrofit.updateRetrofit()
     }
 }

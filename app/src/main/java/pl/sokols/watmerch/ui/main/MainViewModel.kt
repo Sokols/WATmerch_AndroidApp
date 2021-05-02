@@ -5,17 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.data.model.Category
-import pl.sokols.watmerch.data.remote.services.CategoryService
-import pl.sokols.watmerch.data.remote.services.ProductService
+import pl.sokols.watmerch.data.remote.services.category.CategoryService
+import pl.sokols.watmerch.data.remote.services.product.ProductService
 import pl.sokols.watmerch.data.repository.CategoryRepository
 import pl.sokols.watmerch.data.repository.ProductRepository
 import pl.sokols.watmerch.utils.Resource
+import javax.inject.Inject
 import kotlin.collections.set
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val productRepository: ProductRepository,
     private val categoryRepository: CategoryRepository
 ) : ViewModel() {
@@ -61,20 +64,5 @@ class MainViewModel(
             options.remove("contains")
         }
         updated.value = true
-    }
-}
-
-class MainViewModelFactory(private val basicApp: BasicApp) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            val productService = basicApp.retrofit.createService(ProductService::class.java)
-            val categoryService = basicApp.retrofit.createService(CategoryService::class.java)
-            return MainViewModel(
-                ProductRepository(productService),
-                CategoryRepository(categoryService)
-            ) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

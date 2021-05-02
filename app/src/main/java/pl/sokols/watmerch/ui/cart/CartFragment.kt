@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Product
@@ -15,15 +16,14 @@ import pl.sokols.watmerch.utils.OnItemClickListener
 import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 
+@AndroidEntryPoint
 class CartFragment : Fragment() {
 
     companion object {
         fun newInstance() = CartFragment()
     }
 
-    private val viewModel: CartViewModel by viewModels {
-        CartViewModelFactory(requireActivity().application as BasicApp)
-    }
+    private val viewModel: CartViewModel by viewModels()
     private lateinit var binding: CartFragmentBinding
 
     override fun onCreateView(

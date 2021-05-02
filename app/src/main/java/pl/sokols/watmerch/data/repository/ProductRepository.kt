@@ -1,12 +1,14 @@
 package pl.sokols.watmerch.data.repository
 
 
-import pl.sokols.watmerch.data.remote.services.ProductService
+import pl.sokols.watmerch.data.remote.services.product.ProductHelper
+import pl.sokols.watmerch.data.remote.services.product.ProductService
+import javax.inject.Inject
 
-class ProductRepository(
-    private val productService: ProductService
+class ProductRepository @Inject constructor(
+    private val productHelper: ProductHelper
 ) {
-    suspend fun getProducts(options: Map<String, String>) = productService.getProducts(options)
+    suspend fun getProducts(options: Map<String, String>) = productHelper.getProducts(options)
 
-    suspend fun getProductByBarcode(barcode: Int) = productService.getProductByBarcode(barcode)
+    suspend fun getProductByBarcode(barcode: Int) = productHelper.getProductByBarcode(barcode)
 }

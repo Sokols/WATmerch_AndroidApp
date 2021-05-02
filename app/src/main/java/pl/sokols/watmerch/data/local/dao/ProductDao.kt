@@ -1,8 +1,4 @@
-package pl.sokols.watmerch.data.dao
-
-import androidx.room.*
-import kotlinx.coroutines.flow.Flow
-import pl.sokols.watmerch.data.model.Product
+package pl.sokols.watmerch.data.local.dao
 
 //@Dao
 //interface ProductDao {
