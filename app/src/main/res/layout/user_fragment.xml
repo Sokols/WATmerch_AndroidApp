@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="user"
-            type="pl.sokols.watmerch.data.model.User" />
+            name="viewModel"
+            type="pl.sokols.watmerch.ui.user.UserViewModel" />
     </data>
 
     <ScrollView
@@ -19,6 +19,221 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/titleUserTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="@dimen/default_padding"
+                android:text="@string/user_details"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_margin="@dimen/default_padding"
+                android:background="?attr/colorOnSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleUserTextView" />
+
+            <ImageView
+                android:id="@+id/userPhotoImageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="@dimen/default_padding"
+                android:layout_marginTop="@dimen/default_padding"
+                android:clickable="@{viewModel.isEditable}"
+                android:contentDescription="@string/user_photo_description"
+                android:focusable="@{viewModel.isEditable}"
+                android:focusableInTouchMode="@{viewModel.isEditable}"
+                android:padding="32dp"
+                android:src="@drawable/ic_baseline_add_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/firstNameUserTextInputLayout"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginEnd="@dimen/default_padding"
+                android:clickable="@{viewModel.isEditable}"
+                android:focusable="@{viewModel.isEditable}"
+                android:focusableInTouchMode="@{viewModel.isEditable}"
+                android:hint="@{@string/first_name + '*'}"
+                android:paddingHorizontal="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/userPhotoImageView"
+                app:layout_constraintTop_toBottomOf="@+id/view3">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/firstNameUserEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:text="@={viewModel.firstName}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lastNameUserTextInputLayout"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_padding"
+                android:clickable="@{viewModel.isEditable}"
+                android:focusable="@{viewModel.isEditable}"
+                android:focusableInTouchMode="@{viewModel.isEditable}"
+                android:hint="@{@string/last_name + '*'}"
+                android:paddingHorizontal="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/userPhotoImageView"
+                app:layout_constraintTop_toBottomOf="@+id/firstNameUserTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lastNameUserEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:text="@={viewModel.lastName}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_margin="@dimen/default_padding"
+                android:background="?attr/colorOnSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lastNameUserTextInputLayout" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phoneUserTextInputLayout"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:clickable="@{viewModel.isEditable}"
+                android:focusable="@{viewModel.isEditable}"
+                android:focusableInTouchMode="@{viewModel.isEditable}"
+                android:hint="@{@string/phone_number + '*'}"
+                android:paddingHorizontal="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneNameUserEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:text="@={viewModel.phoneNumber}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/birthDateUserTextInputLayout"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="@{viewModel.isEditable}"
+                android:focusable="@{viewModel.isEditable}"
+                android:hint="@string/birth_date"
+                android:paddingHorizontal="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phoneUserTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/birthDateUserEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:text="@={viewModel.birthDate}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/companyUserTextInputLayout"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="@{viewModel.isEditable}"
+                android:focusable="@{viewModel.isEditable}"
+                android:focusableInTouchMode="@{viewModel.isEditable}"
+                android:hint="@string/company_name"
+                android:paddingHorizontal="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birthDateUserTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/companyUserEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:text="@={viewModel.company}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nipUserTextInputLayout"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="@{viewModel.isEditable}"
+                android:focusable="@{viewModel.isEditable}"
+                android:focusableInTouchMode="@{viewModel.isEditable}"
+                android:hint="@string/nip"
+                android:paddingHorizontal="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/companyUserTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nipUserEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:text="@={viewModel.nip}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveUserButton"
+                style="@style/DefaultButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_horizontal_margin"
+                android:layout_marginEnd="@dimen/default_horizontal_margin"
+                android:text="@string/save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nipUserTextInputLayout" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/goBackUserTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/default_horizontal_margin"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginEnd="@dimen/default_horizontal_margin"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/saveUserButton" />
 
             <ProgressBar
                 android:id="@+id/userProgressIndicator"

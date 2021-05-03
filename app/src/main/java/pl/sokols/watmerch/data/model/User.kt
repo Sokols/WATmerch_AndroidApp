@@ -6,11 +6,11 @@ data class User(
     val enabled: Boolean,
     val password: String,
     val username: String,
-    val billingAddress: Address?,
-    val role: Role?,
-    val shippingAddress: Address?,
-    val userDetails: UserDetails?,
-    val creditCards: List<CreditCard>?
+    var billingAddress: Address?,
+    var role: Role?,
+    var shippingAddress: Address?,
+    var userDetails: UserDetails?,
+    var creditCards: List<CreditCard>?
 ) {
     constructor(email: String, password: String, username: String) :
             this(
@@ -22,7 +22,7 @@ data class User(
                 billingAddress = null,
                 role = null,
                 shippingAddress = null,
-                userDetails = null,
+                userDetails = UserDetails(),
                 creditCards = ArrayList<CreditCard>()
             )
 
@@ -36,7 +36,7 @@ data class User(
                 billingAddress = null,
                 role = null,
                 shippingAddress = null,
-                userDetails = null,
+                userDetails = UserDetails(),
                 creditCards = ArrayList<CreditCard>()
             )
 }

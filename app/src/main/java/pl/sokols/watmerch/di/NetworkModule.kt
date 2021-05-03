@@ -33,13 +33,12 @@ class NetworkModule {
         addCookiesInterceptor: AddCookiesInterceptor,
         receivedCookiesInterceptor: ReceivedCookiesInterceptor,
         authInterceptor: AuthInterceptor
-    ): OkHttpClient {
-        val okHttpClient = OkHttpClient.Builder()
-        okHttpClient.addInterceptor(addCookiesInterceptor)
-        okHttpClient.addInterceptor(receivedCookiesInterceptor)
-        okHttpClient.addInterceptor(authInterceptor)
-        return okHttpClient.build()
-    }
+    ): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(addCookiesInterceptor)
+            .addInterceptor(receivedCookiesInterceptor)
+            .addInterceptor(authInterceptor)
+            .build()
 
     @Provides
     @Singleton

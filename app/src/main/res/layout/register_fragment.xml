@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="viewModel"
             type="pl.sokols.watmerch.ui.register.RegisterViewModel" />
@@ -43,8 +45,8 @@
                 android:id="@+id/nameRegisterEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.username}"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:text="@={viewModel.username}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -64,8 +66,8 @@
                 android:id="@+id/emailRegisterEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.email}"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:text="@={viewModel.email}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -85,8 +87,8 @@
                 android:id="@+id/passwordRegisterEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.password}"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:text="@={viewModel.password}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -106,8 +108,8 @@
                 android:id="@+id/repeatPasswordRegisterEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.password2}"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:text="@={viewModel.password2}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -118,11 +120,7 @@
             android:layout_marginStart="@dimen/default_horizontal_margin"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/default_horizontal_margin"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="16dp"
             android:text="@string/sign_up"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/repeatPasswordRegisterTextInputLayout" />
@@ -145,8 +143,8 @@
             android:id="@+id/registerProgressIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             android:indeterminateTint="?attr/colorOnPrimary"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

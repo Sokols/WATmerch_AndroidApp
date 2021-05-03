@@ -23,8 +23,7 @@
     <string name="search">Szukaj...</string>
     <string name="search_description">Szukaj</string>
     <string name="more">Więcej</string>
-    <string name="changeTheme">Zmień styl</string>
-    <string name="secretImageView">Obraz używany do zmiany stylu</string>
+    <string name="change_theme">Zmień styl</string>
     <string name="registing_page">Rejestracja</string>
     <string name="blank" />
     <string name="add_to_cart">Dodaj do koszyka</string>
@@ -48,4 +47,20 @@
     <string name="avatar_description">Avatar użytkownika</string>
     <string name="go_forward_button_description">Przycisk przejścia dalej</string>
     <string name="user_page">Dane użytkownika</string>
+    <string name="my_data">Moje dane</string>
+    <string name="my_orders">Moje zamówienia</string>
+    <string name="app_settings">Ustawienia aplikacji</string>
+    <string name="employee_panel">Panel pracownika</string>
+    <string name="edit">Edytuj</string>
+    <string name="user_details">Szczegółowe dane</string>
+    <string name="user_photo_description">Avatar użytkownika</string>
+    <string name="first_name">Imię</string>
+    <string name="last_name">Nazwisko</string>
+    <string name="phone_number">Numer telefonu</string>
+    <string name="birth_date">Data urodzin</string>
+    <string name="company_name">Nazwa firmy</string>
+    <string name="nip">NIP</string>
+    <string name="save">Zapisz</string>
+    <string name="provide_all_data">Uzupełnij wszystkie wymagane pola!</string>
+    <string name="select_date">Wybierz datę</string>
 </resources>

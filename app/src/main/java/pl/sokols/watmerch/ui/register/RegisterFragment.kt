@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.BR
-import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.databinding.RegisterFragmentBinding
 import pl.sokols.watmerch.utils.Status
@@ -66,8 +66,10 @@ class RegisterFragment : Fragment() {
 
         viewModel.isLoggedIn.observe(viewLifecycleOwner, { isLoggedIn ->
             if (isLoggedIn) {
-                Navigation.findNavController(binding.root)
-                    .navigate(R.id.action_registerFragment_to_accountFragment)
+                val bundle =
+                    bundleOf(Utils.PARENT_COMPONENT_ID to resources.getString(R.string.registing_page))
+                findNavController()
+                    .navigate(R.id.action_registerFragment_to_userFragment, bundle)
             }
         })
 
