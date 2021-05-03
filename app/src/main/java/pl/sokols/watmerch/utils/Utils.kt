@@ -13,6 +13,8 @@ import java.util.*
 class Utils {
 
     companion object {
+        const val CHOOSE_CAMERA: String = "choose_camera"
+        const val CHOOSE_GALLERY: String = "choose_gallery"
         const val PARENT_COMPONENT_ID: String = "parent_component_id"
         const val SHARED_PREFERENCES_KEY: String = "shared_preferences_key"
         const val PRODUCT_BARCODE: String = "merch_item_key"

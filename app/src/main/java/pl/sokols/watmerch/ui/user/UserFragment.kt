@@ -1,13 +1,16 @@
 package pl.sokols.watmerch.ui.user
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.R
+import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.databinding.UserFragmentBinding
 import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
@@ -19,16 +22,6 @@ class UserFragment : Fragment() {
 
     private val viewModel: UserViewModel by viewModels()
     private lateinit var binding: UserFragmentBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        setEdit(menu.findItem(R.id.edit))
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +43,7 @@ class UserFragment : Fragment() {
                     Status.SUCCESS -> {
                         binding.userProgressIndicator.visibility = View.INVISIBLE
                         binding.viewModel = viewModel
+                        setUI(resource.data)
                     }
                     Status.ERROR -> {
                         binding.userProgressIndicator.visibility = View.INVISIBLE
@@ -90,19 +84,15 @@ class UserFragment : Fragment() {
         }
     }
 
-    private fun setEdit(item: MenuItem?) {
-        if (item != null && arguments?.getString(Utils.PARENT_COMPONENT_ID) == getString(R.string.account_page)) {
-            item.isVisible = true
-            item.setOnMenuItemClickListener {
-                viewModel.updateEditable()
-                true
-            }
-            viewModel.updateEditable()
-            binding.birthDateUserEditText.setOnClickListener(dateEditTextOnClickListener)
+    private fun setUI(user: User?) {
+        binding.birthDateUserEditText.setOnClickListener(dateEditTextOnClickListener)
+        binding.userPhotoImageView.setImageBitmap(Utils.getBitmapFromString(user?.userDetails?.avatar))
+        binding.userPhotoImageView.setOnClickListener {
+
         }
     }
 
-    private val dateEditTextOnClickListener = View.OnClickListener { v ->
+    private val dateEditTextOnClickListener = View.OnClickListener {
         val datePicker = MaterialDatePicker.Builder
             .datePicker()
             .setTitleText(getString(R.string.select_date))

@@ -1,7 +1,5 @@
 package pl.sokols.watmerch.data.model
 
-import java.util.*
-
 data class UserDetails(
     val id: Int? = Int.MIN_VALUE,
     val avatar: String? = null,

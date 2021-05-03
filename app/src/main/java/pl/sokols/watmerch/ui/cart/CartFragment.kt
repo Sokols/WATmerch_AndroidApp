@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.CartFragmentBinding
@@ -43,7 +42,8 @@ class CartFragment : Fragment() {
                         Status.SUCCESS -> {
                             binding.cartProgressIndicator.visibility = View.INVISIBLE
                             binding.cartRecyclerView.adapter =
-                                CartListAdapter(resource.data!!, deleteListener)
+                                CartListAdapter(resource.data!!, deleteListener, incrementListener, decrementListener)
+                            binding.viewModel = viewModel
                         }
                         Status.ERROR -> {
                             binding.cartProgressIndicator.visibility = View.INVISIBLE
@@ -67,6 +67,18 @@ class CartFragment : Fragment() {
             ).setAction(R.string.cancel) {
                 viewModel.insert(item as Product)
             }.show()
+        }
+    }
+
+    private val incrementListener = object : OnItemClickListener {
+        override fun onClick(item: Any) {
+            viewModel.updateTotal((item as Product).price)
+        }
+    }
+
+    private val decrementListener = object : OnItemClickListener {
+        override fun onClick(item: Any) {
+            viewModel.updateTotal((item as Product).price * -1)
         }
     }
 }
