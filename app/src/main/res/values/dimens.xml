@@ -4,4 +4,6 @@
     <dimen name="default_horizontal_margin">64dp</dimen>
     <dimen name="image_size">200dp</dimen>
     <dimen name="small_image_size">100dp</dimen>
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="vertical_padding">32dp</dimen>
 </resources>

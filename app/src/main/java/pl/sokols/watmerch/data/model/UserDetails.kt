@@ -1,14 +1,12 @@
 package pl.sokols.watmerch.data.model
 
-import java.time.LocalDate
-
 data class UserDetails(
-    val id: Int,
-    val avatar: String?,
-    val birthDate: LocalDate?,
-    val companyName: String?,
-    val firstName: String,
-    val lastName: String,
-    val nip: String?,
-    val phoneNumber: String
+    val id: Int? = Int.MIN_VALUE,
+    val avatar: String? = null,
+    val birthDate: String? = null,
+    val company: String? = null,
+    val firstName: String = "",
+    val lastName: String = "",
+    val nip: String? = null,
+    val phoneNumber: String = ""
 )

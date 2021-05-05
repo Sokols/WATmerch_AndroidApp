@@ -21,7 +21,6 @@
     <fragment
         android:id="@+id/accountFragment"
         android:name="pl.sokols.watmerch.ui.account.AccountFragment"
-        android:label="account_fragment"
         tools:layout="@layout/account_fragment" >
         <action
             android:id="@+id/action_accountFragment_to_loginFragment"
@@ -31,6 +30,15 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/mainFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_userFragment"
+            app:destination="@id/userFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/accountFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -71,13 +79,13 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/mainFragment" />
         <action
-            android:id="@+id/action_registerFragment_to_accountFragment"
-            app:destination="@id/accountFragment"
+            android:id="@+id/action_registerFragment_to_userFragment"
+            app:destination="@id/userFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/mainFragment" />
+            app:popUpTo="@id/registerFragment" />
     </fragment>
     <fragment
         android:id="@+id/productFragment"
@@ -95,5 +103,22 @@
         <argument
             android:name="barcode"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="pl.sokols.watmerch.ui.user.UserFragment"
+        android:label="user_fragment"
+        tools:layout="@layout/user_fragment" >
+        <action
+            android:id="@+id/action_userFragment_to_accountFragment"
+            app:destination="@id/accountFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/mainFragment" />
+        <argument
+            android:name="parentComponentId"
+            app:argType="string" />
     </fragment>
 </navigation>

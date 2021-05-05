@@ -2,45 +2,50 @@ package pl.sokols.watmerch.ui.product
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import pl.sokols.watmerch.BasicApp
-import pl.sokols.watmerch.data.remote.services.ProductService
+import pl.sokols.watmerch.data.model.OrderProduct
+import pl.sokols.watmerch.data.repository.OrderProductRepository
 import pl.sokols.watmerch.data.repository.ProductRepository
 import pl.sokols.watmerch.utils.AppPreferences
 import pl.sokols.watmerch.utils.Resource
+import javax.inject.Inject
 
-class ProductViewModel(private val repository: ProductRepository) : ViewModel() {
+@HiltViewModel
+class ProductViewModel @Inject constructor(
+    private val productRepository: ProductRepository,
+    private val orderProductRepository: OrderProductRepository
+) : ViewModel() {
 
     fun getProductByBarcode(barcode: Int) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
-            emit(Resource.success(data = repository.getProductByBarcode(barcode)))
+            emit(Resource.success(data = productRepository.getProductByBarcode(barcode)))
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             Log.d("ERROR", exception.message.toString())
         }
     }
 
-    fun isProductInCartAlready(barcode: Int): Boolean {
-        val products = AppPreferences.cartProductsBarcodes
-        if (!products!!.contains(barcode)) {
-            products.add(barcode)
-            AppPreferences.cartProductsBarcodes = products
-            return false
+    fun isProductInCartAlready(barcode: Int) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = orderProductRepository.isInTheCart(barcode)))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            Log.d("ERROR", exception.message.toString())
         }
-        return true
     }
-}
 
-class ProductViewModelFactory(private val basicApp: BasicApp) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ProductViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            val productService = basicApp.retrofit.createService(ProductService::class.java)
-            return ProductViewModel(ProductRepository(productService)) as T
+    fun addProductToCart(barcode: Int) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            val orderProduct = OrderProduct(productBarcode = barcode)
+            emit(Resource.success(data = orderProductRepository.insertOrderProduct(orderProduct)))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            Log.d("ERROR", exception.message.toString())
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

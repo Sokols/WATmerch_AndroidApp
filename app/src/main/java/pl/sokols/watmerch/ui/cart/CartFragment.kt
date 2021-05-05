@@ -6,24 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import pl.sokols.watmerch.BasicApp
+import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.CartFragmentBinding
 import pl.sokols.watmerch.ui.cart.adapters.CartListAdapter
-import pl.sokols.watmerch.ui.cart.adapters.OnItemClickListener
-import pl.sokols.watmerch.utils.Status
+import pl.sokols.watmerch.utils.OnItemClickListener
 import pl.sokols.watmerch.utils.Utils
 
+@AndroidEntryPoint
 class CartFragment : Fragment() {
 
     companion object {
         fun newInstance() = CartFragment()
     }
 
-    private val viewModel: CartViewModel by viewModels {
-        CartViewModelFactory(requireActivity().application as BasicApp)
-    }
+    private val viewModel: CartViewModel by viewModels()
     private lateinit var binding: CartFragmentBinding
 
     override fun onCreateView(
@@ -36,37 +34,42 @@ class CartFragment : Fragment() {
     }
 
     private fun initComponents() {
-        viewModel.getSharedPreferencesLiveData().observe(viewLifecycleOwner, {
-            viewModel.updateProducts().observe(viewLifecycleOwner, {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            binding.cartProgressIndicator.visibility = View.INVISIBLE
-                            binding.cartRecyclerView.adapter =
-                                CartListAdapter(resource.data!!, deleteListener)
-                        }
-                        Status.ERROR -> {
-                            binding.cartProgressIndicator.visibility = View.INVISIBLE
-                        }
-                        Status.LOADING -> {
-                            binding.cartProgressIndicator.visibility = View.VISIBLE
-                        }
-                    }
-                }
+        viewModel.products.observe(viewLifecycleOwner, { orderProducts ->
+            viewModel.updateProducts(orderProducts!!).observe(viewLifecycleOwner, { products ->
+                binding.cartRecyclerView.adapter =
+                    CartListAdapter(
+                        products,
+                        deleteListener,
+                        incrementListener,
+                        decrementListener
+                    )
+                binding.viewModel = viewModel
             })
         })
     }
 
     private val deleteListener = object : OnItemClickListener {
-        override fun onClick(product: Product) {
-            viewModel.delete(product)
+        override fun onClick(item: Any) {
+            viewModel.deleteProduct((item as Product).barcode)
             Utils.getSnackbar(
                 binding.root,
                 getString(R.string.removed_from_cart),
                 requireActivity()
             ).setAction(R.string.cancel) {
-                viewModel.insert(product)
+                viewModel.insertProduct(item.barcode)
             }.show()
+        }
+    }
+
+    private val incrementListener = object : OnItemClickListener {
+        override fun onClick(item: Any) {
+            viewModel.updateTotal((item as Product).price)
+        }
+    }
+
+    private val decrementListener = object : OnItemClickListener {
+        override fun onClick(item: Any) {
+            viewModel.updateTotal((item as Product).price * -1)
         }
     }
 }

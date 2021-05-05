@@ -4,8 +4,13 @@ import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Response
 import pl.sokols.watmerch.utils.AppPreferences
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ReceivedCookiesInterceptor : Interceptor {
+@Singleton
+class ReceivedCookiesInterceptor @Inject constructor(
+    private val prefs: AppPreferences
+) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val response: Response = chain.proceed(chain.request())
@@ -15,7 +20,7 @@ class ReceivedCookiesInterceptor : Interceptor {
                 Log.i("INFO", "Intercept cookie is: $header")
                 cookies.add(header)
             }
-            AppPreferences.cookies = cookies
+            prefs.cookies = cookies
         }
         return response
     }

@@ -2,17 +2,23 @@ package pl.sokols.watmerch.ui.register
 
 import android.util.Log
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.data.model.User
-import pl.sokols.watmerch.data.remote.services.UserService
+import pl.sokols.watmerch.data.remote.services.user.UserService
 import pl.sokols.watmerch.data.repository.UserRepository
 import pl.sokols.watmerch.utils.AppPreferences
 import pl.sokols.watmerch.utils.Resource
+import javax.inject.Inject
 
-class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(
+    private val repository: UserRepository,
+    private val prefs: AppPreferences
+) : ViewModel() {
 
-    val isLoggedIn: MutableLiveData<Boolean> by lazy { MutableLiveData(AppPreferences.authToken != null) }
+    val isLoggedIn: MutableLiveData<Boolean> by lazy { MutableLiveData(prefs.authToken != null) }
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     var username: String = ""
     var email: String = ""
@@ -46,16 +52,5 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
                 createUser()
             }
         }
-    }
-}
-
-class RegisterViewModelFactory(private val basicApp: BasicApp) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            val userService = basicApp.retrofit.createService(UserService::class.java)
-            return RegisterViewModel(UserRepository(basicApp.retrofit, userService)) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

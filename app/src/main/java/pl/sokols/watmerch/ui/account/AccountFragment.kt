@@ -7,16 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.BR
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
+import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.databinding.AccountFragmentBinding
+import pl.sokols.watmerch.ui.account.adapters.SettingsAdapter
+import pl.sokols.watmerch.utils.Status
+import pl.sokols.watmerch.utils.Utils
 
+@AndroidEntryPoint
 class AccountFragment : Fragment() {
 
-    private val viewModel: AccountViewModel by viewModels {
-        AccountViewModelFactory(requireActivity().application as BasicApp)
-    }
+    private val viewModel: AccountViewModel by viewModels()
     private lateinit var binding: AccountFragmentBinding
 
     override fun onCreateView(
@@ -31,6 +35,7 @@ class AccountFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setListeners()
+        setRecyclerView()
     }
 
     private fun setListeners() {
@@ -39,5 +44,38 @@ class AccountFragment : Fragment() {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_accountFragment_to_loginFragment)
         }
+        viewModel.getUser().observe(viewLifecycleOwner, {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        setUi(resource.data)
+                        binding.accountProgressIndicator.visibility = View.INVISIBLE
+                        binding.accountLayout.visibility = View.VISIBLE
+                    }
+                    Status.ERROR -> {
+                        binding.accountProgressIndicator.visibility = View.INVISIBLE
+                    }
+                    Status.LOADING -> {
+                        binding.accountLayout.visibility = View.INVISIBLE
+                        binding.accountProgressIndicator.visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
+    }
+
+    private fun setRecyclerView() {
+        binding.settingsRecyclerView.adapter = SettingsAdapter(
+            resources.getStringArray(R.array.settings).toList()
+        )
+    }
+
+    private fun setUi(user: User?) {
+        binding.setVariable(BR.user, user)
+        binding.avatarAccountImageView.setImageBitmap(
+            Utils.getBitmapFromString(
+                user?.userDetails?.avatar
+            )
+        )
     }
 }

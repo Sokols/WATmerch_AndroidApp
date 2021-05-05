@@ -7,18 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.BR
-import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.databinding.ProductFragmentBinding
 import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 
+@AndroidEntryPoint
 class ProductFragment : Fragment() {
 
-    private val viewModel: ProductViewModel by viewModels {
-        ProductViewModelFactory(requireActivity().application as BasicApp)
-    }
+    private val viewModel: ProductViewModel by viewModels()
     private lateinit var binding: ProductFragmentBinding
     private var barcode: Int = 0
 
@@ -41,35 +40,71 @@ class ProductFragment : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        binding.productProgressIndicator.visibility = View.INVISIBLE
                         binding.setVariable(BR.product, it.data)
                         binding.productImageView.setImageBitmap(Utils.getBitmapFromString(it.data?.basicDetails?.logoImage))
+                        binding.productProgressIndicator.visibility = View.INVISIBLE
+                        binding.productLayout.visibility = View.VISIBLE
                     }
                     Status.ERROR -> {
                         binding.productProgressIndicator.visibility = View.INVISIBLE
                     }
                     Status.LOADING -> {
+                        binding.productLayout.visibility = View.INVISIBLE
                         binding.productProgressIndicator.visibility = View.VISIBLE
                     }
                 }
             }
         })
 
-        binding.addToCartProductButton.setOnClickListener {
-            if (!viewModel.isProductInCartAlready(barcode)) {
-                Utils.getSnackbar(
-                    binding.root,
-                    getString(R.string.added_to_cart),
-                    requireActivity()
-                ).show()
-            } else {
-                Utils.getSnackbar(
-                    binding.root,
-                    getString(R.string.already_in_cart),
-                    requireActivity()
-                ).show()
+        viewModel.isProductInCartAlready(barcode).observe(viewLifecycleOwner, {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        if (resource.data == true) {
+                            disableAddToCartButton()
+                            Utils.getSnackbar(
+                                binding.root,
+                                getString(R.string.added_to_cart),
+                                requireActivity()
+                            ).show()
+                        }
+                    }
+                    Status.ERROR -> {
+                        Utils.getSnackbar(
+                            binding.root,
+                            resource.message.toString(),
+                            requireActivity()
+                        ).show()
+                    }
+                    Status.LOADING -> { }
+                }
             }
-            findNavController().navigate(R.id.action_productFragment_to_mainFragment)
+        })
+
+        binding.addToCartProductButton.setOnClickListener {
+            viewModel.addProductToCart(barcode).observe(viewLifecycleOwner, {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            findNavController().navigate(R.id.action_productFragment_to_mainFragment)
+                        }
+                        Status.ERROR -> {
+                            Utils.getSnackbar(
+                                binding.root,
+                                resource.message.toString(),
+                                requireActivity()
+                            ).show()
+                        }
+                        Status.LOADING -> { }
+                    }
+                }
+            })
         }
+    }
+
+    private fun disableAddToCartButton() {
+        binding.addToCartProductButton.text = getString(R.string.already_in_cart)
+        binding.addToCartProductButton.isClickable = false
+        binding.addToCartProductButton.isFocusable = false
     }
 }

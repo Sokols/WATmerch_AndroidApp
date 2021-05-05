@@ -1,155 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="pl.sokols.watmerch.ui.register.RegisterViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
+        android:id="@+id/registerLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/colorPrimary"
-        tools:context=".ui.register.RegisterFragment">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/registerLogo"
-            android:layout_width="0dp"
-            android:layout_height="250dp"
-            android:layout_marginStart="@dimen/default_horizontal_margin"
-            android:layout_marginEnd="@dimen/default_horizontal_margin"
-            android:contentDescription="@string/logo"
-            android:padding="25dp"
-            android:src="@drawable/ic_logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nameRegisterTextInputLayout"
-            style="@style/TextInputLayoutStyle"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_horizontal_margin"
-            android:layout_marginEnd="@dimen/default_horizontal_margin"
-            android:hint="@string/nickname"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerLogo"
-            app:startIconDrawable="@drawable/ic_baseline_person_24">
+            android:background="?attr/colorPrimary"
+            tools:context=".ui.register.RegisterFragment">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nameRegisterEditText"
+            <ImageView
+                android:id="@+id/registerLogo"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:layout_marginStart="@dimen/default_horizontal_margin"
+                android:layout_marginEnd="@dimen/default_horizontal_margin"
+                android:contentDescription="@string/logo"
+                android:padding="@dimen/default_padding"
+                android:src="@drawable/ic_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameRegisterTextInputLayout"
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.username}"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="@dimen/default_horizontal_margin"
+                android:layout_marginEnd="@dimen/default_horizontal_margin"
+                android:hint="@string/nickname"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/registerLogo"
+                app:startIconDrawable="@drawable/ic_baseline_person_24">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailRegisterTextInputLayout"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_horizontal_margin"
-            android:layout_marginEnd="@dimen/default_horizontal_margin"
-            android:hint="@string/email"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameRegisterTextInputLayout"
-            app:startIconDrawable="@drawable/ic_baseline_email_24">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameRegisterEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.username}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailRegisterEditText"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailRegisterTextInputLayout"
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.email}"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="@dimen/default_horizontal_margin"
+                android:layout_marginEnd="@dimen/default_horizontal_margin"
+                android:hint="@string/email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameRegisterTextInputLayout"
+                app:startIconDrawable="@drawable/ic_baseline_email_24">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordRegisterTextInputLayout"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_horizontal_margin"
-            android:layout_marginEnd="@dimen/default_horizontal_margin"
-            android:hint="@string/password"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailRegisterTextInputLayout"
-            app:startIconDrawable="@drawable/ic_baseline_lock_24">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailRegisterEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.email}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordRegisterEditText"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordRegisterTextInputLayout"
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.password}"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="@dimen/default_horizontal_margin"
+                android:layout_marginEnd="@dimen/default_horizontal_margin"
+                android:hint="@string/password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailRegisterTextInputLayout"
+                app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/repeatPasswordRegisterTextInputLayout"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_horizontal_margin"
-            android:layout_marginEnd="@dimen/default_horizontal_margin"
-            android:hint="@string/repeat_password"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordRegisterTextInputLayout"
-            app:startIconDrawable="@drawable/ic_baseline_lock_24">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordRegisterEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.password}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/repeatPasswordRegisterEditText"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/repeatPasswordRegisterTextInputLayout"
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.password2}"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="@dimen/default_horizontal_margin"
+                android:layout_marginEnd="@dimen/default_horizontal_margin"
+                android:hint="@string/repeat_password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordRegisterTextInputLayout"
+                app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/registerButton"
-            style="@style/DefaultButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_horizontal_margin"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/default_horizontal_margin"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="16dp"
-            android:text="@string/sign_up"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/repeatPasswordRegisterTextInputLayout" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/repeatPasswordRegisterEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.password2}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/goToLoginFromRegisterTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_horizontal_margin"
-            android:layout_marginEnd="@dimen/default_horizontal_margin"
-            android:text="@string/login_now"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerButton" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/registerButton"
+                style="@style/DefaultButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_horizontal_margin"
+                android:layout_marginEnd="@dimen/default_horizontal_margin"
+                android:text="@string/sign_up"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/repeatPasswordRegisterTextInputLayout" />
 
-        <ProgressBar
-            android:id="@+id/registerProgressIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:indeterminateTint="?attr/colorOnPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/goToLoginFromRegisterTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_horizontal_margin"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginEnd="@dimen/default_horizontal_margin"
+                android:layout_marginBottom="@dimen/vertical_padding"
+                android:text="@string/login_now"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/registerButton" />
+
+            <ProgressBar
+                android:id="@+id/registerProgressIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="?attr/colorOnPrimary"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

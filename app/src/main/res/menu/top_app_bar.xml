@@ -3,17 +3,25 @@
 
     <item
         android:id="@+id/search"
+        android:contentDescription="@string/search_description"
         android:icon="@drawable/ic_baseline_search_24"
         android:title="@string/search"
-        android:contentDescription="@string/search_description"
         android:visible="false"
-        app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+    <item
+        android:id="@+id/edit"
+        android:contentDescription="@string/edit"
+        android:icon="@drawable/ic_baseline_edit_24"
+        android:title="@string/edit"
+        android:visible="false"
+        app:showAsAction="ifRoom|collapseActionView" />
 
     <item
         android:id="@+id/changeTheme"
+        android:contentDescription="@string/change_theme"
         android:icon="@drawable/ic_baseline_brightness_6_24"
-        android:title="@string/changeTheme"
-        android:contentDescription="@string/changeTheme"
+        android:title="@string/change_theme"
         app:showAsAction="always" />
 </menu>

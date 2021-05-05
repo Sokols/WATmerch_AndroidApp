@@ -1,65 +1,51 @@
 package pl.sokols.watmerch.ui.cart
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import pl.sokols.watmerch.BasicApp
+import androidx.databinding.ObservableField
+import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import pl.sokols.watmerch.data.model.OrderProduct
 import pl.sokols.watmerch.data.model.Product
-import pl.sokols.watmerch.data.remote.services.ProductService
+import pl.sokols.watmerch.data.repository.OrderProductRepository
 import pl.sokols.watmerch.data.repository.ProductRepository
-import pl.sokols.watmerch.utils.AppPreferences
-import pl.sokols.watmerch.utils.Resource
-import pl.sokols.watmerch.utils.SharedPrefsCartProductsLiveData
+import javax.inject.Inject
 
-class CartViewModel(
-    private val repository: ProductRepository,
-    private val sharedPrefsCartProductsLiveData: SharedPrefsCartProductsLiveData
+@HiltViewModel
+class CartViewModel @Inject constructor(
+    private val productRepository: ProductRepository,
+    private val orderProductRepository: OrderProductRepository
 ) : ViewModel() {
 
-    fun getSharedPreferencesLiveData() = sharedPrefsCartProductsLiveData
+    var total: ObservableField<Float> = ObservableField(0f)
+    var products: LiveData<List<OrderProduct>> =
+        orderProductRepository.allOrderProducts.asLiveData()
 
-    fun updateProducts() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            emit(Resource.success(data = coroutineScope {
-                val productsHashSet = AppPreferences.cartProductsBarcodes
-                val productList: MutableList<Product> = arrayListOf()
-                for (barcode: Int in productsHashSet!!) {
-                    productList.add(repository.getProductByBarcode(barcode))
-                }
-                productList.toList()
-            }))
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-            Log.d("ERROR", exception.message.toString())
+    fun deleteProduct(productBarcode: Int) = viewModelScope.launch {
+        orderProductRepository.deleteOrderProductByBarcode(productBarcode)
+    }
+
+    fun insertProduct(productBarcode: Int) = viewModelScope.launch {
+        orderProductRepository.insertOrderProduct(OrderProduct(productBarcode = productBarcode))
+    }
+
+    fun updateProducts(orderProducts: List<OrderProduct>) = liveData {
+        val productList: MutableList<Product> = mutableListOf()
+        for (orderProduct: OrderProduct in orderProducts) {
+            productList.add(productRepository.getProductByBarcode(orderProduct.productBarcode!!))
         }
+        emit(productList.toList())
+        setTotal(productList.toList())
     }
 
-    fun delete(product: Product) {
-        val barcodes = AppPreferences.cartProductsBarcodes
-        barcodes!!.remove(product.barcode)
-        AppPreferences.cartProductsBarcodes = barcodes
+    fun updateTotal(price: Float) {
+        total.set(total.get()?.plus(price))
     }
 
-    fun insert(product: Product) {
-        val barcodes = AppPreferences.cartProductsBarcodes
-        barcodes!!.add(product.barcode)
-        AppPreferences.cartProductsBarcodes = barcodes
-    }
-}
-
-class CartViewModelFactory(private val basicApp: BasicApp) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CartViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            val productService = basicApp.retrofit.createService(ProductService::class.java)
-            val sharedPreferenceLiveData =
-                SharedPrefsCartProductsLiveData(AppPreferences.sharedPreferences!!)
-            return CartViewModel(ProductRepository(productService), sharedPreferenceLiveData) as T
+    private fun setTotal(products: List<Product>) {
+        var sum = 0f
+        for (product: Product in products) {
+            sum += product.price
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
+        total.set(sum)
     }
 }

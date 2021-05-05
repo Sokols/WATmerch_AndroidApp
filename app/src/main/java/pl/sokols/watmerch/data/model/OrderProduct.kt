@@ -1,8 +1,14 @@
 package pl.sokols.watmerch.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "order_products")
 data class OrderProduct(
-    val id: Int,
-    val quantity: Int,
-    val product: Product?,
-    val purchase: Purchase?
-)
+    var quantity: Int = 1,
+    var productBarcode: Int? = null,
+    var purchaseId: Int? = null
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int? = null
+}

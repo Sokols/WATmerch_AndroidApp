@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.chip.Chip
+import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Category
@@ -15,11 +16,10 @@ import pl.sokols.watmerch.databinding.MainFragmentBinding
 import pl.sokols.watmerch.ui.main.adapters.ProductListAdapter
 import pl.sokols.watmerch.utils.Status
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
-    private val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory(requireActivity().application as BasicApp)
-    }
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: MainFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,13 +51,15 @@ class MainFragment : Fragment() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            binding.mainProgressIndicator.visibility = INVISIBLE
                             binding.mainRecyclerView.adapter = ProductListAdapter(resource.data)
+                            binding.mainProgressIndicator.visibility = INVISIBLE
+                            binding.mainLayout.visibility = VISIBLE
                         }
                         Status.ERROR -> {
                             binding.mainProgressIndicator.visibility = INVISIBLE
                         }
                         Status.LOADING -> {
+                            binding.mainLayout.visibility = INVISIBLE
                             binding.mainProgressIndicator.visibility = VISIBLE
                         }
                     }
@@ -65,7 +67,7 @@ class MainFragment : Fragment() {
             })
         })
 
-        viewModel.getCategories().observe(requireActivity(), {
+        viewModel.getCategories().observe(viewLifecycleOwner, {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {

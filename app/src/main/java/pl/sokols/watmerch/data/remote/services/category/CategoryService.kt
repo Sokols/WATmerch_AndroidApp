@@ -1,4 +1,4 @@
-package pl.sokols.watmerch.data.remote.services
+package pl.sokols.watmerch.data.remote.services.category
 
 import pl.sokols.watmerch.data.model.Category
 import retrofit2.http.GET
