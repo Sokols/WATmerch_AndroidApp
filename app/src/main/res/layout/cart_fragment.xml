@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="pl.sokols.watmerch.ui.cart.CartViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cartLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary"
-        tools:context=".ui.cart.CartFragment"
-        tools:ignore="HardcodedText">
+        tools:context=".ui.cart.CartFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cartRecyclerView"
@@ -46,10 +47,10 @@
             android:id="@+id/totalCartTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginTop="@dimen/default_padding"
+            android:layout_marginEnd="@dimen/default_padding"
+            android:layout_marginBottom="@dimen/vertical_padding"
             android:text="@{@string/total_cost(viewModel.total)}"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -67,7 +68,7 @@
             android:layout_marginStart="@dimen/default_horizontal_margin"
             android:layout_marginTop="@dimen/default_padding"
             android:layout_marginEnd="@dimen/default_horizontal_margin"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="@dimen/vertical_padding"
             android:text="@string/order"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

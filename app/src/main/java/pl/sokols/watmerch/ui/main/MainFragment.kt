@@ -51,13 +51,15 @@ class MainFragment : Fragment() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            binding.mainProgressIndicator.visibility = INVISIBLE
                             binding.mainRecyclerView.adapter = ProductListAdapter(resource.data)
+                            binding.mainProgressIndicator.visibility = INVISIBLE
+                            binding.mainLayout.visibility = VISIBLE
                         }
                         Status.ERROR -> {
                             binding.mainProgressIndicator.visibility = INVISIBLE
                         }
                         Status.LOADING -> {
+                            binding.mainLayout.visibility = INVISIBLE
                             binding.mainProgressIndicator.visibility = VISIBLE
                         }
                     }

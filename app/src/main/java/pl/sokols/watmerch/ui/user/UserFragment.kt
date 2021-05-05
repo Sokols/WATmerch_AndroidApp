@@ -41,14 +41,16 @@ class UserFragment : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        binding.userProgressIndicator.visibility = View.INVISIBLE
                         binding.viewModel = viewModel
                         setUI(resource.data)
+                        binding.userProgressIndicator.visibility = View.INVISIBLE
+                        binding.userLayout.visibility = View.VISIBLE
                     }
                     Status.ERROR -> {
                         binding.userProgressIndicator.visibility = View.INVISIBLE
                     }
                     Status.LOADING -> {
+                        binding.userLayout.visibility = View.INVISIBLE
                         binding.userProgressIndicator.visibility = View.VISIBLE
                     }
                 }

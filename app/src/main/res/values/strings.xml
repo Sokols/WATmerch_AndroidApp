@@ -35,7 +35,7 @@
     <string name="added_to_cart">Dodano do koszyka!</string>
     <string name="cancel">ANULUJ</string>
     <string name="removed_from_cart">Usunięto z koszyka</string>
-    <string name="already_in_cart">Produkt jest już w koszyku!</string>
+    <string name="already_in_cart">Dodano</string>
     <string name="different_passwords">Hasła nie są identyczne!</string>
     <string name="log_out">WYLOGUJ SIĘ</string>
     <string name="add">Dodaj</string>

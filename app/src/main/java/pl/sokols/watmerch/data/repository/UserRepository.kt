@@ -5,7 +5,9 @@ import pl.sokols.watmerch.data.model.UserDetails
 import pl.sokols.watmerch.data.remote.services.user.UserHelper
 import pl.sokols.watmerch.utils.AppPreferences
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class UserRepository @Inject constructor(
     private val userHelper: UserHelper,
     private val prefs: AppPreferences

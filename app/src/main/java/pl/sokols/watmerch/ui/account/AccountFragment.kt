@@ -48,13 +48,15 @@ class AccountFragment : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        binding.accountProgressIndicator.visibility = View.INVISIBLE
                         setUi(resource.data)
+                        binding.accountProgressIndicator.visibility = View.INVISIBLE
+                        binding.accountLayout.visibility = View.VISIBLE
                     }
                     Status.ERROR -> {
                         binding.accountProgressIndicator.visibility = View.INVISIBLE
                     }
                     Status.LOADING -> {
+                        binding.accountLayout.visibility = View.INVISIBLE
                         binding.accountProgressIndicator.visibility = View.VISIBLE
                     }
                 }

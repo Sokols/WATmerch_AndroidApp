@@ -1,58 +1,40 @@
 package pl.sokols.watmerch.ui.cart
 
-import android.util.Log
 import androidx.databinding.ObservableField
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import pl.sokols.watmerch.data.model.OrderProduct
 import pl.sokols.watmerch.data.model.Product
+import pl.sokols.watmerch.data.repository.OrderProductRepository
 import pl.sokols.watmerch.data.repository.ProductRepository
-import pl.sokols.watmerch.utils.AppPreferences
-import pl.sokols.watmerch.utils.Resource
-import pl.sokols.watmerch.utils.SharedPrefsCartProductsLiveData
 import javax.inject.Inject
 
 @HiltViewModel
 class CartViewModel @Inject constructor(
-    private val repository: ProductRepository,
-    private val sharedPrefsCartProductsLiveData: SharedPrefsCartProductsLiveData,
-    private val prefs: AppPreferences
+    private val productRepository: ProductRepository,
+    private val orderProductRepository: OrderProductRepository
 ) : ViewModel() {
 
     var total: ObservableField<Float> = ObservableField(0f)
+    var products: LiveData<List<OrderProduct>> =
+        orderProductRepository.allOrderProducts.asLiveData()
 
-    fun getSharedPreferencesLiveData() = sharedPrefsCartProductsLiveData
+    fun deleteProduct(productBarcode: Int) = viewModelScope.launch {
+        orderProductRepository.deleteOrderProductByBarcode(productBarcode)
+    }
 
-    fun updateProducts() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            emit(Resource.success(data = coroutineScope {
-                val productsHashSet = prefs.cartProductsBarcodes
-                val productList: MutableList<Product> = arrayListOf()
-                for (barcode: Int in productsHashSet!!) {
-                    productList.add(repository.getProductByBarcode(barcode))
-                }
-                setTotal(productList)
-                productList.toList()
-            }))
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-            Log.d("ERROR", exception.message.toString())
+    fun insertProduct(productBarcode: Int) = viewModelScope.launch {
+        orderProductRepository.insertOrderProduct(OrderProduct(productBarcode = productBarcode))
+    }
+
+    fun updateProducts(orderProducts: List<OrderProduct>) = liveData {
+        val productList: MutableList<Product> = mutableListOf()
+        for (orderProduct: OrderProduct in orderProducts) {
+            productList.add(productRepository.getProductByBarcode(orderProduct.productBarcode!!))
         }
-    }
-
-    fun delete(product: Product) {
-        val barcodes = prefs.cartProductsBarcodes
-        barcodes!!.remove(product.barcode)
-        prefs.cartProductsBarcodes = barcodes
-    }
-
-    fun insert(product: Product) {
-        val barcodes = prefs.cartProductsBarcodes
-        barcodes!!.add(product.barcode)
-        prefs.cartProductsBarcodes = barcodes
+        emit(productList.toList())
+        setTotal(productList.toList())
     }
 
     fun updateTotal(price: Float) {
