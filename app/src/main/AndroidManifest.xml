@@ -18,8 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WATmerch"
-        android:usesCleartextTraffic="true"
-        android:windowSoftInputMode="adjustNothing">
+        android:usesCleartextTraffic="true">
         <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

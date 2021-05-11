@@ -1,6 +1,7 @@
 package pl.sokols.watmerch.ui.account
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,7 +54,13 @@ class AccountFragment : Fragment() {
                         binding.accountLayout.visibility = View.VISIBLE
                     }
                     Status.ERROR -> {
+                        binding.accountLayout.visibility = View.VISIBLE
                         binding.accountProgressIndicator.visibility = View.INVISIBLE
+                        Utils.getSnackbar(
+                            binding.root,
+                            resource.message.toString(),
+                            requireActivity()
+                        ).show()
                     }
                     Status.LOADING -> {
                         binding.accountLayout.visibility = View.INVISIBLE

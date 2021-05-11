@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.CartFragmentBinding
 import pl.sokols.watmerch.ui.cart.adapters.CartListAdapter
 import pl.sokols.watmerch.utils.OnItemClickListener
+import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 
 @AndroidEntryPoint
@@ -29,23 +31,46 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = CartFragmentBinding.inflate(inflater, container, false)
-        initComponents()
+        setComponents()
         return binding.root
     }
 
-    private fun initComponents() {
+    private fun setComponents() {
+        binding.viewModel = viewModel
         viewModel.products.observe(viewLifecycleOwner, { orderProducts ->
-            viewModel.updateProducts(orderProducts!!).observe(viewLifecycleOwner, { products ->
-                binding.cartRecyclerView.adapter =
-                    CartListAdapter(
-                        products,
-                        deleteListener,
-                        incrementListener,
-                        decrementListener
-                    )
-                binding.viewModel = viewModel
+            viewModel.updateProducts(orderProducts!!).observe(viewLifecycleOwner, {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            binding.cartRecyclerView.adapter =
+                                CartListAdapter(
+                                    orderProducts,
+                                    resource.data!!,
+                                    deleteListener,
+                                    incrementListener,
+                                    decrementListener
+                                )
+                            binding.cartProgressIndicator.visibility = View.INVISIBLE
+                        }
+                        Status.ERROR -> {
+                            binding.cartProgressIndicator.visibility = View.INVISIBLE
+                            Utils.getSnackbar(
+                                binding.root,
+                                resource.message.toString(),
+                                requireActivity()
+                            ).show()
+                        }
+                        Status.LOADING -> {
+                            binding.cartProgressIndicator.visibility = View.VISIBLE
+                        }
+                    }
+                }
             })
         })
+
+        binding.payCartButton.setOnClickListener {
+            findNavController().navigate(R.id.action_cartFragment_to_addressFragment)
+        }
     }
 
     private val deleteListener = object : OnItemClickListener {
@@ -63,13 +88,13 @@ class CartFragment : Fragment() {
 
     private val incrementListener = object : OnItemClickListener {
         override fun onClick(item: Any) {
-            viewModel.updateTotal((item as Product).price)
+            viewModel.updateTotal((item as Product), true)
         }
     }
 
     private val decrementListener = object : OnItemClickListener {
         override fun onClick(item: Any) {
-            viewModel.updateTotal((item as Product).price * -1)
+            viewModel.updateTotal((item as Product), false)
         }
     }
 }

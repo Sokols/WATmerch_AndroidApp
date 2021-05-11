@@ -3,11 +3,13 @@ package pl.sokols.watmerch.utils
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Log
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import pl.sokols.watmerch.R
+import pl.sokols.watmerch.data.model.OrderProduct
+import pl.sokols.watmerch.data.model.Product
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 class Utils {
@@ -31,14 +33,17 @@ class Utils {
         }
 
         fun getBitmapFromString(string: String?): Bitmap? {
-            val imageBytes = Base64.getDecoder().decode(string)
-            return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            if (string != null) {
+                val imageBytes = Base64.getDecoder().decode(string)
+                return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            }
+            return null
         }
 
         fun getDateStringFromString(birthDate: String?): String? {
             if (birthDate != null) {
                 val format = SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH)
-                val date =  format.parse(birthDate)
+                val date = format.parse(birthDate)
                 return format.format(date)
             }
             return null
@@ -51,5 +56,11 @@ class Utils {
             }
             return null
         }
+
+        fun findOrderProductByProduct(
+            orderProducts: List<OrderProduct>,
+            product: Product
+        ): OrderProduct =
+            orderProducts.single { orderProduct -> orderProduct.productBarcode?.equals(product.barcode)!! }
     }
 }

@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="product"
             type="pl.sokols.watmerch.data.model.Product" />
 
         <variable
-            name="viewHolder"
-            type="pl.sokols.watmerch.ui.cart.adapters.CartListAdapter.CartListViewHolder" />
+            name="orderProduct"
+            type="pl.sokols.watmerch.data.model.OrderProduct" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -114,7 +115,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="3"
                             android:gravity="center"
-                            android:text="@{String.valueOf(viewHolder.amount)}"
+                            android:text="@{String.valueOf(orderProduct.quantity)}"
                             android:textSize="20sp" />
 
                         <com.google.android.material.button.MaterialButton

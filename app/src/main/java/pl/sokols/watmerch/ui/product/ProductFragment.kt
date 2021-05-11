@@ -62,11 +62,6 @@ class ProductFragment : Fragment() {
                     Status.SUCCESS -> {
                         if (resource.data == true) {
                             disableAddToCartButton()
-                            Utils.getSnackbar(
-                                binding.root,
-                                getString(R.string.added_to_cart),
-                                requireActivity()
-                            ).show()
                         }
                     }
                     Status.ERROR -> {
@@ -86,6 +81,11 @@ class ProductFragment : Fragment() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
+                            Utils.getSnackbar(
+                                binding.root,
+                                getString(R.string.added_to_cart),
+                                requireActivity()
+                            ).show()
                             findNavController().navigate(R.id.action_productFragment_to_mainFragment)
                         }
                         Status.ERROR -> {

@@ -7,6 +7,9 @@
     <string name="cart_page">Koszyk</string>
     <string name="email">E-mail</string>
     <string name="user_email">Email: %1$s</string>
+    <string name="user_username">Nick: %1$s</string>
+    <string name="city">Miasto</string>
+    <string name="user">Użytkownik</string>
     <string name="password">Hasło</string>
     <string name="sign_in">Zaloguj</string>
     <string name="register_now">Nie masz jeszcze konta? Zarejestruj się!</string>
@@ -67,4 +70,14 @@
     <string name="choose_from_gallery">Wybierz z galerii</string>
     <string name="total_cost">Razem: %1$.2f$</string>
     <string name="order">Zamów</string>
+    <string name="shipping_address">Adres do wysyłki</string>
+    <string name="billing_address">Adres do rachunku</string>
+    <string name="country">Kraj</string>
+    <string name="street">Ulica</string>
+    <string name="postal_code">Kod pocztowy</string>
+    <string name="use_user_data">Użyj moich danych</string>
+    <string name="use_same_address">Użyj tego samego adresu do wystawienia rachunku</string>
+    <string name="go_next">Dalej</string>
+    <string name="summary">Podsumowanie</string>
+    <string name="is_first_address">isFirstAddressFragment</string>
 </resources>

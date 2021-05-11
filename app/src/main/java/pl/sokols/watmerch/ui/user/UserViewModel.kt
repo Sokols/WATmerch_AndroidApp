@@ -19,7 +19,6 @@ class UserViewModel @Inject constructor(
     private val prefs: AppPreferences
 ) : ViewModel() {
 
-    var isEditable: Boolean = true
     lateinit var user: User
 
     var firstName: String = ""
@@ -69,10 +68,6 @@ class UserViewModel @Inject constructor(
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             Log.d("ERROR", exception.message.toString())
         }
-    }
-
-    fun updateEditable() {
-        isEditable = !isEditable
     }
 
     private fun setUserData() {

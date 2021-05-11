@@ -90,7 +90,7 @@ class UserFragment : Fragment() {
         binding.birthDateUserEditText.setOnClickListener(dateEditTextOnClickListener)
         binding.userPhotoImageView.setImageBitmap(Utils.getBitmapFromString(user?.userDetails?.avatar))
         binding.userPhotoImageView.setOnClickListener {
-
+            // TODO: implement adding images
         }
     }
 

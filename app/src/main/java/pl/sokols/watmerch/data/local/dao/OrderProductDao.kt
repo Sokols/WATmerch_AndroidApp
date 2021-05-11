@@ -13,6 +13,10 @@ interface OrderProductDao {
     @Query("SELECT * FROM order_products WHERE productBarcode = :productBarcode")
     suspend fun getOrderProductByBarcode(productBarcode: Int): OrderProduct
 
+    @Update
+    @Transaction
+    suspend fun updateOrderProduct(orderProduct: OrderProduct)
+
     @Query("DELETE FROM order_products")
     suspend fun deleteAll()
 
