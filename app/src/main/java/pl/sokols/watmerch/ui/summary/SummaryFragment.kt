@@ -44,6 +44,7 @@ class SummaryFragment : Fragment() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
+                            binding.summaryProgressIndicator.visibility = View.INVISIBLE
                             Utils.getSnackbar(
                                 binding.root,
                                 resource.data.toString(),
@@ -52,6 +53,7 @@ class SummaryFragment : Fragment() {
                             findNavController().navigate(R.id.action_summaryFragment_to_mainFragment)
                         }
                         Status.ERROR -> {
+                            binding.summaryProgressIndicator.visibility = View.INVISIBLE
                             Utils.getSnackbar(
                                 binding.root,
                                 resource.message.toString(),
@@ -59,11 +61,7 @@ class SummaryFragment : Fragment() {
                             ).show()
                         }
                         Status.LOADING -> {
-                            Utils.getSnackbar(
-                                binding.root,
-                                "LOADING",
-                                requireActivity()
-                            ).show()
+                            binding.summaryProgressIndicator.visibility = View.VISIBLE
                         }
                     }
                 }

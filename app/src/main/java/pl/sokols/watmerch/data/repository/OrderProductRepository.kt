@@ -29,5 +29,5 @@ class OrderProductRepository @Inject constructor(
     suspend fun deleteOrderProductByBarcode(productBarcode: Int) =
         orderProductDao.deleteOrderProductByBarcode(productBarcode)
 
-    suspend fun isInTheCart(productBarcode: Int) = orderProductDao.isInTheCart(productBarcode)
+    fun isInTheCart(productBarcode: Int) = orderProductDao.isInTheCart(productBarcode)
 }

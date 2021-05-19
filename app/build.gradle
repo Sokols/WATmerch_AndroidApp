@@ -85,13 +85,10 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-scalars:$rootProject.retrofitVersion"
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
-
-//    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$rootProject.hilt_version"
-//    kapt "androidx.hilt:hilt-compiler:$rootProject.hilt_version"
-//    implementation "androidx.fragment:fragment-ktx$rootProject.fragmentVersion"
 
 }

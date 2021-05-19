@@ -5,11 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.toList
 import pl.sokols.watmerch.data.model.Address
-import pl.sokols.watmerch.data.model.OrderProduct
 import pl.sokols.watmerch.data.model.Purchase
 import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.data.repository.OrderProductRepository
@@ -18,7 +15,6 @@ import pl.sokols.watmerch.data.repository.UserRepository
 import pl.sokols.watmerch.utils.AppPreferences
 import pl.sokols.watmerch.utils.Resource
 import pl.sokols.watmerch.utils.Utils
-import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 
@@ -41,6 +37,7 @@ class SummaryViewModel @Inject constructor(
     fun makePurchase() = liveData(Dispatchers.Main) {
         emit(Resource.loading(data = null))
         try {
+            println(orderProductRepository.allOrderProducts.first())
             val purchase = Purchase(
                 purchaseDate = Utils.getStringFromDate(Date()),
                 shippingAddress = shippingAddress,
@@ -51,9 +48,11 @@ class SummaryViewModel @Inject constructor(
                         password = prefs.userPassword.toString()
                     )
                 ),
-                orderProducts = orderProductRepository.allOrderProducts.first()
+                // TODO: Find a way to add order products.
+                // orderProducts = orderProductRepository.allOrderProducts.first()
             )
-            emit(Resource.success(data = purchaseRepository.makePurchase(purchase)))
+            purchaseRepository.makePurchase(purchase)
+            emit(Resource.success(data = "Złożono zamówienie!"))
             orderProductRepository.deleteAllOrderProducts()
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))

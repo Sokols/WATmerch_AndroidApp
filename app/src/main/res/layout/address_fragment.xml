@@ -5,10 +5,9 @@
     tools:context=".ui.address.AddressFragment">
 
     <data>
-
         <variable
-            name="viewModel"
-            type="pl.sokols.watmerch.ui.address.AddressViewModel" />
+            name="address"
+            type="pl.sokols.watmerch.data.model.Address" />
     </data>
 
     <ScrollView
@@ -75,135 +74,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleAddressTextView" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/firstNameAddressTextInputLayout"
-                style="@style/TextInputLayoutStyle"
+            <include
+                android:id="@+id/addressUserAddressForm"
+                layout="@layout/user_address_form"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_padding"
-                android:hint="@{@string/first_name + '*'}"
-                android:paddingHorizontal="@dimen/default_padding"
+                android:layout_height="match_parent"
+                app:address="@{address}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dividerAddress">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/firstNameAddressEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:text="@={viewModel.firstName}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/lastNameAddressTextInputLayout"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@{@string/last_name + '*'}"
-                android:paddingHorizontal="@dimen/default_padding"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/firstNameAddressTextInputLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/lastNameAddressEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:text="@={viewModel.lastName}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phoneAddressTextInputLayout"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@{@string/phone_number + '*'}"
-                android:paddingHorizontal="@dimen/default_padding"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lastNameAddressTextInputLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phoneAddressEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:text="@={viewModel.phoneNumber}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/countryAddressTextInputLayout"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@{@string/country + '*'}"
-                android:paddingHorizontal="@dimen/default_padding"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/phoneAddressTextInputLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/countryAddressEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@={viewModel.country}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/streetAddressTextInputLayout"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@{@string/street + '*'}"
-                android:paddingHorizontal="@dimen/default_padding"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/countryAddressTextInputLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/streetAddressEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:text="@={viewModel.street}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/postalCodeAddressTextInputLayout"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:hint="@{@string/postal_code + '*'}"
-                android:paddingHorizontal="@dimen/default_padding"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/streetAddressTextInputLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/postalCodeAddressEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@={viewModel.postalCode}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/cityAddressTextInputLayout"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@{@string/city + '*'}"
-                android:paddingHorizontal="@dimen/default_padding"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/postalCodeAddressTextInputLayout"
-                app:layout_constraintTop_toBottomOf="@+id/streetAddressTextInputLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/cityAddressEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@={viewModel.city}" />
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@+id/dividerAddress" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/applyAddressButton"
@@ -216,7 +95,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/postalCodeAddressTextInputLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/addressUserAddressForm" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/goBackAddressTextView"

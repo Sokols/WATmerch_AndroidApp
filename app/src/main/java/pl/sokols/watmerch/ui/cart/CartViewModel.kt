@@ -28,7 +28,7 @@ class CartViewModel @Inject constructor(
     }
 
     fun insertProduct(productBarcode: Int) = viewModelScope.launch {
-        orderProductRepository.insertOrderProduct(OrderProduct(productBarcode = productBarcode))
+        orderProductRepository.insertOrderProduct(OrderProduct(product = productRepository.getProductByBarcode(productBarcode)))
     }
 
     fun updateProducts(orderProducts: List<OrderProduct>) = liveData {
@@ -36,10 +36,10 @@ class CartViewModel @Inject constructor(
         try {
             val productList: MutableList<Product> = mutableListOf()
             for (orderProduct: OrderProduct in orderProducts) {
-                productList.add(productRepository.getProductByBarcode(orderProduct.productBarcode!!))
+                productList.add(productRepository.getProductByBarcode(orderProduct.product?.barcode!!))
             }
-            setTotal(orderProducts, productList.toList())
-            emit(Resource.success(data = productList.toList()))
+            setTotal(orderProducts, productList)
+            emit(Resource.success(data = productList))
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error occurred"))
             Log.e("ERROR", exception.message.toString())

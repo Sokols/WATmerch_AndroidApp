@@ -8,7 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import pl.sokols.watmerch.data.model.OrderProduct
 import pl.sokols.watmerch.data.repository.OrderProductRepository
 import pl.sokols.watmerch.data.repository.ProductRepository
-import pl.sokols.watmerch.utils.AppPreferences
 import pl.sokols.watmerch.utils.Resource
 import javax.inject.Inject
 
@@ -41,7 +40,7 @@ class ProductViewModel @Inject constructor(
     fun addProductToCart(barcode: Int) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
-            val orderProduct = OrderProduct(productBarcode = barcode)
+            val orderProduct = OrderProduct(product = productRepository.getProductByBarcode(barcode))
             emit(Resource.success(data = orderProductRepository.insertOrderProduct(orderProduct)))
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))

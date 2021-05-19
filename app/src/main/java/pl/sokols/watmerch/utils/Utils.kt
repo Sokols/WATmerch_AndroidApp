@@ -9,7 +9,6 @@ import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.OrderProduct
 import pl.sokols.watmerch.data.model.Product
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 class Utils {
@@ -61,6 +60,6 @@ class Utils {
             orderProducts: List<OrderProduct>,
             product: Product
         ): OrderProduct =
-            orderProducts.single { orderProduct -> orderProduct.productBarcode?.equals(product.barcode)!! }
+            orderProducts.single { orderProduct -> orderProduct.product?.barcode?.equals(product.barcode)!! }
     }
 }

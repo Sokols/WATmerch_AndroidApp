@@ -27,27 +27,13 @@ class AddressViewModel @Inject constructor(
 
     lateinit var user: User
 
-    var firstName: ObservableField<String> = ObservableField("")
-    var lastName: ObservableField<String> = ObservableField("")
-    var phoneNumber: ObservableField<String> = ObservableField("")
-    var country: ObservableField<String> = ObservableField("")
-    var street: ObservableField<String> = ObservableField("")
-    var postalCode: ObservableField<String> = ObservableField("")
-    var city: ObservableField<String> = ObservableField("")
+    var address: ObservableField<Address> = ObservableField()
 
-    fun provideAddressData() = liveData(Dispatchers.Main) {
+    fun provideAddressData(isAllDataProvided: Boolean) = liveData(Dispatchers.Main) {
         emit(Resource.loading(data = null))
         try {
-            if (checkRequiredData()) {
-                val address = Address(
-                    firstName = firstName.get().toString(),
-                    lastName = lastName.get().toString(),
-                    phoneNumber = phoneNumber.get().toString(),
-                    country = country.get().toString(),
-                    street = street.get().toString(),
-                    postalCode = postalCode.get().toString(),
-                    city = city.get().toString()
-                )
+            if (isAllDataProvided) {
+                val address = address.get()
                 emit(Resource.success(data = address))
             } else {
                 emit(Resource.error(data = null, message = "Uzupełnij wszystkie wymagane pola!"))
@@ -60,16 +46,9 @@ class AddressViewModel @Inject constructor(
 
     fun setUserData(isDefaultData: Boolean) {
         if (isDefaultData) {
-            val userDetails = user.userDetails
-            if (userDetails != null) {
-                firstName.set(userDetails.firstName)
-                lastName.set(userDetails.lastName)
-                phoneNumber.set(userDetails.phoneNumber)
-            }
+            address.set(user.shippingAddress)
         } else {
-            firstName.set("")
-            lastName.set("")
-            phoneNumber.set("")
+            address.set(null)
         }
     }
 
@@ -81,10 +60,4 @@ class AddressViewModel @Inject constructor(
             )
         )
     }
-
-    private fun checkRequiredData(): Boolean =
-        firstName.get().toString().isNotEmpty() && lastName.get().toString().isNotEmpty()
-                && phoneNumber.get().toString().isNotEmpty()
-                && country.get().toString().isNotEmpty() && street.get().toString().isNotEmpty()
-                && postalCode.get().toString().isNotEmpty() && city.get().toString().isNotEmpty()
 }

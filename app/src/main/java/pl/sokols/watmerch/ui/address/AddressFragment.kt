@@ -42,14 +42,13 @@ class AddressFragment : Fragment() {
             binding.titleAddressTextView.text = getString(R.string.billing_address)
             binding.sameAddressCheckBox.visibility = View.GONE
             shippingAddress = address
+            binding.address = shippingAddress
         }
     }
 
     private fun setListeners() {
-        binding.viewModel = viewModel
-
         binding.applyAddressButton.setOnClickListener {
-            viewModel.provideAddressData().observe(viewLifecycleOwner, {
+            viewModel.provideAddressData(checkRequiredData()).observe(viewLifecycleOwner, {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
@@ -122,4 +121,19 @@ class AddressFragment : Fragment() {
             findNavController().navigate(R.id.action_addressFragment_to_cartFragment)
         }
     }
+
+    private fun checkRequiredData(): Boolean =
+        binding.addressUserAddressForm.firstNameAddressEditText.text.toString().isNotEmpty() &&
+                binding.addressUserAddressForm.lastNameAddressEditText.text.toString()
+                    .isNotEmpty() &&
+                binding.addressUserAddressForm.phoneAddressEditText.text.toString()
+                    .isNotEmpty() &&
+                binding.addressUserAddressForm.countryAddressEditText.text.toString()
+                    .isNotEmpty() &&
+                binding.addressUserAddressForm.streetAddressEditText.text.toString()
+                    .isNotEmpty() &&
+                binding.addressUserAddressForm.postalCodeAddressEditText.text.toString()
+                    .isNotEmpty() &&
+                binding.addressUserAddressForm.cityAddressEditText.text.toString()
+                    .isNotEmpty()
 }
