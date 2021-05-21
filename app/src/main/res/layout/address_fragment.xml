@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="address"
-            type="pl.sokols.watmerch.data.model.Address" />
+            name="viewModel"
+            type="pl.sokols.watmerch.ui.address.AddressViewModel" />
     </data>
 
     <ScrollView
@@ -79,7 +79,7 @@
                 layout="@layout/user_address_form"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:address="@{address}"
+                app:address="@={viewModel.address}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dividerAddress" />

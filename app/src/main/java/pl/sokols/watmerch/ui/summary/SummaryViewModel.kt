@@ -37,11 +37,10 @@ class SummaryViewModel @Inject constructor(
     fun makePurchase() = liveData(Dispatchers.Main) {
         emit(Resource.loading(data = null))
         try {
-            println(orderProductRepository.allOrderProducts.first())
             val purchase = Purchase(
                 purchaseDate = Utils.getStringFromDate(Date()),
-                shippingAddress = shippingAddress,
-                billingAddress = billingAddress,
+//                shippingAddress = shippingAddress,
+//                billingAddress = billingAddress,
                 user = userRepository.loginUser(
                     User(
                         username = prefs.userUsername.toString(),

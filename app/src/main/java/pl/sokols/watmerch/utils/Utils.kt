@@ -1,6 +1,7 @@
 package pl.sokols.watmerch.utils
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.View
@@ -61,5 +62,14 @@ class Utils {
             product: Product
         ): OrderProduct =
             orderProducts.single { orderProduct -> orderProduct.product?.barcode?.equals(product.barcode)!! }
+
+        fun setAppLocale(context: Context, language: String) {
+            val locale = Locale(language)
+            Locale.setDefault(locale)
+            val config = context.resources.configuration
+            config.setLocale(locale)
+            context.createConfigurationContext(config)
+            context.resources.updateConfiguration(config, context.resources.displayMetrics)
+        }
     }
 }

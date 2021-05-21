@@ -37,8 +37,15 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/accountFragment"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/accountFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/accountFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -181,5 +188,18 @@
         <argument
             android:name="@string/billing_address"
             app:argType="pl.sokols.watmerch.data.model.Address" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="pl.sokols.watmerch.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_accountFragment"
+            app:destination="@id/accountFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/mainFragment" />
     </fragment>
 </navigation>

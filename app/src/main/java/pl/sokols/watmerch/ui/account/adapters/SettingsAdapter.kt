@@ -26,6 +26,10 @@ class SettingsAdapter(
                         view.findNavController()
                             .navigate(R.id.action_accountFragment_to_userFragment, bundle)
                     }
+                    view.resources.getString(R.string.app_settings) -> {
+                        view.findNavController()
+                            .navigate(R.id.action_accountFragment_to_settingsFragment)
+                    }
                     // TODO: add another navigation
                 }
             }

@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string-array name="language_values">
+        <item>@string/polish</item>
+        <item>@string/english</item>
+    </string-array>
+
     <string-array name="settings">
         <item>@string/my_data</item>
         <item>@string/my_orders</item>

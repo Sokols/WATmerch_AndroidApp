@@ -21,11 +21,7 @@ class AddressViewModel @Inject constructor(
     private val prefs: AppPreferences
 ) : ViewModel() {
 
-    init {
-        setUser()
-    }
-
-    lateinit var user: User
+    var user: User? = null
 
     var address: ObservableField<Address> = ObservableField()
 
@@ -46,18 +42,21 @@ class AddressViewModel @Inject constructor(
 
     fun setUserData(isDefaultData: Boolean) {
         if (isDefaultData) {
-            address.set(user.shippingAddress)
+            setUserData()
         } else {
             address.set(null)
         }
     }
 
-    private fun setUser() = viewModelScope.launch {
-        user = userRepository.loginUser(
-            User(
-                username = prefs.userUsername.toString(),
-                password = prefs.userPassword.toString()
+    private fun setUserData() = viewModelScope.launch {
+        if (user == null) {
+            user = userRepository.loginUser(
+                User(
+                    username = prefs.userUsername.toString(),
+                    password = prefs.userPassword.toString()
+                )
             )
-        )
+        }
+        address.set(user!!.shippingAddress)
     }
 }

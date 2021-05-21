@@ -27,6 +27,7 @@ class AddressFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = AddressFragmentBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
         return binding.root
     }
 
@@ -42,7 +43,6 @@ class AddressFragment : Fragment() {
             binding.titleAddressTextView.text = getString(R.string.billing_address)
             binding.sameAddressCheckBox.visibility = View.GONE
             shippingAddress = address
-            binding.address = shippingAddress
         }
     }
 

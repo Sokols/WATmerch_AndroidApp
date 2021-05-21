@@ -69,7 +69,15 @@ class CartFragment : Fragment() {
         })
 
         binding.payCartButton.setOnClickListener {
-            findNavController().navigate(R.id.action_cartFragment_to_addressFragment)
+            if (viewModel.products.value?.isEmpty() == true) {
+                Utils.getSnackbar(
+                    binding.root,
+                    getString(R.string.empty_cart),
+                    requireActivity()
+                ).show()
+            } else {
+                findNavController().navigate(R.id.action_cartFragment_to_addressFragment)
+            }
         }
     }
 
