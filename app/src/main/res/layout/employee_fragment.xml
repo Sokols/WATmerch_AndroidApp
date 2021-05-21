@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.employee.EmployeeFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="pl.sokols.watmerch.ui.employee.EmployeeViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/employeeRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:fillViewport="true"
+                android:scrollbars="none"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/employee_product_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.nambimobile.widgets.efab.ExpandableFabLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.nambimobile.widgets.efab.ExpandableFab
+                android:id="@+id/settingsEmployeeFAB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="@dimen/vertical_padding"
+                android:layout_marginBottom="@dimen/vertical_padding"
+                android:background="?attr/colorOnPrimary"
+                app:efab_icon="@drawable/ic_baseline_settings_24"
+                android:foregroundTint="?attr/colorPrimary"
+                app:efab_iconAnimationRotationDeg="-270" />
+
+            <com.nambimobile.widgets.efab.FabOption
+                android:id="@+id/addProductEmployeeFAB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorOnPrimary"
+                android:foregroundTint="?attr/colorPrimary"
+                app:fab_icon="@drawable/ic_baseline_add_24"
+                app:label_text="@string/add_new_product" />
+
+            <com.nambimobile.widgets.efab.FabOption
+                android:id="@+id/editProductEmployeeFAB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorOnPrimary"
+                android:foregroundTint="?attr/colorPrimary"
+                app:fab_icon="@drawable/ic_baseline_edit_24"
+                app:label_text="@string/edit_product" />
+        </com.nambimobile.widgets.efab.ExpandableFabLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

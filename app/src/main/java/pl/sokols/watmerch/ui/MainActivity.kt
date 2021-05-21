@@ -2,7 +2,6 @@ package pl.sokols.watmerch.ui
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +16,6 @@ import pl.sokols.watmerch.R
 import pl.sokols.watmerch.databinding.MainActivityBinding
 import pl.sokols.watmerch.utils.AppPreferences
 import pl.sokols.watmerch.utils.LocaleHelper
-import pl.sokols.watmerch.utils.Utils
 
 
 @AndroidEntryPoint

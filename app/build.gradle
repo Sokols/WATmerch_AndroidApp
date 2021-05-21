@@ -98,4 +98,6 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
+    // FAB
+    implementation 'com.nambimobile.widgets:expandable-fab:1.0.2'
 }

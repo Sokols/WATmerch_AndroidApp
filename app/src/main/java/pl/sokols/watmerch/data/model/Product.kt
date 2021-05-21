@@ -24,4 +24,8 @@ data class Product(
         basicDetails = null,
         details = null
     )
+
+    override fun toString(): String {
+        return "$barcode - $name"
+    }
 }

@@ -46,6 +46,14 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/accountFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_employeeFragment"
+            app:destination="@id/employeeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/accountFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -195,6 +203,20 @@
         android:label="SettingsFragment" >
         <action
             android:id="@+id/action_settingsFragment_to_accountFragment"
+            app:destination="@id/accountFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeFragment"
+        android:name="pl.sokols.watmerch.ui.employee.EmployeeFragment"
+        android:label="employee_fragment"
+        tools:layout="@layout/employee_fragment" >
+        <action
+            android:id="@+id/action_employeeFragment_to_accountFragment"
             app:destination="@id/accountFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"

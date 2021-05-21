@@ -1,7 +1,6 @@
 package pl.sokols.watmerch.ui.account
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.BR
-import pl.sokols.watmerch.BasicApp
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.databinding.AccountFragmentBinding
@@ -30,13 +28,8 @@ class AccountFragment : Fragment() {
     ): View {
         binding = AccountFragmentBinding.inflate(inflater, container, false)
         binding.setVariable(BR.viewModel, viewModel)
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         setListeners()
-        setRecyclerView()
+        return binding.root
     }
 
     private fun setListeners() {
@@ -71,18 +64,16 @@ class AccountFragment : Fragment() {
         })
     }
 
-    private fun setRecyclerView() {
-        binding.settingsRecyclerView.adapter = SettingsAdapter(
-            resources.getStringArray(R.array.settings).toList()
-        )
-    }
-
     private fun setUi(user: User?) {
         binding.setVariable(BR.user, user)
         binding.avatarAccountImageView.setImageBitmap(
             Utils.getBitmapFromString(
                 user?.userDetails?.avatar
             )
+        )
+        binding.settingsRecyclerView.adapter = SettingsAdapter(
+            resources.getStringArray(R.array.settings).toList(),
+            user?.role?.name ?: getString(R.string.user_role)
         )
     }
 }

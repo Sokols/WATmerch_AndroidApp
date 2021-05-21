@@ -27,7 +27,7 @@
     <string name="delete">Delete</string>
     <string name="delete_all">Delete all</string>
     <string name="added_to_cart">Added to the cart!</string>
-    <string name="cancel">CANCEL</string>
+    <string name="cancel">Cancel</string>
     <string name="removed_from_cart">Removed from cart</string>
     <string name="already_in_cart">Added</string>
     <string name="different_passwords">Passwords don\'t match!</string>
@@ -90,5 +90,10 @@
     <string name="english" translatable="false">English</string>
     <string name="blank">" "</string>
     <string name="pl" translatable="false">pl</string>
-    <string name="en">en</string>
+    <string name="en" translatable="false">en</string>
+    <string name="employee_role" translatable="false">EMPLOYEE</string>
+    <string name="user_role" translatable="false">USER</string>
+    <string name="category_format">Category: %s</string>
+    <string name="add_new_product">Add new product</string>
+    <string name="edit_product">Edit product</string>
 </resources>
