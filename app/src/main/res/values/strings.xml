@@ -1,70 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WATmerch</string>
-    <string name="main_page">Strona główna</string>
-    <string name="account_page">Konto</string>
-    <string name="logo">WATmerch Logo</string>
-    <string name="main">Main</string>
-    <string name="cart_page">Koszyk</string>
-    <string name="email">E-mail</string>
-    <string name="user_email">Email: %1$s</string>
-    <string name="password">Hasło</string>
-    <string name="sign_in">Zaloguj</string>
-    <string name="register_now">Nie masz jeszcze konta? Zarejestruj się!</string>
-    <string name="repeat_password">Powtórz hasło</string>
-    <string name="sign_up">ZAREJESTRUJ</string>
-    <string name="login_now">Masz już konto? Zaloguj się!</string>
-    <string name="nickname">Nazwa użytkownika</string>
-    <string name="are_you_sure_you_want_to_quit">Na pewno chcesz wyjść?</string>
-    <string name="yes">Tak</string>
-    <string name="no">Nie</string>
+    <string name="main_page">Main page</string>
+    <string name="account_page">Account</string>
+    <string name="cart_page">Cart</string>
+    <string name="city">City</string>
+    <string name="user">User</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="register_now">Don\'t you have an account yet? Sign up!</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="login_now">Already have an account? Sign in!</string>
+    <string name="nickname">Username</string>
+    <string name="are_you_sure_you_want_to_quit">Are you sure you want to quit?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="test">Test</string>
-    <string name="price">Cena: %1$.2f$</string>
-    <string name="logging_page">Logowanie</string>
-    <string name="search">Szukaj...</string>
-    <string name="search_description">Szukaj</string>
-    <string name="more">Więcej</string>
-    <string name="change_theme">Zmień styl</string>
-    <string name="registing_page">Rejestracja</string>
-    <string name="blank" />
-    <string name="add_to_cart">Dodaj do koszyka</string>
-    <string name="minus">-</string>
-    <string name="plus">+</string>
-    <string name="one">1</string>
-    <string name="delete">Usuń</string>
-    <string name="delete_all">Usuń wszystko</string>
-    <string name="added_to_cart">Dodano do koszyka!</string>
-    <string name="cancel">ANULUJ</string>
-    <string name="removed_from_cart">Usunięto z koszyka</string>
-    <string name="already_in_cart">Dodano</string>
-    <string name="different_passwords">Hasła nie są identyczne!</string>
-    <string name="log_out">WYLOGUJ SIĘ</string>
-    <string name="add">Dodaj</string>
-    <string name="product_description">Opis produktu</string>
-    <string name="description">Opis</string>
-    <string name="all">Wszystko</string>
-    <string name="product_details">Szczegóły produktu</string>
-    <string name="no_match_found">Brak wyników</string>
-    <string name="avatar_description">Avatar użytkownika</string>
-    <string name="go_forward_button_description">Przycisk przejścia dalej</string>
-    <string name="user_page">Dane użytkownika</string>
-    <string name="my_data">Moje dane</string>
-    <string name="my_orders">Moje zamówienia</string>
-    <string name="app_settings">Ustawienia aplikacji</string>
-    <string name="employee_panel">Panel pracownika</string>
-    <string name="edit">Edytuj</string>
-    <string name="user_details">Szczegółowe dane</string>
-    <string name="user_photo_description">Avatar użytkownika</string>
-    <string name="first_name">Imię</string>
-    <string name="last_name">Nazwisko</string>
-    <string name="phone_number">Numer telefonu</string>
-    <string name="birth_date">Data urodzin</string>
-    <string name="company_name">Nazwa firmy</string>
-    <string name="nip">NIP</string>
-    <string name="save">Zapisz</string>
-    <string name="provide_all_data">Uzupełnij wszystkie wymagane pola!</string>
-    <string name="select_date">Wybierz datę</string>
-    <string name="take_a_photo">Zrób zdjęcie</string>
-    <string name="choose_from_gallery">Wybierz z galerii</string>
-    <string name="total_cost">Razem: %1$.2f$</string>
-    <string name="order">Zamów</string>
+    <string name="price">Price: $%1$.2f</string>
+    <string name="logging_page">Logging</string>
+    <string name="search">Search...</string>
+    <string name="search_description">Search</string>
+    <string name="more">More</string>
+    <string name="change_theme">Change theme</string>
+    <string name="registing_page">Registration</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="delete">Delete</string>
+    <string name="delete_all">Delete all</string>
+    <string name="added_to_cart">Added to the cart!</string>
+    <string name="cancel">Cancel</string>
+    <string name="removed_from_cart">Removed from cart</string>
+    <string name="already_in_cart">Added</string>
+    <string name="different_passwords">Passwords don\'t match!</string>
+    <string name="log_out">SIGN OUT</string>
+    <string name="add">Add</string>
+    <string name="product_description">Product description</string>
+    <string name="description">Description</string>
+    <string name="all">All</string>
+    <string name="product_details">Product details</string>
+    <string name="no_match_found">No results</string>
+    <string name="avatar_description">User avatar</string>
+    <string name="go_forward_button_description">Go next button</string>
+    <string name="user_page">User data</string>
+    <string name="my_data">My data</string>
+    <string name="my_orders">My purchases</string>
+    <string name="app_settings">App settings</string>
+    <string name="employee_panel">Employee panel</string>
+    <string name="edit">Edit</string>
+    <string name="user_details">Detailed data</string>
+    <string name="user_photo_description">User avatar</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="birth_date">Birth date</string>
+    <string name="company_name">Company name</string>
+    <string name="save">Save</string>
+    <string name="provide_all_data">Please fill in all required fields!</string>
+    <string name="select_date">Choose date</string>
+    <string name="take_a_photo">Take a photo</string>
+    <string name="choose_from_gallery">Pick from gallery</string>
+    <string name="total_cost">SUM: $%1$.2f</string>
+    <string name="order">Order</string>
+    <string name="shipping_address">Shipping address</string>
+    <string name="billing_address">Billing address</string>
+    <string name="country">Country</string>
+    <string name="street">Street</string>
+    <string name="postal_code">Postal code</string>
+    <string name="use_user_data">Use my data</string>
+    <string name="use_same_address">Use the same address for billing</string>
+    <string name="go_next">Next</string>
+    <string name="summary">Summary</string>
+    <string name="empty_cart">Your cart is empty!</string>
+    <string name="choose_language">Choose language</string>
+    <string name="language">App language</string>
+    <string name="theme">App theme</string>
+    <string name="light_theme">Light theme</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="app_name" translatable="false">WATmerch</string>
+    <string name="logo" translatable="false">WATmerch Logo</string>
+    <string name="main" translatable="false">Main</string>
+    <string name="email" translatable="false">E-mail</string>
+    <string name="user_email" translatable="false">Email: %1$s</string>
+    <string name="user_username" translatable="false">Nick: %1$s</string>
+    <string name="minus" translatable="false">-</string>
+    <string name="plus" translatable="false">+</string>
+    <string name="one" translatable="false">1</string>
+    <string name="nip" translatable="false">NIP</string>
+    <string name="is_first_address" translatable="false">isFirstAddressFragment</string>
+    <string name="polish" translatable="false">Polski</string>
+    <string name="english" translatable="false">English</string>
+    <string name="blank">" "</string>
+    <string name="pl" translatable="false">pl</string>
+    <string name="en" translatable="false">en</string>
+    <string name="employee_role" translatable="false">EMPLOYEE</string>
+    <string name="user_role" translatable="false">USER</string>
+    <string name="category_format">Category: %s</string>
+    <string name="add_new_product">Add new product!</string>
+    <string name="edit_product">Edit product</string>
+    <string name="for_flash_use_volume">For flash use volume up button</string>
+    <string name="scan_barcode">Scan a barcode</string>
+    <string name="product_name">Product name</string>
+    <string name="product_barcode">Barcode</string>
+    <string name="product_price">Price</string>
+    <string name="done">Done!</string>
 </resources>

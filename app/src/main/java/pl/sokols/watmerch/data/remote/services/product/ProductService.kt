@@ -2,9 +2,7 @@ package pl.sokols.watmerch.data.remote.services.product
 
 import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.data.model.response.ProductResponse
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 interface ProductService {
 
@@ -13,4 +11,7 @@ interface ProductService {
 
     @GET("api/products/{barcode}")
     suspend fun getProductByBarcode(@Path("barcode") barcode: Int): Product
+
+    @POST("api/products")
+    suspend fun addEditProduct(@Body product: Product): Product
 }

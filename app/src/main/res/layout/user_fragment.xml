@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.user.UserFragment">
+    tools:context=".ui.account_section.user.UserFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="pl.sokols.watmerch.ui.user.UserViewModel" />
+            type="pl.sokols.watmerch.ui.account_section.user.UserViewModel" />
     </data>
 
     <ScrollView
@@ -49,10 +49,7 @@
                 android:layout_height="150dp"
                 android:layout_marginStart="@dimen/default_padding"
                 android:layout_marginTop="@dimen/default_padding"
-                android:clickable="@{viewModel.isEditable}"
                 android:contentDescription="@string/user_photo_description"
-                android:focusable="@{viewModel.isEditable}"
-                android:focusableInTouchMode="@{viewModel.isEditable}"
                 android:padding="@dimen/default_padding"
                 android:src="@drawable/ic_baseline_add_24"
                 app:layout_constraintStart_toStartOf="parent"
@@ -65,9 +62,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/default_padding"
                 android:layout_marginEnd="@dimen/default_padding"
-                android:clickable="@{viewModel.isEditable}"
-                android:focusable="@{viewModel.isEditable}"
-                android:focusableInTouchMode="@{viewModel.isEditable}"
                 android:hint="@{@string/first_name + '*'}"
                 android:paddingHorizontal="@dimen/default_padding"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -88,9 +82,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/default_padding"
-                android:clickable="@{viewModel.isEditable}"
-                android:focusable="@{viewModel.isEditable}"
-                android:focusableInTouchMode="@{viewModel.isEditable}"
                 android:hint="@{@string/last_name + '*'}"
                 android:paddingHorizontal="@dimen/default_padding"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -122,9 +113,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/default_padding"
-                android:clickable="@{viewModel.isEditable}"
-                android:focusable="@{viewModel.isEditable}"
-                android:focusableInTouchMode="@{viewModel.isEditable}"
                 android:hint="@{@string/phone_number + '*'}"
                 android:paddingHorizontal="@dimen/default_padding"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -144,8 +132,6 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:clickable="@{viewModel.isEditable}"
-                android:focusable="@{viewModel.isEditable}"
                 android:hint="@string/birth_date"
                 android:paddingHorizontal="@dimen/default_padding"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -167,9 +153,6 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:clickable="@{viewModel.isEditable}"
-                android:focusable="@{viewModel.isEditable}"
-                android:focusableInTouchMode="@{viewModel.isEditable}"
                 android:hint="@string/company_name"
                 android:paddingHorizontal="@dimen/default_padding"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -189,9 +172,6 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:clickable="@{viewModel.isEditable}"
-                android:focusable="@{viewModel.isEditable}"
-                android:focusableInTouchMode="@{viewModel.isEditable}"
                 android:hint="@string/nip"
                 android:paddingHorizontal="@dimen/default_padding"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -202,7 +182,6 @@
                     android:id="@+id/nipUserEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="date"
                     android:text="@={viewModel.nip}" />
             </com.google.android.material.textfield.TextInputLayout>
 

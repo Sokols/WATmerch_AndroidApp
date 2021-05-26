@@ -10,8 +10,12 @@ interface OrderProductDao {
     @Query("SELECT * FROM order_products")
     fun getAllOrderProducts(): Flow<List<OrderProduct>>
 
-    @Query("SELECT * FROM order_products WHERE productBarcode = :productBarcode")
+    @Query("SELECT * FROM order_products WHERE product_barcode = :productBarcode")
     suspend fun getOrderProductByBarcode(productBarcode: Int): OrderProduct
+
+    @Update
+    @Transaction
+    suspend fun updateOrderProduct(orderProduct: OrderProduct)
 
     @Query("DELETE FROM order_products")
     suspend fun deleteAll()
@@ -22,9 +26,9 @@ interface OrderProductDao {
     @Delete
     suspend fun delete(orderProduct: OrderProduct)
 
-    @Query("DELETE FROM order_products WHERE productBarcode = :productBarcode")
+    @Query("DELETE FROM order_products WHERE product_barcode = :productBarcode")
     suspend fun deleteOrderProductByBarcode(productBarcode: Int)
 
-    @Query("SELECT EXISTS(SELECT 1 FROM order_products WHERE productBarcode = :productBarcode LIMIT 1)")
-    suspend fun isInTheCart(productBarcode: Int): Boolean
+    @Query("SELECT EXISTS(SELECT 1 FROM order_products WHERE product_barcode = :productBarcode LIMIT 1)")
+    fun isInTheCart(productBarcode: Int): Boolean
 }

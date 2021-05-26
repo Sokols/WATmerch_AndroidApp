@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="settings">
-        <item>@string/my_data</item>
-        <item>@string/my_orders</item>
-        <item>@string/app_settings</item>
-        <item>@string/employee_panel</item>
-    </string-array>
-</resources>

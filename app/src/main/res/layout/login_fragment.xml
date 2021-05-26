@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="pl.sokols.watmerch.ui.login.LoginViewModel" />
+            type="pl.sokols.watmerch.ui.account_section.login.LoginViewModel" />
     </data>
 
     <ScrollView
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            tools:context=".ui.login.LoginFragment">
+            tools:context=".ui.account_section.login.LoginFragment">
 
             <ImageView
                 android:id="@+id/loginLogo"

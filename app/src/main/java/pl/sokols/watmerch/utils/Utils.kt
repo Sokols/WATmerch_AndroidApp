@@ -1,12 +1,14 @@
 package pl.sokols.watmerch.utils
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Log
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import pl.sokols.watmerch.R
+import pl.sokols.watmerch.data.model.OrderProduct
+import pl.sokols.watmerch.data.model.Product
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,14 +33,17 @@ class Utils {
         }
 
         fun getBitmapFromString(string: String?): Bitmap? {
-            val imageBytes = Base64.getDecoder().decode(string)
-            return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            if (string != null) {
+                val imageBytes = Base64.getDecoder().decode(string)
+                return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            }
+            return null
         }
 
         fun getDateStringFromString(birthDate: String?): String? {
             if (birthDate != null) {
                 val format = SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH)
-                val date =  format.parse(birthDate)
+                val date = format.parse(birthDate)
                 return format.format(date)
             }
             return null
@@ -50,6 +55,21 @@ class Utils {
                 return format.format(birthDate)
             }
             return null
+        }
+
+        fun findOrderProductByProduct(
+            orderProducts: List<OrderProduct>,
+            product: Product
+        ): OrderProduct =
+            orderProducts.single { orderProduct -> orderProduct.product?.barcode?.equals(product.barcode)!! }
+
+        fun setAppLocale(context: Context, language: String) {
+            val locale = Locale(language)
+            Locale.setDefault(locale)
+            val config = context.resources.configuration
+            config.setLocale(locale)
+            context.createConfigurationContext(config)
+            context.resources.updateConfiguration(config, context.resources.displayMetrics)
         }
     }
 }

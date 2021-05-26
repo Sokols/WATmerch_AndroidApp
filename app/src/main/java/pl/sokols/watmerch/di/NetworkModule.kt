@@ -1,5 +1,6 @@
 package pl.sokols.watmerch.di
 
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,11 +15,15 @@ import pl.sokols.watmerch.data.remote.services.category.CategoryService
 import pl.sokols.watmerch.data.remote.services.product.ProductHelper
 import pl.sokols.watmerch.data.remote.services.product.ProductHelperImpl
 import pl.sokols.watmerch.data.remote.services.product.ProductService
+import pl.sokols.watmerch.data.remote.services.purchase.PurchaseHelper
+import pl.sokols.watmerch.data.remote.services.purchase.PurchaseHelperImpl
+import pl.sokols.watmerch.data.remote.services.purchase.PurchaseService
 import pl.sokols.watmerch.data.remote.services.user.UserHelper
 import pl.sokols.watmerch.data.remote.services.user.UserHelperImpl
 import pl.sokols.watmerch.data.remote.services.user.UserService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -44,7 +49,8 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .baseUrl(URL)
             .client(okHttpClient)
             .build()
@@ -75,4 +81,13 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideCategoryHelper(categoryHelper: CategoryHelperImpl): CategoryHelper = categoryHelper
+
+    @Provides
+    @Singleton
+    fun providePurchaseService(retrofit: Retrofit): PurchaseService =
+        retrofit.create(PurchaseService::class.java)
+
+    @Provides
+    @Singleton
+    fun providePurchaseHelper(purchaseHelper: PurchaseHelperImpl): PurchaseHelper = purchaseHelper
 }

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="pl.sokols.watmerch.ui.cart.CartViewModel" />
+            type="pl.sokols.watmerch.ui.cart_section.cart.CartViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary"
-        tools:context=".ui.cart.CartFragment">
+        tools:context=".ui.cart_section.cart.CartFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cartRecyclerView"

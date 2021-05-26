@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="pl.sokols.watmerch.ui.main.MainFragment"
+        android:name="pl.sokols.watmerch.ui.main_section.main.MainFragment"
         tools:layout="@layout/main_fragment">
         <action
             android:id="@+id/action_mainFragment_to_productFragment"
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
-        android:name="pl.sokols.watmerch.ui.account.AccountFragment"
+        android:name="pl.sokols.watmerch.ui.account_section.account.AccountFragment"
         tools:layout="@layout/account_fragment" >
         <action
             android:id="@+id/action_accountFragment_to_loginFragment"
@@ -37,12 +37,27 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/accountFragment"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/accountFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/accountFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_employeeFragment"
+            app:destination="@id/employeeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/accountFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="pl.sokols.watmerch.ui.login.LoginFragment"
+        android:name="pl.sokols.watmerch.ui.account_section.login.LoginFragment"
         tools:layout="@layout/login_fragment">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -64,11 +79,19 @@
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
-        android:name="pl.sokols.watmerch.ui.cart.CartFragment"
-        tools:layout="@layout/cart_fragment" />
+        android:name="pl.sokols.watmerch.ui.cart_section.cart.CartFragment"
+        tools:layout="@layout/cart_fragment" >
+        <action
+            android:id="@+id/action_cartFragment_to_addressFragment"
+            app:destination="@id/addressFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="pl.sokols.watmerch.ui.register.RegisterFragment"
+        android:name="pl.sokols.watmerch.ui.account_section.register.RegisterFragment"
         tools:layout="@layout/register_fragment">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
@@ -89,7 +112,7 @@
     </fragment>
     <fragment
         android:id="@+id/productFragment"
-        android:name="pl.sokols.watmerch.ui.product.ProductFragment"
+        android:name="pl.sokols.watmerch.ui.main_section.product.ProductFragment"
         tools:layout="@layout/product_fragment">
         <action
             android:id="@+id/action_productFragment_to_mainFragment"
@@ -106,7 +129,7 @@
     </fragment>
     <fragment
         android:id="@+id/userFragment"
-        android:name="pl.sokols.watmerch.ui.user.UserFragment"
+        android:name="pl.sokols.watmerch.ui.account_section.user.UserFragment"
         android:label="user_fragment"
         tools:layout="@layout/user_fragment" >
         <action
@@ -120,5 +143,107 @@
         <argument
             android:name="parentComponentId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="pl.sokols.watmerch.ui.cart_section.address.AddressFragment"
+        android:label="address_fragment"
+        tools:layout="@layout/address_fragment" >
+        <action
+            android:id="@+id/action_addressFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/cartFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_addressFragment_self"
+            app:destination="@id/addressFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_addressFragment_to_summaryFragment"
+            app:destination="@id/summaryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="@string/shipping_address"
+            app:argType="pl.sokols.watmerch.data.model.Address"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/summaryFragment"
+        android:name="pl.sokols.watmerch.ui.cart_section.summary.SummaryFragment"
+        android:label="SummaryFragment" >
+        <action
+            android:id="@+id/action_summaryFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="@string/shipping_address"
+            app:argType="pl.sokols.watmerch.data.model.Address" />
+        <argument
+            android:name="@string/billing_address"
+            app:argType="pl.sokols.watmerch.data.model.Address" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="pl.sokols.watmerch.ui.account_section.settings.SettingsFragment"
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_accountFragment"
+            app:destination="@id/accountFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeFragment"
+        android:name="pl.sokols.watmerch.ui.account_section.employee.EmployeeFragment"
+        android:label="employee_fragment"
+        tools:layout="@layout/employee_fragment" >
+        <action
+            android:id="@+id/action_employeeFragment_to_accountFragment"
+            app:destination="@id/accountFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/mainFragment" />
+        <action
+            android:id="@+id/action_employeeFragment_to_scannerFragment"
+            app:destination="@id/scannerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/employeeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scannerFragment"
+        android:name="pl.sokols.watmerch.ui.account_section.scanner.ScannerFragment"
+        android:label="scanner_fragment"
+        tools:layout="@layout/scanner_fragment" >
+        <action
+            android:id="@+id/action_scannerFragment_to_employeeFragment"
+            app:destination="@id/employeeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/accountFragment" />
     </fragment>
 </navigation>

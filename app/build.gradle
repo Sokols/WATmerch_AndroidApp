@@ -17,6 +17,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        resConfigs "en", "pl"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,6 +41,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
 }
 
 dependencies {
@@ -52,6 +58,7 @@ dependencies {
     // Room components
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.preference:preference-ktx:1.1.1'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 
@@ -85,13 +92,15 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-scalars:$rootProject.retrofitVersion"
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
-//    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$rootProject.hilt_version"
-//    kapt "androidx.hilt:hilt-compiler:$rootProject.hilt_version"
-//    implementation "androidx.fragment:fragment-ktx$rootProject.fragmentVersion"
+    // FAB
+    implementation 'com.nambimobile.widgets:expandable-fab:1.0.2'
 
+    // Barcode scanner
+    implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
 }

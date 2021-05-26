@@ -9,5 +9,6 @@ class UserHelperImpl @Inject constructor(private val userService: UserService) :
 
     override suspend fun createUser(user: User): User = userService.createUser(user)
 
-    override suspend fun editUserDetails(userDetails: UserDetails): UserDetails = userService.editUserDetails(userDetails)
+    override suspend fun editUserDetails(userDetails: UserDetails): UserDetails =
+        userService.editUserDetails(userDetails)
 }

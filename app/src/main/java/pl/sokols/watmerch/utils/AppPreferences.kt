@@ -37,8 +37,16 @@ class AppPreferences @Inject constructor(@ApplicationContext context: Context) {
         get() = getString(Key.USER_PASSWORD.toString())
         set(value) = setString(Key.USER_PASSWORD.toString(), value)
 
+    var language: String?
+        get() = getString(Key.LANGUAGE.toString())
+        set(value) = setString(Key.LANGUAGE.toString(), value)
+
+    var theme: String?
+        get() = getString(Key.THEME.toString())
+        set(value) = setString(Key.THEME.toString(), value)
+
     enum class Key {
-        AUTH_TOKEN, COOKIES, CART_PRODUCTS_BARCODES, USER_USERNAME, USER_PASSWORD;
+        AUTH_TOKEN, COOKIES, CART_PRODUCTS_BARCODES, USER_USERNAME, USER_PASSWORD, LANGUAGE, THEME;
     }
 
     fun remove(name: String): SharedPreferences.Editor = prefs.edit().remove(name)!!

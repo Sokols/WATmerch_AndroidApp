@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.cart_section.address.AddressFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="pl.sokols.watmerch.ui.cart_section.address.AddressViewModel" />
+    </data>
+
+    <ScrollView
+        android:id="@+id/addressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimary">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/titleAddressTextView"
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/shipping_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <CheckBox
+                android:id="@+id/userDataAddressCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_padding"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginEnd="@dimen/default_padding"
+                android:text="@string/use_user_data"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerAddress2" />
+
+            <CheckBox
+                android:id="@+id/sameAddressCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_padding"
+                android:layout_marginEnd="@dimen/default_padding"
+                android:text="@string/use_same_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userDataAddressCheckBox" />
+
+            <View
+                android:id="@+id/dividerAddress"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_margin="@dimen/default_padding"
+                android:layout_marginTop="@dimen/default_padding"
+                android:background="?attr/colorOnSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sameAddressCheckBox" />
+
+            <View
+                android:id="@+id/dividerAddress2"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_margin="@dimen/default_padding"
+                android:background="?attr/colorOnSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleAddressTextView" />
+
+            <include
+                android:id="@+id/addressUserAddressForm"
+                layout="@layout/user_address_form"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:address="@={viewModel.address}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerAddress" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/applyAddressButton"
+                style="@style/DefaultButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_horizontal_margin"
+                android:layout_marginEnd="@dimen/default_horizontal_margin"
+                android:text="@string/go_next"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addressUserAddressForm" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/goBackAddressTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/default_horizontal_margin"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginEnd="@dimen/default_horizontal_margin"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/applyAddressButton" />
+
+            <ProgressBar
+                android:id="@+id/addressProgressIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="?attr/colorOnPrimary"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

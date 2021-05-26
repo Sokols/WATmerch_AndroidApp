@@ -3,6 +3,7 @@
     package="pl.sokols.watmerch">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -13,13 +14,14 @@
     <application
         android:name=".BasicApp"
         android:allowBackup="true"
+        android:configChanges="locale"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WATmerch"
-        android:usesCleartextTraffic="true"
-        android:windowSoftInputMode="adjustNothing">
+        android:usesCleartextTraffic="true">
         <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,10 +31,17 @@
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/main" />
+        <activity
+            android:name=".utils.Capture"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
     </application>
 
 </manifest>

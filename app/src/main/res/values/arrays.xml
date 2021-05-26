@@ -1,0 +1,14 @@
+<resources>
+
+    <string-array name="language_values">
+        <item>@string/polish</item>
+        <item>@string/english</item>
+    </string-array>
+
+    <string-array name="settings">
+        <item>@string/my_data</item>
+        <item>@string/my_orders</item>
+        <item>@string/app_settings</item>
+        <item>@string/employee_panel</item>
+    </string-array>
+</resources>

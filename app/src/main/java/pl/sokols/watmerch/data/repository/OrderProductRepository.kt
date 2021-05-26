@@ -12,6 +12,12 @@ class OrderProductRepository @Inject constructor(
 ) {
     val allOrderProducts: Flow<List<OrderProduct>> = orderProductDao.getAllOrderProducts()
 
+    suspend fun getOrderProductByBarcode(productBarcode: Int) =
+        orderProductDao.getOrderProductByBarcode(productBarcode)
+
+    suspend fun updateOrderProduct(orderProduct: OrderProduct) =
+        orderProductDao.updateOrderProduct(orderProduct)
+
     suspend fun insertOrderProduct(orderProduct: OrderProduct) =
         orderProductDao.insert(orderProduct)
 
@@ -23,5 +29,5 @@ class OrderProductRepository @Inject constructor(
     suspend fun deleteOrderProductByBarcode(productBarcode: Int) =
         orderProductDao.deleteOrderProductByBarcode(productBarcode)
 
-    suspend fun isInTheCart(productBarcode: Int) = orderProductDao.isInTheCart(productBarcode)
+    fun isInTheCart(productBarcode: Int) = orderProductDao.isInTheCart(productBarcode)
 }
