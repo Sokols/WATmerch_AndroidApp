@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="pl.sokols.watmerch.ui.summary.SummaryViewModel" />
+            type="pl.sokols.watmerch.ui.cart_section.summary.SummaryViewModel" />
     </data>
 
     <ScrollView
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            tools:context=".ui.summary.SummaryFragment">
+            tools:context=".ui.cart_section.summary.SummaryFragment">
 
             <TextView
                 android:id="@+id/titleSummaryTextView"

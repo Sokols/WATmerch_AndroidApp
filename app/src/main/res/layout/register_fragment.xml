@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="pl.sokols.watmerch.ui.register.RegisterViewModel" />
+            type="pl.sokols.watmerch.ui.account_section.register.RegisterViewModel" />
     </data>
 
     <ScrollView
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            tools:context=".ui.register.RegisterFragment">
+            tools:context=".ui.account_section.register.RegisterFragment">
 
             <ImageView
                 android:id="@+id/registerLogo"

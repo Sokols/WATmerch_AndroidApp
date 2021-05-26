@@ -78,6 +78,12 @@
     <string name="dark_theme">Styl ciemny</string>
     <string name="blank">" "</string>
     <string name="category_format">Kategoria: %s</string>
-    <string name="add_new_product">Dodaj nowy produkt</string>
+    <string name="add_new_product">Dodaj nowy produkt!</string>
     <string name="edit_product">Edytuj produkt</string>
+    <string name="for_flash_use_volume">Aby użyć flesza wciśnij klawisz zwiększenia głośności</string>
+    <string name="scan_barcode">Zeskanuj kod</string>
+    <string name="product_name">Nazwa produktu</string>
+    <string name="product_barcode">Kod kreskowy</string>
+    <string name="product_price">Cena</string>
+    <string name="done">Zrobiono!</string>
 </resources>

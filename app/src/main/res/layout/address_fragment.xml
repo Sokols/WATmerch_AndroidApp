@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.address.AddressFragment">
+    tools:context=".ui.cart_section.address.AddressFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="pl.sokols.watmerch.ui.address.AddressViewModel" />
+            type="pl.sokols.watmerch.ui.cart_section.address.AddressViewModel" />
     </data>
 
     <ScrollView

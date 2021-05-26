@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="pl.sokols.watmerch.ui.account.AccountViewModel" />
+            type="pl.sokols.watmerch.ui.account_section.account.AccountViewModel" />
 
         <variable
             name="user"
@@ -23,7 +23,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".ui.account.AccountFragment">
+            tools:context=".ui.account_section.account.AccountFragment">
 
             <ImageView
                 android:id="@+id/avatarAccountImageView"

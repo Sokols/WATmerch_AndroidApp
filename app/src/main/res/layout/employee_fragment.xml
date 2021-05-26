@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.employee.EmployeeFragment">
+    tools:context=".ui.account_section.employee.EmployeeFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="pl.sokols.watmerch.ui.employee.EmployeeViewModel" />
+            type="pl.sokols.watmerch.ui.account_section.employee.EmployeeViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

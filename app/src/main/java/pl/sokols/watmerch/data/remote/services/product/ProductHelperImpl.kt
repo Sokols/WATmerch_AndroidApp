@@ -9,4 +9,6 @@ class ProductHelperImpl @Inject constructor(private val productService: ProductS
     override suspend fun getProducts(options: Map<String, String>): ProductResponse = productService.getProducts(options)
 
     override suspend fun getProductByBarcode(barcode: Int): Product = productService.getProductByBarcode(barcode)
+
+    override suspend fun addEditProduct(product: Product): Product = productService.addEditProduct(product)
 }

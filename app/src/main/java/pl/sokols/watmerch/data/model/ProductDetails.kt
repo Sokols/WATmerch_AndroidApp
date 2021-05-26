@@ -1,7 +1,8 @@
 package pl.sokols.watmerch.data.model
 
 data class ProductDetails(
-    val id: Int,
-    val longDescription: String?,
+    val longDescription: String? = null,
     val quantityInStock: Int
-)
+) {
+    var id: Int? = null
+}

@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.user.UserFragment">
+    tools:context=".ui.account_section.user.UserFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="pl.sokols.watmerch.ui.user.UserViewModel" />
+            type="pl.sokols.watmerch.ui.account_section.user.UserViewModel" />
     </data>
 
     <ScrollView

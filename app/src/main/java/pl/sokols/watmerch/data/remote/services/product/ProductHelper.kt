@@ -8,4 +8,6 @@ interface ProductHelper {
     suspend fun getProducts(options: Map<String, String>): ProductResponse
 
     suspend fun getProductByBarcode(barcode: Int): Product
+
+    suspend fun addEditProduct(product: Product): Product
 }

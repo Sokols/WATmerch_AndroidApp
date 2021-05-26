@@ -94,6 +94,12 @@
     <string name="employee_role" translatable="false">EMPLOYEE</string>
     <string name="user_role" translatable="false">USER</string>
     <string name="category_format">Category: %s</string>
-    <string name="add_new_product">Add new product</string>
+    <string name="add_new_product">Add new product!</string>
     <string name="edit_product">Edit product</string>
+    <string name="for_flash_use_volume">For flash use volume up button</string>
+    <string name="scan_barcode">Scan a barcode</string>
+    <string name="product_name">Product name</string>
+    <string name="product_barcode">Barcode</string>
+    <string name="product_price">Price</string>
+    <string name="done">Done!</string>
 </resources>

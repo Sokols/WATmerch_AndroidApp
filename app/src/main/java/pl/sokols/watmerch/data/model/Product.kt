@@ -3,17 +3,17 @@ package pl.sokols.watmerch.data.model
 import androidx.room.Ignore
 
 data class Product(
-    val barcode: Int,
+    var barcode: Int,
     var name: String,
-    val price: Float,
+    var price: Float,
     @Ignore
-    val vat: Float? = null,
+    var vat: Float? = null,
     @Ignore
-    val category: Category? = null,
+    var category: Category? = null,
     @Ignore
-    val basicDetails: ProductBasicDetails? = null,
+    var basicDetails: ProductBasicDetails? = null,
     @Ignore
-    val details: ProductDetails? = null
+    var details: ProductDetails? = null
 ) {
     constructor(barcode: Int, name: String, price: Float) : this(
         barcode = barcode,
