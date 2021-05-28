@@ -37,7 +37,7 @@ class UserViewModel @Inject constructor(
                     username = prefs.userUsername.toString(),
                     password = prefs.userPassword.toString()
                 )
-            )
+            )!!
             emit(Resource.success(data = user))
             setUserData()
         } catch (exception: Exception) {

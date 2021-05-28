@@ -39,8 +39,21 @@ class AddressFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        checkIfUserLoggedIn()
         checkIfFirstAddress()
         setListeners()
+    }
+
+    private fun checkIfUserLoggedIn() {
+        viewModel.getUser().observe(viewLifecycleOwner, {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> { }
+                    Status.ERROR -> { binding.userDataAddressCheckBox.visibility = View.GONE }
+                    Status.LOADING -> { }
+                }
+            }
+        })
     }
 
     private fun checkIfFirstAddress() {

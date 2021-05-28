@@ -12,7 +12,7 @@ class UserRepository @Inject constructor(
     private val userHelper: UserHelper,
     private val prefs: AppPreferences
 ) {
-    suspend fun loginUser(user: User) = userHelper.loginUser(user)
+    suspend fun loginUser(user: User): User? = userHelper.loginUser(user)
 
     suspend fun createUser(user: User) = userHelper.createUser(user)
 

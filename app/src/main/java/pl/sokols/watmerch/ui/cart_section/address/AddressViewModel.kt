@@ -22,14 +22,14 @@ class AddressViewModel @Inject constructor(
 ) : ViewModel() {
 
     var user: User? = null
-
-    var address: ObservableField<Address> = ObservableField()
+    var address: ObservableField<Address> = ObservableField(Address())
 
     fun provideAddressData(isAllDataProvided: Boolean) = liveData(Dispatchers.Main) {
         emit(Resource.loading(data = null))
         try {
             if (isAllDataProvided) {
                 val address = address.get()
+                println(address)
                 emit(Resource.success(data = address))
             } else {
                 emit(Resource.error(data = null, message = "Uzupełnij wszystkie wymagane pola!"))
@@ -40,23 +40,37 @@ class AddressViewModel @Inject constructor(
         }
     }
 
+    fun getUser() = liveData(Dispatchers.Main) {
+        emit(Resource.loading(data = null))
+        try {
+            if (user == null) {
+                user = userRepository.loginUser(
+                    User(
+                        username = prefs.userUsername.toString(),
+                        password = prefs.userPassword.toString()
+                    )
+                )
+            }
+            emit(Resource.success(data = user))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            Log.d("ERROR", exception.message.toString())
+        }
+    }
+
     fun setUserData(isDefaultData: Boolean) {
         if (isDefaultData) {
             setUserData()
         } else {
-            address.set(null)
+            address.set(Address())
         }
     }
 
     private fun setUserData() = viewModelScope.launch {
-        if (user == null) {
-            user = userRepository.loginUser(
-                User(
-                    username = prefs.userUsername.toString(),
-                    password = prefs.userPassword.toString()
-                )
-            )
+        if (user?.shippingAddress != null) {
+            address.set(user!!.shippingAddress)
+        } else {
+            address.set(Address())
         }
-        address.set(user!!.shippingAddress)
     }
 }

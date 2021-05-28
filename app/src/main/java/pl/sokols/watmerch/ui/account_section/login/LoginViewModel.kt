@@ -32,7 +32,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun onClickButton(): LiveData<Resource<User>> {
+    fun onClickButton(): LiveData<Resource<User?>> {
         return loginUser()
     }
 }
