@@ -17,4 +17,8 @@ data class Address(
 ) : Parcelable {
     @IgnoredOnParcel
     var id: Int? = null
+
+    override fun toString(): String {
+        return "\n$firstName\n$lastName\n$phoneNumber\n$street\n$postalCode\n$city\n$country"
+    }
 }

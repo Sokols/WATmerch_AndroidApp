@@ -86,4 +86,6 @@
     <string name="product_barcode">Kod kreskowy</string>
     <string name="product_price">Cena</string>
     <string name="done">Zrobiono!</string>
+    <string name="scanner_page">Skaner kodów kreskowych</string>
+    <string name="address">Adres</string>
 </resources>

@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.BR
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.databinding.LoginFragmentBinding
+import pl.sokols.watmerch.ui.MainActivity
 import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 
@@ -27,6 +28,11 @@ class LoginFragment : Fragment() {
         binding = LoginFragmentBinding.inflate(inflater, container, false)
         binding.setVariable(BR.viewModel, viewModel)
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setActionBarTitle(getString(R.string.logging_page))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -51,20 +57,15 @@ class LoginFragment : Fragment() {
             viewModel.onClickButton().observe(viewLifecycleOwner, {
                 it?.let { resource ->
                     when (resource.status) {
-                        Status.SUCCESS -> {
-                            binding.loginProgressIndicator.visibility = View.INVISIBLE
-                        }
+                        Status.SUCCESS -> { }
                         Status.ERROR -> {
-                            binding.loginProgressIndicator.visibility = View.INVISIBLE
                             Utils.getSnackbar(
                                 binding.root,
                                 resource.message.toString(),
                                 requireActivity()
                             ).show()
                         }
-                        Status.LOADING -> {
-                            binding.loginProgressIndicator.visibility = View.VISIBLE
-                        }
+                        Status.LOADING -> { }
                     }
                 }
             })

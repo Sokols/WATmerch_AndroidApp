@@ -57,12 +57,6 @@ class Utils {
             return null
         }
 
-        fun findOrderProductByProduct(
-            orderProducts: List<OrderProduct>,
-            product: Product
-        ): OrderProduct =
-            orderProducts.single { orderProduct -> orderProduct.product?.barcode?.equals(product.barcode)!! }
-
         fun setAppLocale(context: Context, language: String) {
             val locale = Locale(language)
             Locale.setDefault(locale)
@@ -70,6 +64,12 @@ class Utils {
             config.setLocale(locale)
             context.createConfigurationContext(config)
             context.resources.updateConfiguration(config, context.resources.displayMetrics)
+        }
+
+        fun cloneList(orderProducts: List<OrderProduct>): MutableList<OrderProduct> {
+            val clones = mutableListOf<OrderProduct>()
+            orderProducts.stream().forEach { element -> clones.add(element.clone())}
+            return clones
         }
     }
 }

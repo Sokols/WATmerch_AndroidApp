@@ -6,6 +6,7 @@ import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import pl.sokols.watmerch.R
+import pl.sokols.watmerch.ui.MainActivity
 import pl.sokols.watmerch.utils.AppPreferences
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -13,6 +14,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var prefs: AppPreferences
     private lateinit var languagePref: ListPreference
     private lateinit var themePref: SwitchPreferenceCompat
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setActionBarTitle(getString(R.string.app_settings))
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)

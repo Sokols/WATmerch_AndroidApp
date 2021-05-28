@@ -12,6 +12,7 @@ import pl.sokols.watmerch.BR
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.databinding.AccountFragmentBinding
+import pl.sokols.watmerch.ui.MainActivity
 import pl.sokols.watmerch.ui.account_section.account.adapters.SettingsAdapter
 import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
@@ -32,6 +33,11 @@ class AccountFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setActionBarTitle(getString(R.string.account_page))
+    }
+
     private fun setListeners() {
         binding.logoutAccountButton.setOnClickListener {
             viewModel.logout()
@@ -41,24 +47,15 @@ class AccountFragment : Fragment() {
         viewModel.getUser().observe(viewLifecycleOwner, {
             it?.let { resource ->
                 when (resource.status) {
-                    Status.SUCCESS -> {
-                        setUi(resource.data)
-                        binding.accountProgressIndicator.visibility = View.INVISIBLE
-                        binding.accountLayout.visibility = View.VISIBLE
-                    }
+                    Status.SUCCESS -> { setUi(resource.data) }
                     Status.ERROR -> {
-                        binding.accountLayout.visibility = View.VISIBLE
-                        binding.accountProgressIndicator.visibility = View.INVISIBLE
                         Utils.getSnackbar(
                             binding.root,
                             resource.message.toString(),
                             requireActivity()
                         ).show()
                     }
-                    Status.LOADING -> {
-                        binding.accountLayout.visibility = View.INVISIBLE
-                        binding.accountProgressIndicator.visibility = View.VISIBLE
-                    }
+                    Status.LOADING -> { }
                 }
             }
         })
@@ -66,11 +63,7 @@ class AccountFragment : Fragment() {
 
     private fun setUi(user: User?) {
         binding.setVariable(BR.user, user)
-        binding.avatarAccountImageView.setImageBitmap(
-            Utils.getBitmapFromString(
-                user?.userDetails?.avatar
-            )
-        )
+        binding.avatarAccountImageView.setImageBitmap(Utils.getBitmapFromString(user?.userDetails?.avatar))
         binding.settingsRecyclerView.adapter = SettingsAdapter(
             resources.getStringArray(R.array.settings).toList(),
             user?.role?.name ?: getString(R.string.user_role)

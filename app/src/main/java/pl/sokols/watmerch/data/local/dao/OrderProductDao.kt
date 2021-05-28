@@ -10,9 +10,6 @@ interface OrderProductDao {
     @Query("SELECT * FROM order_products")
     fun getAllOrderProducts(): Flow<List<OrderProduct>>
 
-    @Query("SELECT * FROM order_products WHERE product_barcode = :productBarcode")
-    suspend fun getOrderProductByBarcode(productBarcode: Int): OrderProduct
-
     @Update
     @Transaction
     suspend fun updateOrderProduct(orderProduct: OrderProduct)
@@ -22,9 +19,6 @@ interface OrderProductDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(orderProduct: OrderProduct)
-
-    @Delete
-    suspend fun delete(orderProduct: OrderProduct)
 
     @Query("DELETE FROM order_products WHERE product_barcode = :productBarcode")
     suspend fun deleteOrderProductByBarcode(productBarcode: Int)

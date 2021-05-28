@@ -38,7 +38,7 @@
                 android:layout_marginStart="@dimen/default_padding"
                 android:layout_marginTop="@dimen/default_padding"
                 android:layout_marginEnd="@dimen/default_padding"
-                android:text="@{viewModel.shippingAddress.toString()}"
+                android:text='@{@string/shipping_address + ":" + viewModel.shippingAddress.toString()}'
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +53,7 @@
                 android:layout_marginStart="@dimen/default_padding"
                 android:layout_marginTop="@dimen/default_padding"
                 android:layout_marginEnd="@dimen/default_padding"
-                android:text="@{viewModel.billingAddress.toString()}"
+                android:text='@{@string/billing_address + ":" + viewModel.billingAddress.toString()}'
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"

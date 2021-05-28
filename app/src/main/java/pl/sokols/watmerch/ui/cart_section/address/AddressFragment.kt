@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Address
 import pl.sokols.watmerch.databinding.AddressFragmentBinding
+import pl.sokols.watmerch.ui.MainActivity
 import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 
@@ -29,6 +30,11 @@ class AddressFragment : Fragment() {
         binding = AddressFragmentBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setActionBarTitle(getString(R.string.address))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
