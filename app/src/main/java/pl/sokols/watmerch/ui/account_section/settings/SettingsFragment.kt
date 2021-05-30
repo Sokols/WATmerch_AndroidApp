@@ -7,11 +7,11 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.ui.MainActivity
-import pl.sokols.watmerch.utils.AppPreferences
+import pl.sokols.watmerch.di.PreferencesModule
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
-    private lateinit var prefs: AppPreferences
+    private lateinit var prefs: PreferencesModule
     private lateinit var languagePref: ListPreference
     private lateinit var themePref: SwitchPreferenceCompat
 
@@ -27,7 +27,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setPreferencesStartPositions() {
-        prefs = AppPreferences(requireContext())
+        prefs = PreferencesModule(requireContext())
         languagePref = findPreference(getString(R.string.choose_language))!!
         themePref = findPreference(getString(R.string.change_theme))!!
 

@@ -11,7 +11,7 @@ import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.data.repository.OrderProductRepository
 import pl.sokols.watmerch.data.repository.PurchaseRepository
 import pl.sokols.watmerch.data.repository.UserRepository
-import pl.sokols.watmerch.utils.AppPreferences
+import pl.sokols.watmerch.di.PreferencesModule
 import pl.sokols.watmerch.utils.Resource
 import pl.sokols.watmerch.utils.Utils
 import java.util.*
@@ -22,7 +22,7 @@ class SummaryViewModel @Inject constructor(
     private val orderProductRepository: OrderProductRepository,
     private val purchaseRepository: PurchaseRepository,
     private val userRepository: UserRepository,
-    private val prefs: AppPreferences
+    private val prefs: PreferencesModule
 ) : ViewModel() {
 
     lateinit var shippingAddress: Address

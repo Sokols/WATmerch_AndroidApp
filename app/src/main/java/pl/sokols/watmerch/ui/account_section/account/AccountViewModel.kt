@@ -7,14 +7,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.data.repository.UserRepository
-import pl.sokols.watmerch.utils.AppPreferences
+import pl.sokols.watmerch.di.PreferencesModule
 import pl.sokols.watmerch.utils.Resource
 import javax.inject.Inject
 
 @HiltViewModel
 class AccountViewModel @Inject constructor(
     private val repository: UserRepository,
-    private val prefs: AppPreferences
+    private val prefs: PreferencesModule
 ) : ViewModel() {
 
     fun getUser() = liveData(Dispatchers.Main) {

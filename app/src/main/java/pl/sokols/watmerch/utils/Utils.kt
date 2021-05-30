@@ -1,14 +1,12 @@
 package pl.sokols.watmerch.utils
 
 import android.app.Activity
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.OrderProduct
-import pl.sokols.watmerch.data.model.Product
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -55,15 +53,6 @@ class Utils {
                 return format.format(birthDate)
             }
             return null
-        }
-
-        fun setAppLocale(context: Context, language: String) {
-            val locale = Locale(language)
-            Locale.setDefault(locale)
-            val config = context.resources.configuration
-            config.setLocale(locale)
-            context.createConfigurationContext(config)
-            context.resources.updateConfiguration(config, context.resources.displayMetrics)
         }
 
         fun cloneList(orderProducts: List<OrderProduct>): MutableList<OrderProduct> {

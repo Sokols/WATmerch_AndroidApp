@@ -104,4 +104,7 @@
     <string name="done">Done!</string>
     <string name="scanner_page">Barcode scanner</string>
     <string name="address">Address</string>
+    <string name="message">Message</string>
+    <string name="channel_id">channel_id</string>
+    <string name="you_have_to_be_logged_in">Unfortunately, you have to be logged in.</string>
 </resources>

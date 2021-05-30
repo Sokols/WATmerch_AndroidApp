@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.os.Build
 import pl.sokols.watmerch.R
+import pl.sokols.watmerch.di.PreferencesModule
 import java.util.*
 
 class LocaleHelper {
@@ -20,7 +21,7 @@ class LocaleHelper {
             updateResources(context, language)
 
         private fun getPersistedData(context: Context, defaultLanguage: String): String =
-            when (AppPreferences(context).language) {
+            when (PreferencesModule(context).language) {
                 context.getString(R.string.polish) -> "pl"
                 context.getString(R.string.english) -> "en"
                 else -> defaultLanguage

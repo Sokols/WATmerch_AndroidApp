@@ -10,32 +10,46 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.R
+import pl.sokols.watmerch.data.remote.websockets.WebSocketListener
+import pl.sokols.watmerch.data.remote.websockets.WebSocketMessageModel
+import pl.sokols.watmerch.data.remote.websockets.WebSocketModule
 import pl.sokols.watmerch.databinding.MainActivityBinding
-import pl.sokols.watmerch.utils.AppPreferences
+import pl.sokols.watmerch.di.PreferencesModule
 import pl.sokols.watmerch.utils.LocaleHelper
+import pl.sokols.watmerch.utils.NotificationUtils
 
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
-    private lateinit var prefs: AppPreferences
+    private lateinit var prefs: PreferencesModule
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setAppPreferences()
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.topAppBar)
+        setAppPreferences()
         setNavigation()
+        setWebSocket()
     }
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(LocaleHelper.onAttach(newBase!!))
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.top_app_bar, menu)
+        return true
+    }
+
+    fun setActionBarTitle(title: String?) {
+        supportActionBar!!.title = title
+    }
+
     private fun setAppPreferences() {
-        prefs = AppPreferences(this)
+        prefs = PreferencesModule(this)
         if (prefs.theme == null) {
             prefs.theme = getString(R.string.light_theme)
         }
@@ -44,11 +58,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         prefs.prefs.registerOnSharedPreferenceChangeListener(listener)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.top_app_bar, menu)
-        return true
     }
 
     private fun setNavigation() {
@@ -61,22 +70,19 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    fun setActionBarTitle(title: String?) {
-        supportActionBar!!.title = title
-    }
-
-    private val listener: SharedPreferences.OnSharedPreferenceChangeListener =
-        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-            when {
-                key.equals(AppPreferences.Key.THEME.toString()) -> {
-                    setTheme()
-                }
-                key.equals(AppPreferences.Key.LANGUAGE.toString()) -> {
-                    setLanguage()
-                    recreate()
+    private fun setWebSocket() {
+        WebSocketModule().provideWebSocket(object : WebSocketModule(), WebSocketListener {
+            override fun onSocketListener(webSocketMessageModel: WebSocketMessageModel) {
+                if (webSocketMessageModel.name == "WATmerch") {
+                    NotificationUtils.displayNotification(
+                        this@MainActivity,
+                        webSocketMessageModel.name.toString(),
+                        webSocketMessageModel.message.toString()
+                    )
                 }
             }
-        }
+        })
+    }
 
     private fun setLanguage() {
         if (prefs.language.equals(getString(R.string.polish))) {
@@ -93,4 +99,17 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
     }
+
+    private val listener: SharedPreferences.OnSharedPreferenceChangeListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            when {
+                key.equals(PreferencesModule.Key.THEME.toString()) -> {
+                    setTheme()
+                }
+                key.equals(PreferencesModule.Key.LANGUAGE.toString()) -> {
+                    setLanguage()
+                    recreate()
+                }
+            }
+        }
 }

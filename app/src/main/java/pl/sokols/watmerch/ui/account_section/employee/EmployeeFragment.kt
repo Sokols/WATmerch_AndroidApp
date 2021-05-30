@@ -7,14 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.zxing.integration.android.IntentIntegrator
 import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.BR
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.databinding.EmployeeFragmentBinding
 import pl.sokols.watmerch.ui.MainActivity
 import pl.sokols.watmerch.ui.account_section.employee.adapters.EmployeeAdapter
-import pl.sokols.watmerch.utils.Capture
 import pl.sokols.watmerch.utils.Status
 
 @AndroidEntryPoint

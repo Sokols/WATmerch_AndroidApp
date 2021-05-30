@@ -30,12 +30,9 @@
         </activity>
         <activity
             android:name=".ui.MainActivity"
+            android:launchMode="singleTop"
             android:configChanges="layoutDirection|locale"
             android:label="@string/main" />
-        <activity
-            android:name=".utils.Capture"
-            android:screenOrientation="fullSensor"
-            android:stateNotNeeded="true" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -1,14 +1,15 @@
-package pl.sokols.watmerch.utils
+package pl.sokols.watmerch.di
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import dagger.hilt.android.qualifiers.ApplicationContext
+import pl.sokols.watmerch.utils.Utils
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AppPreferences @Inject constructor(@ApplicationContext context: Context) {
+class PreferencesModule @Inject constructor(@ApplicationContext context: Context) {
     var prefs: SharedPreferences =
         context.getSharedPreferences(Utils.SHARED_PREFERENCES_KEY, MODE_PRIVATE)
 

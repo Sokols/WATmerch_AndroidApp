@@ -3,14 +3,14 @@ package pl.sokols.watmerch.data.repository
 import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.data.model.UserDetails
 import pl.sokols.watmerch.data.remote.services.user.UserHelper
-import pl.sokols.watmerch.utils.AppPreferences
+import pl.sokols.watmerch.di.PreferencesModule
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class UserRepository @Inject constructor(
     private val userHelper: UserHelper,
-    private val prefs: AppPreferences
+    private val prefs: PreferencesModule
 ) {
     suspend fun loginUser(user: User): User? = userHelper.loginUser(user)
 

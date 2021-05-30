@@ -11,14 +11,14 @@ import kotlinx.coroutines.launch
 import pl.sokols.watmerch.data.model.Address
 import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.data.repository.UserRepository
-import pl.sokols.watmerch.utils.AppPreferences
+import pl.sokols.watmerch.di.PreferencesModule
 import pl.sokols.watmerch.utils.Resource
 import javax.inject.Inject
 
 @HiltViewModel
 class AddressViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val prefs: AppPreferences
+    private val prefs: PreferencesModule
 ) : ViewModel() {
 
     var user: User? = null
