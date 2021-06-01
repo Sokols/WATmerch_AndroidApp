@@ -2,48 +2,45 @@ package pl.sokols.watmerch.ui.cart_section.cart.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import pl.sokols.watmerch.data.model.OrderProduct
-import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.OrderItemBinding
-import pl.sokols.watmerch.utils.OnItemClickListener
+import pl.sokols.watmerch.utils.callbacks.OnItemClickCallback
+import pl.sokols.watmerch.utils.callbacks.OrderProductDiffCallback
 import pl.sokols.watmerch.utils.Utils
 
 class CartListAdapter(
-    private val orderProducts: List<OrderProduct>,
-    private val products: List<Product>,
-    private val deleteListener: OnItemClickListener,
-    private val incrementListener: OnItemClickListener,
-    private val decrementListener: OnItemClickListener
-) : RecyclerView.Adapter<CartListAdapter.CartListViewHolder>() {
+    private val deleteCallback: OnItemClickCallback,
+    private val incrementCallback: OnItemClickCallback,
+    private val decrementCallback: OnItemClickCallback
+) : ListAdapter<OrderProduct, CartListAdapter.CartListViewHolder>(OrderProductDiffCallback) {
 
     inner class CartListViewHolder(private val binding: OrderItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            product: Product,
             orderProduct: OrderProduct,
-            deleteListener: OnItemClickListener,
-            incrementListener: OnItemClickListener,
-            decrementListener: OnItemClickListener
+            deleteCallback: OnItemClickCallback,
+            incrementCallback: OnItemClickCallback,
+            decrementCallback: OnItemClickCallback
         ) {
-            binding.product = product
             binding.orderProduct = orderProduct
-            binding.imageCartImageView.setImageBitmap(Utils.getBitmapFromString(product.basicDetails?.logoImage))
+            binding.imageCartImageView.setImageBitmap(Utils.getBitmapFromString(orderProduct.product!!.basicDetails?.logoImage))
 
             binding.deleteOrderImageView.setOnClickListener {
-                deleteListener.onClick(product)
+                deleteCallback.onClick(orderProduct)
             }
 
             binding.plusOrderButton.setOnClickListener {
-                if (orderProduct.quantity < 10) {
-                    incrementListener.onClick(product)
+                if (orderProduct.quantity < 9) {
+                    incrementCallback.onClick(orderProduct)
                 }
             }
 
             binding.minusOrderButton.setOnClickListener {
                 if (orderProduct.quantity > 1) {
-                    decrementListener.onClick(product)
+                    decrementCallback.onClick(orderProduct)
                 }
             }
         }
@@ -61,13 +58,10 @@ class CartListAdapter(
 
     override fun onBindViewHolder(holder: CartListViewHolder, position: Int) {
         holder.bind(
-            products[position],
-            Utils.findOrderProductByProduct(orderProducts, products[position]),
-            deleteListener,
-            incrementListener,
-            decrementListener
+            getItem(position),
+            deleteCallback,
+            incrementCallback,
+            decrementCallback
         )
     }
-
-    override fun getItemCount() = products.size
 }

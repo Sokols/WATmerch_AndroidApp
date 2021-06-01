@@ -1,5 +1,6 @@
 package pl.sokols.watmerch.data.model
 
+import androidx.room.Embedded
 import androidx.room.Ignore
 
 data class Product(
@@ -8,11 +9,11 @@ data class Product(
     var price: Float,
     @Ignore
     var vat: Float? = null,
-    @Ignore
+    @Embedded(prefix = "category_")
     var category: Category? = null,
-    @Ignore
+    @Embedded(prefix = "product_basic_details_")
     var basicDetails: ProductBasicDetails? = null,
-    @Ignore
+    @Embedded(prefix = "product_details_")
     var details: ProductDetails? = null
 ) {
     constructor(barcode: Int, name: String, price: Float) : this(

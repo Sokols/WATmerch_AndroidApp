@@ -1,16 +1,15 @@
 package pl.sokols.watmerch.ui.cart_section.cart
 
-import android.util.Log
 import androidx.databinding.ObservableField
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import pl.sokols.watmerch.data.model.OrderProduct
-import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.data.repository.OrderProductRepository
 import pl.sokols.watmerch.data.repository.ProductRepository
-import pl.sokols.watmerch.utils.Resource
-import pl.sokols.watmerch.utils.Utils
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,26 +27,12 @@ class CartViewModel @Inject constructor(
     }
 
     fun insertProduct(productBarcode: Int) = viewModelScope.launch {
-        orderProductRepository.insertOrderProduct(OrderProduct(product = productRepository.getProductByBarcode(productBarcode)))
+        orderProductRepository.insertOrderProduct(
+            OrderProduct(product = productRepository.getProductByBarcode(productBarcode))
+        )
     }
 
-    fun updateProducts(orderProducts: List<OrderProduct>) = liveData {
-        emit(Resource.loading(data = null))
-        try {
-            val productList: MutableList<Product> = mutableListOf()
-            for (orderProduct: OrderProduct in orderProducts) {
-                productList.add(productRepository.getProductByBarcode(orderProduct.product?.barcode!!))
-            }
-            setTotal(orderProducts, productList)
-            emit(Resource.success(data = productList))
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error occurred"))
-            Log.e("ERROR", exception.message.toString())
-        }
-    }
-
-    fun updateTotal(product: Product, isIncrement: Boolean) = viewModelScope.launch {
-        val orderProduct = orderProductRepository.getOrderProductByBarcode(product.barcode)
+    fun updateTotal(orderProduct: OrderProduct, isIncrement: Boolean) = viewModelScope.launch {
         if (isIncrement) {
             orderProduct.quantity += 1
         } else {
@@ -56,10 +41,10 @@ class CartViewModel @Inject constructor(
         orderProductRepository.updateOrderProduct(orderProduct)
     }
 
-    private fun setTotal(orderProducts: List<OrderProduct>, products: List<Product>) {
+    fun setTotal(orderProducts: List<OrderProduct>) {
         var sum = 0f
-        for (product: Product in products) {
-            sum += product.price * Utils.findOrderProductByProduct(orderProducts, product).quantity
+        for (orderProduct: OrderProduct in orderProducts) {
+            sum += orderProduct.product!!.price * orderProduct.quantity
         }
         total.set(sum)
     }

@@ -6,14 +6,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.data.repository.UserRepository
-import pl.sokols.watmerch.utils.AppPreferences
+import pl.sokols.watmerch.di.PreferencesModule
 import pl.sokols.watmerch.utils.Resource
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val repository: UserRepository,
-    private val prefs: AppPreferences
+    private val prefs: PreferencesModule
 ) : ViewModel() {
 
     val isLoggedIn: MutableLiveData<Boolean> by lazy { MutableLiveData(prefs.authToken != null) }
@@ -32,7 +32,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun onClickButton(): LiveData<Resource<User>> {
+    fun onClickButton(): LiveData<Resource<User?>> {
         return loginUser()
     }
 }

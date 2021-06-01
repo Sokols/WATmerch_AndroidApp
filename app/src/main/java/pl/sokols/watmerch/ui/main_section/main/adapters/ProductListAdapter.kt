@@ -4,15 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Product
 import pl.sokols.watmerch.databinding.ProductItemBinding
+import pl.sokols.watmerch.utils.callbacks.ProductDiffCallback
 import pl.sokols.watmerch.utils.Utils
 
-class ProductListAdapter(
-    private val dataSet: List<Product>?
-) : RecyclerView.Adapter<ProductListAdapter.MerchListViewHolder>() {
+class ProductListAdapter : ListAdapter<Product, ProductListAdapter.MerchListViewHolder>(
+    ProductDiffCallback
+) {
 
     inner class MerchListViewHolder(private val binding: ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -40,8 +42,6 @@ class ProductListAdapter(
     }
 
     override fun onBindViewHolder(holder: MerchListViewHolder, position: Int) {
-        holder.bind(dataSet!![position])
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount(): Int = dataSet?.size!!
 }

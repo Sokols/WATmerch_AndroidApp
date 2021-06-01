@@ -6,45 +6,37 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.R
+import pl.sokols.watmerch.data.remote.websockets.WebSocketListener
+import pl.sokols.watmerch.data.remote.websockets.WebSocketMessageModel
+import pl.sokols.watmerch.data.remote.websockets.WebSocketModule
 import pl.sokols.watmerch.databinding.MainActivityBinding
-import pl.sokols.watmerch.utils.AppPreferences
-import pl.sokols.watmerch.utils.LocaleHelper
+import pl.sokols.watmerch.di.PreferencesModule
+import pl.sokols.watmerch.utils.LocaleUtils
+import pl.sokols.watmerch.utils.NotificationUtils
 
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
-    private lateinit var prefs: AppPreferences
+    private lateinit var prefs: PreferencesModule
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        setAppPreferences()
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.topAppBar)
-        setNavigationAndMenu()
+        setAppPreferences()
+        setNavigation()
+//        setWebSocket()
     }
 
     override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(LocaleHelper.onAttach(newBase!!))
-    }
-
-    private fun setAppPreferences() {
-        prefs = AppPreferences(this)
-        if (prefs.theme == null) {
-            prefs.theme = getString(R.string.light_theme)
-        }
-        if (prefs.language == null) {
-            prefs.language = getString(R.string.polish)
-        }
-        prefs.prefs.registerOnSharedPreferenceChangeListener(listener)
+        super.attachBaseContext(LocaleUtils.onAttach(newBase!!))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -52,7 +44,23 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun setNavigationAndMenu() {
+    fun setActionBarTitle(title: String?) {
+        supportActionBar!!.title = title
+    }
+
+    private fun setAppPreferences() {
+        prefs = PreferencesModule(this)
+        if (prefs.theme == null) {
+            prefs.theme = getString(R.string.light_theme)
+        }
+        if (prefs.language == null) {
+            prefs.language = getString(R.string.polish)
+        }
+
+        prefs.prefs.registerOnSharedPreferenceChangeListener(listener)
+    }
+
+    private fun setNavigation() {
         // set bottom navigation
         binding.bottomNavigation.setupWithNavController(
             Navigation.findNavController(
@@ -60,39 +68,46 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_host_fragment
             )
         )
+    }
 
-        // set search menu item for main fragment
-        // set menu title
-        findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { _: NavController, navDestination: NavDestination, _: Bundle? ->
-            title = when (navDestination.id) {
-                R.id.mainFragment -> getString(R.string.main_page)
-                R.id.cartFragment -> getString(R.string.cart_page)
-                R.id.productFragment -> getString(R.string.product_description)
-                R.id.accountFragment -> getString(R.string.account_page)
-                R.id.loginFragment -> getString(R.string.logging_page)
-                R.id.registerFragment -> getString(R.string.registing_page)
-                R.id.userFragment -> getString(R.string.user_page)
-                else -> getString(R.string.blank)
+    private fun setWebSocket() {
+        WebSocketModule().provideWebSocket(object : WebSocketModule(), WebSocketListener {
+            override fun onSocketListener(webSocketMessageModel: WebSocketMessageModel) {
+                if (webSocketMessageModel.name == "WATmerch") {
+                    NotificationUtils.displayNotification(
+                        this@MainActivity,
+                        webSocketMessageModel.name.toString(),
+                        webSocketMessageModel.message.toString()
+                    )
+                }
             }
+        })
+    }
+
+    private fun setLanguage() {
+        if (prefs.language.equals(getString(R.string.polish))) {
+            LocaleUtils.setLocale(this, "pl")
+        } else {
+            LocaleUtils.setLocale(this, "en")
+        }
+    }
+
+    private fun setTheme() {
+        if (prefs.theme == getString(R.string.light_theme)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
     }
 
     private val listener: SharedPreferences.OnSharedPreferenceChangeListener =
         SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
             when {
-                key.equals(AppPreferences.Key.THEME.toString()) -> {
-                    if (prefs.theme.equals(getString(R.string.light_theme))) {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    } else {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    }
+                key.equals(PreferencesModule.Key.THEME.toString()) -> {
+                    setTheme()
                 }
-                key.equals(AppPreferences.Key.LANGUAGE.toString()) -> {
-                    if (prefs.language.equals(getString(R.string.polish))) {
-                        LocaleHelper.setLocale(this, "pl")
-                    } else {
-                        LocaleHelper.setLocale(this, "en")
-                    }
+                key.equals(PreferencesModule.Key.LANGUAGE.toString()) -> {
+                    setLanguage()
                     recreate()
                 }
             }

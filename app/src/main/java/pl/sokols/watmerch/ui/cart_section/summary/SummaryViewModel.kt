@@ -7,11 +7,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import pl.sokols.watmerch.data.model.Address
 import pl.sokols.watmerch.data.model.Purchase
-import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.data.repository.OrderProductRepository
 import pl.sokols.watmerch.data.repository.PurchaseRepository
 import pl.sokols.watmerch.data.repository.UserRepository
-import pl.sokols.watmerch.utils.AppPreferences
+import pl.sokols.watmerch.di.PreferencesModule
 import pl.sokols.watmerch.utils.Resource
 import pl.sokols.watmerch.utils.Utils
 import java.util.*
@@ -22,7 +21,7 @@ class SummaryViewModel @Inject constructor(
     private val orderProductRepository: OrderProductRepository,
     private val purchaseRepository: PurchaseRepository,
     private val userRepository: UserRepository,
-    private val prefs: AppPreferences
+    private val prefs: PreferencesModule
 ) : ViewModel() {
 
     lateinit var shippingAddress: Address
@@ -40,12 +39,12 @@ class SummaryViewModel @Inject constructor(
                 purchaseDate = Utils.getStringFromDate(Date()),
 //                shippingAddress = shippingAddress,
 //                billingAddress = billingAddress,
-                user = userRepository.loginUser(
-                    User(
-                        username = prefs.userUsername.toString(),
-                        password = prefs.userPassword.toString()
-                    )
-                ),
+//                user = userRepository.loginUser(
+//                    User(
+//                        username = prefs.userUsername.toString(),
+//                        password = prefs.userPassword.toString()
+//                    )
+//                ),
                 // TODO: Find a way to add order products.
                 // orderProducts = orderProductRepository.allOrderProducts.first()
             )
@@ -54,7 +53,8 @@ class SummaryViewModel @Inject constructor(
             orderProductRepository.deleteAllOrderProducts()
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-            Log.d("ERROR", exception.message.toString())
+            Log.i("ERROR", exception.message.toString())
+            Log.i("ERROR", exception.printStackTrace().toString())
         }
     }
 }

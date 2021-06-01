@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.data.model.UserDetails
 import pl.sokols.watmerch.data.repository.UserRepository
-import pl.sokols.watmerch.utils.AppPreferences
+import pl.sokols.watmerch.di.PreferencesModule
 import pl.sokols.watmerch.utils.Resource
 import pl.sokols.watmerch.utils.Utils
 import javax.inject.Inject
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val repository: UserRepository,
-    private val prefs: AppPreferences
+    private val prefs: PreferencesModule
 ) : ViewModel() {
 
     lateinit var user: User
@@ -37,7 +37,7 @@ class UserViewModel @Inject constructor(
                     username = prefs.userUsername.toString(),
                     password = prefs.userPassword.toString()
                 )
-            )
+            )!!
             emit(Resource.success(data = user))
             setUserData()
         } catch (exception: Exception) {

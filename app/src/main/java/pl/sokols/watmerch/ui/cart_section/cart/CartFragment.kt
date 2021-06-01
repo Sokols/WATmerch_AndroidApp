@@ -9,11 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.R
-import pl.sokols.watmerch.data.model.Product
+import pl.sokols.watmerch.data.model.OrderProduct
 import pl.sokols.watmerch.databinding.CartFragmentBinding
+import pl.sokols.watmerch.ui.MainActivity
 import pl.sokols.watmerch.ui.cart_section.cart.adapters.CartListAdapter
-import pl.sokols.watmerch.utils.OnItemClickListener
-import pl.sokols.watmerch.utils.Status
+import pl.sokols.watmerch.utils.callbacks.OnItemClickCallback
 import pl.sokols.watmerch.utils.Utils
 
 @AndroidEntryPoint
@@ -25,47 +25,37 @@ class CartFragment : Fragment() {
 
     private val viewModel: CartViewModel by viewModels()
     private lateinit var binding: CartFragmentBinding
+    private lateinit var recyclerViewAdapter: CartListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = CartFragmentBinding.inflate(inflater, container, false)
+
         setComponents()
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setActionBarTitle(getString(R.string.cart_page))
+    }
+
     private fun setComponents() {
         binding.viewModel = viewModel
+        recyclerViewAdapter = CartListAdapter(deleteListener, incrementListener, decrementListener)
+        binding.cartRecyclerView.adapter = recyclerViewAdapter
         viewModel.products.observe(viewLifecycleOwner, { orderProducts ->
-            viewModel.updateProducts(orderProducts!!).observe(viewLifecycleOwner, {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            binding.cartRecyclerView.adapter =
-                                CartListAdapter(
-                                    orderProducts,
-                                    resource.data!!,
-                                    deleteListener,
-                                    incrementListener,
-                                    decrementListener
-                                )
-                            binding.cartProgressIndicator.visibility = View.INVISIBLE
-                        }
-                        Status.ERROR -> {
-                            binding.cartProgressIndicator.visibility = View.INVISIBLE
-                            Utils.getSnackbar(
-                                binding.root,
-                                resource.message.toString(),
-                                requireActivity()
-                            ).show()
-                        }
-                        Status.LOADING -> {
-                            binding.cartProgressIndicator.visibility = View.VISIBLE
-                        }
-                    }
-                }
-            })
+            if (orderProducts.isEmpty()) {
+                binding.cartRecyclerView.visibility = View.GONE
+                binding.cartEmptyTextView.visibility = View.VISIBLE
+            } else {
+                recyclerViewAdapter.submitList(Utils.cloneList(orderProducts))
+                binding.cartEmptyTextView.visibility = View.GONE
+                binding.cartRecyclerView.visibility = View.VISIBLE
+            }
+            viewModel.setTotal(orderProducts)
         })
 
         binding.payCartButton.setOnClickListener {
@@ -81,28 +71,28 @@ class CartFragment : Fragment() {
         }
     }
 
-    private val deleteListener = object : OnItemClickListener {
+    private val deleteListener = object : OnItemClickCallback {
         override fun onClick(item: Any) {
-            viewModel.deleteProduct((item as Product).barcode)
+            viewModel.deleteProduct((item as OrderProduct).product!!.barcode)
             Utils.getSnackbar(
                 binding.root,
                 getString(R.string.removed_from_cart),
                 requireActivity()
             ).setAction(R.string.cancel) {
-                viewModel.insertProduct(item.barcode)
+                viewModel.insertProduct(item.product!!.barcode)
             }.show()
         }
     }
 
-    private val incrementListener = object : OnItemClickListener {
+    private val incrementListener = object : OnItemClickCallback {
         override fun onClick(item: Any) {
-            viewModel.updateTotal((item as Product), true)
+            viewModel.updateTotal((item as OrderProduct), true)
         }
     }
 
-    private val decrementListener = object : OnItemClickListener {
+    private val decrementListener = object : OnItemClickCallback {
         override fun onClick(item: Any) {
-            viewModel.updateTotal((item as Product), false)
+            viewModel.updateTotal((item as OrderProduct), false)
         }
     }
 }

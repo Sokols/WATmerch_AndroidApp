@@ -8,7 +8,7 @@ import retrofit2.http.PUT
 
 interface UserService {
     @POST("api/loginUser")
-    suspend fun loginUser(@Body user: User): User
+    suspend fun loginUser(@Body user: User): User?
 
     @POST("api/register")
     suspend fun createUser(@Body user: User): User

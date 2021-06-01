@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.BR
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.databinding.ProductFragmentBinding
+import pl.sokols.watmerch.ui.MainActivity
 import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 
@@ -29,6 +30,11 @@ class ProductFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setActionBarTitle(getString(R.string.blank))
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         barcode = arguments?.getInt(Utils.PRODUCT_BARCODE)!!
@@ -42,16 +48,9 @@ class ProductFragment : Fragment() {
                     Status.SUCCESS -> {
                         binding.setVariable(BR.product, it.data)
                         binding.productImageView.setImageBitmap(Utils.getBitmapFromString(it.data?.basicDetails?.logoImage))
-                        binding.productProgressIndicator.visibility = View.INVISIBLE
-                        binding.productLayout.visibility = View.VISIBLE
                     }
-                    Status.ERROR -> {
-                        binding.productProgressIndicator.visibility = View.INVISIBLE
-                    }
-                    Status.LOADING -> {
-                        binding.productLayout.visibility = View.INVISIBLE
-                        binding.productProgressIndicator.visibility = View.VISIBLE
-                    }
+                    Status.ERROR -> { }
+                    Status.LOADING -> { }
                 }
             }
         })

@@ -4,13 +4,13 @@ import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-import pl.sokols.watmerch.utils.AppPreferences
+import pl.sokols.watmerch.di.PreferencesModule
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class AuthInterceptor @Inject constructor(
-    private val prefs: AppPreferences
+    private val prefs: PreferencesModule
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {

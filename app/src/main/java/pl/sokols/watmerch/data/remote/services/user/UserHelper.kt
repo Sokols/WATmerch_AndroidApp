@@ -5,7 +5,7 @@ import pl.sokols.watmerch.data.model.UserDetails
 
 interface UserHelper {
 
-    suspend fun loginUser(user: User): User
+    suspend fun loginUser(user: User): User?
 
     suspend fun createUser(user: User): User
 

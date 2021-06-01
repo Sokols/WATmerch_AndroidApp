@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.databinding.UserFragmentBinding
+import pl.sokols.watmerch.ui.MainActivity
 import pl.sokols.watmerch.utils.Status
 import pl.sokols.watmerch.utils.Utils
 import java.util.*
@@ -31,6 +32,11 @@ class UserFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setActionBarTitle(getString(R.string.user_page))
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setListeners()
@@ -43,16 +49,9 @@ class UserFragment : Fragment() {
                     Status.SUCCESS -> {
                         binding.viewModel = viewModel
                         setUI(resource.data)
-                        binding.userProgressIndicator.visibility = View.INVISIBLE
-                        binding.userLayout.visibility = View.VISIBLE
                     }
-                    Status.ERROR -> {
-                        binding.userProgressIndicator.visibility = View.INVISIBLE
-                    }
-                    Status.LOADING -> {
-                        binding.userLayout.visibility = View.INVISIBLE
-                        binding.userProgressIndicator.visibility = View.VISIBLE
-                    }
+                    Status.ERROR -> { }
+                    Status.LOADING -> { }
                 }
             }
         })
@@ -62,20 +61,16 @@ class UserFragment : Fragment() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            binding.userProgressIndicator.visibility = View.INVISIBLE
                             findNavController().navigate(R.id.action_userFragment_to_accountFragment)
                         }
                         Status.ERROR -> {
-                            binding.userProgressIndicator.visibility = View.INVISIBLE
                             Utils.getSnackbar(
                                 binding.root,
                                 resource.message.toString(),
                                 requireActivity()
                             ).show()
                         }
-                        Status.LOADING -> {
-                            binding.userProgressIndicator.visibility = View.VISIBLE
-                        }
+                        Status.LOADING -> { }
                     }
                 }
             })

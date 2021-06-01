@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.sokols.watmerch.R
 import pl.sokols.watmerch.data.model.Category
 import pl.sokols.watmerch.databinding.MainFragmentBinding
+import pl.sokols.watmerch.ui.MainActivity
 import pl.sokols.watmerch.ui.main_section.main.adapters.ProductListAdapter
 import pl.sokols.watmerch.utils.Status
 
@@ -20,6 +21,7 @@ class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: MainFragmentBinding
+    private lateinit var recyclerViewAdapter: ProductListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +38,14 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = MainFragmentBinding.inflate(inflater, container, false)
+        recyclerViewAdapter = ProductListAdapter()
+        binding.mainRecyclerView.adapter = recyclerViewAdapter
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setActionBarTitle(getString(R.string.main_page))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -49,18 +58,9 @@ class MainFragment : Fragment() {
             viewModel.getProducts().observe(viewLifecycleOwner, {
                 it?.let { resource ->
                     when (resource.status) {
-                        Status.SUCCESS -> {
-                            binding.mainRecyclerView.adapter = ProductListAdapter(resource.data)
-                            binding.mainProgressIndicator.visibility = INVISIBLE
-                            binding.mainLayout.visibility = VISIBLE
-                        }
-                        Status.ERROR -> {
-                            binding.mainProgressIndicator.visibility = INVISIBLE
-                        }
-                        Status.LOADING -> {
-                            binding.mainLayout.visibility = INVISIBLE
-                            binding.mainProgressIndicator.visibility = VISIBLE
-                        }
+                        Status.SUCCESS -> { recyclerViewAdapter.submitList(resource.data) }
+                        Status.ERROR -> { }
+                        Status.LOADING -> { }
                     }
                 }
             })
@@ -69,16 +69,9 @@ class MainFragment : Fragment() {
         viewModel.getCategories().observe(viewLifecycleOwner, {
             it?.let { resource ->
                 when (resource.status) {
-                    Status.SUCCESS -> {
-                        binding.mainProgressIndicator.visibility = INVISIBLE
-                        setCategories(resource.data)
-                    }
-                    Status.ERROR -> {
-                        binding.mainProgressIndicator.visibility = INVISIBLE
-                    }
-                    Status.LOADING -> {
-                        binding.mainProgressIndicator.visibility = VISIBLE
-                    }
+                    Status.SUCCESS -> { setCategories(resource.data) }
+                    Status.ERROR -> { }
+                    Status.LOADING -> { }
                 }
             }
         })
