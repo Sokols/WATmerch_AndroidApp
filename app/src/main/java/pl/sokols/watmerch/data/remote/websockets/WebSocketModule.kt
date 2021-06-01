@@ -15,7 +15,7 @@ import java.util.*
 
 open class WebSocketModule {
 
-    private val URL = "ws://10.0.2.2:8081/chat"
+    private val URL = "wss://10.0.2.2:443/chat"
     private val TAG = "WebSocketModule"
 
     private val mainHandler: Handler = Handler(Looper.getMainLooper())
@@ -49,13 +49,13 @@ open class WebSocketModule {
                 Log.d(TAG, throwable.message.toString() + "")
             }
 
-        mainHandler.postDelayed(tick, 5000)
+        mainHandler.postDelayed(tick, 25000)
     }
 
     private val tick = object : Runnable {
         override fun run() {
             sendMessage()
-            mainHandler.postDelayed(this, 60000)
+            mainHandler.postDelayed(this, 120000)
         }
     }
 

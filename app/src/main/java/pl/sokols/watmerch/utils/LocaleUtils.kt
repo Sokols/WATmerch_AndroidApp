@@ -7,7 +7,7 @@ import pl.sokols.watmerch.R
 import pl.sokols.watmerch.di.PreferencesModule
 import java.util.*
 
-class LocaleHelper {
+class LocaleUtils {
 
     companion object {
 

@@ -15,6 +15,7 @@ import pl.sokols.watmerch.databinding.AccountFragmentBinding
 import pl.sokols.watmerch.ui.MainActivity
 import pl.sokols.watmerch.ui.account_section.account.adapters.SettingsAdapter
 import pl.sokols.watmerch.utils.Status
+import pl.sokols.watmerch.utils.TransitionUtils
 import pl.sokols.watmerch.utils.Utils
 
 @AndroidEntryPoint
@@ -68,5 +69,6 @@ class AccountFragment : Fragment() {
             resources.getStringArray(R.array.settings).toList(),
             user?.role?.name ?: getString(R.string.user_role)
         )
+        TransitionUtils.fade(binding.accountLayout)
     }
 }

@@ -30,7 +30,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
-    private val URL = "http://10.0.2.2:8081/"
+    private val URL = "https://10.0.2.2:443/"
 
     @Provides
     @Singleton

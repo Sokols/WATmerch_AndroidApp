@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import pl.sokols.watmerch.data.model.Address
 import pl.sokols.watmerch.data.model.Purchase
-import pl.sokols.watmerch.data.model.User
 import pl.sokols.watmerch.data.repository.OrderProductRepository
 import pl.sokols.watmerch.data.repository.PurchaseRepository
 import pl.sokols.watmerch.data.repository.UserRepository
@@ -40,12 +39,12 @@ class SummaryViewModel @Inject constructor(
                 purchaseDate = Utils.getStringFromDate(Date()),
 //                shippingAddress = shippingAddress,
 //                billingAddress = billingAddress,
-                user = userRepository.loginUser(
-                    User(
-                        username = prefs.userUsername.toString(),
-                        password = prefs.userPassword.toString()
-                    )
-                ),
+//                user = userRepository.loginUser(
+//                    User(
+//                        username = prefs.userUsername.toString(),
+//                        password = prefs.userPassword.toString()
+//                    )
+//                ),
                 // TODO: Find a way to add order products.
                 // orderProducts = orderProductRepository.allOrderProducts.first()
             )
@@ -54,7 +53,8 @@ class SummaryViewModel @Inject constructor(
             orderProductRepository.deleteAllOrderProducts()
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-            Log.d("ERROR", exception.message.toString())
+            Log.i("ERROR", exception.message.toString())
+            Log.i("ERROR", exception.printStackTrace().toString())
         }
     }
 }

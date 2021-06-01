@@ -15,7 +15,7 @@ import pl.sokols.watmerch.data.remote.websockets.WebSocketMessageModel
 import pl.sokols.watmerch.data.remote.websockets.WebSocketModule
 import pl.sokols.watmerch.databinding.MainActivityBinding
 import pl.sokols.watmerch.di.PreferencesModule
-import pl.sokols.watmerch.utils.LocaleHelper
+import pl.sokols.watmerch.utils.LocaleUtils
 import pl.sokols.watmerch.utils.NotificationUtils
 
 
@@ -32,11 +32,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.topAppBar)
         setAppPreferences()
         setNavigation()
-        setWebSocket()
+//        setWebSocket()
     }
 
     override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(LocaleHelper.onAttach(newBase!!))
+        super.attachBaseContext(LocaleUtils.onAttach(newBase!!))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -86,9 +86,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setLanguage() {
         if (prefs.language.equals(getString(R.string.polish))) {
-            LocaleHelper.setLocale(this, "pl")
+            LocaleUtils.setLocale(this, "pl")
         } else {
-            LocaleHelper.setLocale(this, "en")
+            LocaleUtils.setLocale(this, "en")
         }
     }
 
