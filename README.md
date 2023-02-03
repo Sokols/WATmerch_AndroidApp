@@ -1,5 +1,5 @@
 
-# WATmerch - Android App (work in progress)
+# WATmerch - Android App
 ## Description
 Android application for viewing, ordering and managing the store's products of WAT merchandise. It is based on communication with an external API created by my colleague (https://github.com/qsspy/WATmerch-backend), which uses Java Spring Boot and MySQL database. To use some API endpoints, the application must provide authorization, which has been implemented.
 
